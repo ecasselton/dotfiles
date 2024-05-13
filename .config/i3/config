@@ -230,7 +230,7 @@ bindsym $mod+e exec --no-startup-id dolphin
 bindsym $mod+control+Delete exec "rofi -show power -theme-str 'mainbox { children: [listview]; }'"
 
 # Screenshots
-# bindsym 
+bindsym --release $mod+Print exec --no-startup-id "scrot --select --freeze --file 'Pictures/%H:%M:%S_%d-%m-%y.png' --exec 'xclip -selection clipboard -t image/png -i $f'"
 
 # Gaps
 gaps inner 12
