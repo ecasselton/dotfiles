@@ -124,7 +124,7 @@ PROMPT=' %F{blue}%48<...<%~%<<%f %B$%b '
 RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
 # Moar colours!
-eval "$(dircolors -b)" # Idk how this works, but it seems to give extra ls colours
+eval "$(dircolors -b)"
 export LS_COLORS="$LS_COLORS:ow=30;44:" # ls color for folders with 777 permissions
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
@@ -146,11 +146,12 @@ alias ll='ls -lA'
 # alias vim=nvim
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias history='history 0'
-alias matrix='unimatrix -s 96 -l k'
-alias please='sudo'
+alias matrix='unimatrix -s 95 -l k'
+# alias sudo='doas'
+
 function DID-I-FUCKING-STUTTER {
 	echo "Apologies, running command now:"
-	sudo ${(A)=history[@][1]}
+	doas ${(A)=history[@][1]}
 }
 function calc {
 	python3 -c "from math import *; print($1)"

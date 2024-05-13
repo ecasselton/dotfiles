@@ -19,5 +19,3 @@ exec i3 --shmlog-size=26214400
 
 # Compositor
 exec /usr/bin/picom -b
-
-exec kglobalaccel5 &

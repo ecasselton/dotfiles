@@ -18,6 +18,7 @@ fi
 # set PATH to include system binaries
 export PATH="/sbin:/usr/sbin:$PATH"
 export QT_QPA_PLATFORMTHEME="qt5ct"
+export SAL_USE_VCLPLUGIN="qt5"
 export WINIT_X11_SCALE_FACTOR=1.6
 
 if [ $(tty) = /dev/tty1 ] ; then
