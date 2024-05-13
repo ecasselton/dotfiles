@@ -110,10 +110,10 @@ require('lazy').setup({
     -- Git related plugins
     'tpope/vim-fugitive',
     -- 'tpope/vim-rhubarb',
+    { 'ecasselton/polarbare.nvim', opts = {} },
 
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
-    -- 'ixru/nvim-markdown',
 
     { 'folke/which-key.nvim',  opts = {} },
 
