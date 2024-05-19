@@ -1,6 +1,4 @@
 #!/bin/sh
-# Xsetup - run as root before the login dialog appears
-
 # if [ -e /sbin/prime-offload ]; then
     # echo running NVIDIA Prime setup /sbin/prime-offload
     # /sbin/prime-offload
@@ -14,8 +12,7 @@ xinput set-prop "VEN_06CB:00 06CB:CE8C Touchpad" "libinput Natural Scrolling Ena
 # Pointer speed
 xinput set-prop "VEN_06CB:00 06CB:CE8C Touchpad" "libinput Accel Speed" 0.5 
 
-# exec ~/.xsession
-exec i3 --shmlog-size=26214400
+. /etc/X11/Xsession
+# picom -b
 
-# Compositor
-exec /usr/bin/picom -b
+# exec i3
