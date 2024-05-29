@@ -56,7 +56,7 @@ vim.o.linebreak = true
 vim.o.colorcolumn = '80'
 
 -- Open netrw
-vim.keymap.set("n", "<leader>E", ":E<CR>")
+vim.keymap.set("n", "<leader>E", ":Ex<CR>", { silent = true })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
