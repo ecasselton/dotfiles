@@ -27,10 +27,6 @@ unsetopt beep extendedglob notify
 bindkey -v
 # End of lines configured by zsh-newuser-install
 
-bindkey '^K' up-history
-bindkey '^J' down-history
-bindkey '^E' autosuggest-accept
-
 # Change the cursor type depending on vi-mode
 function zle-keymap-select () {
 case $KEYMAP in
@@ -66,6 +62,17 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
 else
 	echo "BTW: zsh-autosuggestions not installed"
 fi
+
+bindkey '^k' up-history
+bindkey '^j' down-history
+bindkey '^l' autosuggest-accept
+
+# Navigate autosuggestions using vim keys
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Syntax highlighting
 if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
