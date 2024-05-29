@@ -20,14 +20,6 @@ return {
 	},
 
 	config = function ()
-		require('telescope.pickers.layout_strategies').custom = function(picker, max_columns, max_lines, layout_config)
-			local layout = require('telescope.pickers.layout_strategies').horizontal(picker, max_columns, max_lines, layout_config)
-			layout.results.title = ''
-			layout.prompt.title = ''
-			layout.preview.title = ''
-			return layout
-		end
-
 		-- Telescope live_grep in git root
 		-- Function to find the git root directory based on the current buffer's path
 		local function find_git_root()
@@ -89,10 +81,15 @@ return {
 		-- [[ Configure Telescope ]]
 		-- See `:help telescope` and `:help telescope.setup()`
 		require('telescope').setup {
+			mappings = {
+			},
 			defaults = {
-				layout_strategy = "custom",
+				layout_strategy = "flex",
 				layout_config = {
 					horizontal = {
+						prompt_position = "top",
+					},
+					vertical = {
 						prompt_position = "top",
 					},
 				},
