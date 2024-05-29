@@ -17,6 +17,7 @@ white = "#fcfcfc"
 
 [colors.primary]
 background = "#0a0f14"
+# background = "#202020"
 
 [font]
 size = 9
