@@ -43,12 +43,12 @@ local rosepine = function ()
                     git_text = "rose",
                     git_untracked = "subtle",
 
-                    h1 = "iris",
-                    h2 = "foam",
-                    h3 = "rose",
-                    h4 = "gold",
-                    h5 = "pine",
-                    h6 = "foam",
+                    h1 = "pine",
+                    h2 = "iris",
+                    h3 = "gold",
+                    h4 = "rose",
+                    h5 = "foam",
+                    h6 = "subtle",
                 },
 
                 highlight_groups = {
@@ -245,4 +245,4 @@ onedark = function()
     }
 end
 
-return gruvbox()
+return rosepine()
