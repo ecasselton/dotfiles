@@ -4,20 +4,42 @@ return {
     -- See `:help lualine.txt`
     config = function ()
         -- Set transparent centre for theme
-        local custom_theme = require('lualine.themes.gruvbox_dark')
-        custom_theme.normal.c.bg = 'None'
-        custom_theme.visual.c.bg = 'None'
-        custom_theme.command.c.bg = 'None'
-        custom_theme.insert.c.bg = 'None'
-        custom_theme.replace.c.bg = 'None'
-        custom_theme.command.c.fg = custom_theme.normal.c.fg
-        custom_theme.visual.c.fg = custom_theme.normal.c.fg
-        custom_theme.insert.c.fg = custom_theme.normal.c.fg
-        custom_theme.replace.c.fg = custom_theme.normal.c.fg
+        rosepine = {
+            normal = {
+                a = { fg = "#232136", bg = "#ea9a97", gui = "bold" },
+                b = { fg = "#ea9a97", bg = "#393552" },
+                c = { fg = "#e0def4", bg = "None" },
+            },
+            visual = {
+                a = { fg = "#232136", bg = "#c4a7e7", gui = "bold"  },
+                b = { fg = "#c4a7e7", bg = "#393552" },
+                c = { fg = "#e0def4", bg = "None" },
+            },
+            command = {
+                a = { fg = "#232136", bg = "#eb6f92", gui = "bold"  },
+                b = { fg = "#eb6f92", bg = "#393552" },
+                c = { fg = "#e0def4", bg = "None" },
+            },
+            insert = {
+                a = { fg = "#232136", bg = "#9ccfd8", gui = "bold"  },
+                b = { fg = "#9ccfd8", bg = "#393552" },
+                c = { fg = "#e0def4", bg = "None" },
+            }
+        }
+        local gruvbox = require('lualine.themes.auto')
+        gruvbox.normal.c.bg = 'None'
+        gruvbox.visual.c.bg = 'None'
+        gruvbox.command.c.bg = 'None'
+        gruvbox.insert.c.bg = 'None'
+        gruvbox.replace.c.bg = 'None'
+        gruvbox.command.c.fg = gruvbox.normal.c.fg
+        gruvbox.visual.c.fg = gruvbox.normal.c.fg
+        gruvbox.insert.c.fg = gruvbox.normal.c.fg
+        gruvbox.replace.c.fg = gruvbox.normal.c.fg
         require('lualine').setup {
             options = {
                 icons_enabled = true,
-                theme = custom_theme,
+                theme = rosepine,
                 component_separators = { right = '', left = '' },
                 section_separators = { right = '', left = '' },
                 disabled_filetypes = {
