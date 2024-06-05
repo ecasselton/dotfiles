@@ -9,7 +9,7 @@ crtc 0
 mode 1920x1200
 pos 0x0
 primary
-rate 60.03
+rate 48.02
 x-prop-broadcast_rgb Automatic
 x-prop-colorspace Default
 x-prop-max_bpc 12
