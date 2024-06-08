@@ -63,8 +63,8 @@ else
 	echo "BTW: zsh-autosuggestions not installed"
 fi
 
-bindkey '^k' up-history
-bindkey '^j' down-history
+bindkey '^p' up-history
+bindkey '^n' down-history
 bindkey '^l' autosuggest-accept
 
 # Navigate autosuggestions using vim keys
