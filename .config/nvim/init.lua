@@ -1,8 +1,8 @@
-require('options')
-
--- Must happen before plugins are required (otherwise wrong leader will be used)
+-- Must happen before plugins and remaps are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.o.termguicolors = true
+
+require('opts')
 
 -- vim.loader.enable()
 
@@ -85,7 +85,6 @@ if CheckIfDotfile(git_dir, work_tree) then
     vim.env.GIT_DIR = git_dir
     vim.env.GIT_WORK_TREE = work_tree
 end
-
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=4 sts=4 sw=4 et

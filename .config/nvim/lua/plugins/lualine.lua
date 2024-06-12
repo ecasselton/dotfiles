@@ -4,7 +4,7 @@ return {
     -- See `:help lualine.txt`
     config = function ()
         -- Set transparent centre for theme
-        rosepine = {
+        local rosepine = {
             normal = {
                 a = { fg = "#232136", bg = "#ea9a97", gui = "bold" },
                 b = { fg = "#ea9a97", bg = "#393552" },
@@ -24,6 +24,11 @@ return {
                 a = { fg = "#232136", bg = "#9ccfd8", gui = "bold"  },
                 b = { fg = "#9ccfd8", bg = "#393552" },
                 c = { fg = "#e0def4", bg = "None" },
+            },
+            replace = {
+                a = { fg = "#232136", bg = "#3e8fb0", gui = "bold"  },
+                b = { fg = "#3e8fb0", bg = "#393552" },
+                c = { fg = "#e0def4", bg = "None" },
             }
         }
         local gruvbox = require('lualine.themes.auto')
@@ -39,7 +44,7 @@ return {
         require('lualine').setup {
             options = {
                 icons_enabled = true,
-                theme = rosepine,
+                theme = gruvbox,
                 component_separators = { right = '', left = '' },
                 section_separators = { right = '', left = '' },
                 disabled_filetypes = {
