@@ -150,7 +150,7 @@ alias cdi='cd ./$(find . -type d 2>/dev/null | fzf)'
 # other aliases
 alias la='ls -A'
 alias ll='ls -lA'
-alias vim=nvim
+alias vim=/usr/local/bin/nvim
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias history='history 0'
 alias matrix='unimatrix -s 95 -l k'
