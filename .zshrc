@@ -3,7 +3,7 @@
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
 zstyle ':completion:*' expand prefix suffix
-zstyle ':completion:*' format '%B%F{magenta}[ %d ]%f%b'
+zstyle ':completion:*' format '%B%F{red} -- %d -- %f%k%b'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' ignore-parents pwd
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -84,7 +84,7 @@ if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
 	ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=green,underline
 	ZSH_HIGHLIGHT_STYLES[global-alias]=fg=green,bold
 	ZSH_HIGHLIGHT_STYLES[precommand]=fg=green,underline
-	ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=blue,bold
+	ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=yellow,bold
 	ZSH_HIGHLIGHT_STYLES[autodirectory]=fg=green,underline
 	ZSH_HIGHLIGHT_STYLES[path]=bold
 	ZSH_HIGHLIGHT_STYLES[path_pathseparator]=
@@ -133,8 +133,8 @@ RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)
 # Moar colours!
 eval "$(dircolors -b)"
 export LS_COLORS="$LS_COLORS:ow=30;44:" # ls color for folders with 777 permissions
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 alias ls='ls --color=auto -h --group-directories-first'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -150,7 +150,7 @@ alias cdi='cd ./$(find . -type d 2>/dev/null | fzf)'
 # other aliases
 alias la='ls -A'
 alias ll='ls -lA'
-# alias vim=nvim
+alias vim=nvim
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias history='history 0'
 alias matrix='unimatrix -s 95 -l k'
@@ -166,5 +166,5 @@ function calc {
 
 # eval "$(zoxide init --cmd cd zsh)" # Initialise zoxide
 
-export EDITOR=vim
+export EDITOR=nvim
 export PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
