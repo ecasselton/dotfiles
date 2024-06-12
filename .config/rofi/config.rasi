@@ -1,0 +1,47 @@
+@theme "rose-pine"
+
+* {
+    font: "JetBrainsMonoNerdFont 13";
+    transparency: "real";
+}
+
+inputbar {
+    children: [ entry, num-filtered-rows ];
+}
+
+listview {
+    lines: 11;
+}
+
+entry {
+    padding: 5px;
+    text-transform: bold;
+}
+
+element {
+    orientation: horizontal;
+    children: [ element-icon, element-text ];
+    spacing: 10px;
+    border-radius: 6px;
+}
+element-icon {
+    size: 1em;
+}
+element-text {
+    vertical-align: 0.5;
+}
+
+configuration {
+    modes: "window,drun,run,filebrowser,power:~/.config/rofi/power-options.sh";
+    run,drun {
+	fallback-icon: "/home/elliot/.config/rofi/missing_texture.png";
+    }
+    timeout {
+	action: "kb-cancel";
+	delay:  0;
+    }
+    filebrowser {
+	directories-first: true;
+	sorting-method:    "name";
+    }
+}
