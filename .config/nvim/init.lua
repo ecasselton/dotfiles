@@ -25,10 +25,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     'eandrju/cellular-automaton.nvim',
     'theprimeagen/vim-be-good',
-    {
-        'folke/neodev.nvim',
-        opts = { library = { plugins = { "nvim-dap-ui" }, types = true }, }
-    },
 
     -- Git related plugins
     'tpope/vim-fugitive',
@@ -78,8 +74,8 @@ CheckIfDotfile = function(git_dir, work_tree)
 	end
 end
 
-local git_dir = "$HOME/.dotfiles"
-local work_tree = "$HOME"
+local git_dir = vim.fn.expand("~/.dotfiles")
+local work_tree = vim.fn.expand("~")
 
 if CheckIfDotfile(git_dir, work_tree) then
     vim.env.GIT_DIR = git_dir

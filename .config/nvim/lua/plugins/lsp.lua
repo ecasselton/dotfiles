@@ -7,6 +7,7 @@ return {
 		'barreiroleo/ltex_extra.nvim',
 		-- 'icewind/ltex-client.nvim',
 		'barreiroleo/ltex_extra.nvim',
+		'folke/neodev.nvim',
 
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 		{
@@ -54,12 +55,12 @@ return {
 			nmap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
 			nmap('n', '<leader>wl', function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-			end, '[W]orkspace [L]ist Folders')
+				end, '[W]orkspace [L]ist Folders')
 
 			-- Create a command `:Format` local to the LSP buffer
 			vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
 				vim.lsp.buf.format()
-			end, { desc = 'Format current buffer with LSP' })
+				end, { desc = 'Format current buffer with LSP' })
 		end
 
 		-- Enable the following language servers
@@ -89,7 +90,7 @@ return {
 		}
 
 		require('mason').setup()
-		require('neodev').setup()
+		require('neodev').setup( { library = { plugins = { "nvim-dap-ui" }, types = true }, } )
 
 		-- nvim-cmp supports additional completion capabilities,
 		-- so broadcast that to servers
