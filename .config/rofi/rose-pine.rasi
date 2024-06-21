@@ -23,7 +23,7 @@
 	selected-urgent-background: @urgent-background;
 	selected-active-background: @active-background;
 	separatorcolor: @active-background;
-	bordercolor: @cya;
+	bordercolor: @grn;
 }
 
 #window {
@@ -118,7 +118,7 @@
 }
 #entry {
 	spacing:    0;
-	text-color: @ora;
+	text-color: @cya;
 }
 #prompt {
 	spacing:    0;

@@ -5,7 +5,7 @@ case x"$@" in
         shutdown -h now &
         ;;
     x"suspend")
-        i3lock; systemctl suspend
+        systemctl suspend
         ;;
     x"reboot")
         reboot

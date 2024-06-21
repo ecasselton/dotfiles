@@ -14,7 +14,6 @@ listview {
 }
 
 entry {
-    padding: 5px;
     text-transform: bold;
 }
 
