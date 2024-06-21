@@ -142,14 +142,20 @@ alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip --color=auto'
 
-# interactive cd
+# better cd
 export FZF_DEFAULT_COMMAND="find"
 export FZF_DEFAULT_OPTS="--layout=reverse --height=40% --inline-info --border"
 alias cdi='cd ./$(find . -type d 2>/dev/null | fzf)'
+function cdmk {
+	if [[ ! -d $1 ]]; then
+		echo "'$1' doesn't exist, creating it..."
+		mkdir -p $1
+	fi
+	cd $1
+}
 
 # other aliases
-alias la='ls -A'
-alias ll='ls -lA'
+alias la='ls -lAv'
 alias vim=/usr/local/bin/nvim
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias history='history 0'
@@ -165,6 +171,3 @@ function calc {
 }
 
 # eval "$(zoxide init --cmd cd zsh)" # Initialise zoxide
-
-export EDITOR=nvim
-export PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
