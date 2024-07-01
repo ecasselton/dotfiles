@@ -1,0 +1,10 @@
+[Colors:View]
+BackgroundNormal=#1f1d2e
+DecorationFocus=#286983
+DecorationHover=#286983
+
+[Colors:Window]
+ForegroundNormal=#ffffff
+
+LastUsedCustomAccentColor=#ff0000
+
