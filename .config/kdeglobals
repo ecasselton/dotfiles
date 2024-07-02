@@ -1,10 +1,18 @@
+[Colors:Header]
+BackgroundAlternate=#1e1e2e
+BackgroundNormal=#1e1e2e
+ForegroundNormal=#ffffff
+
 [Colors:View]
-BackgroundNormal=#1f1d2e
+BackgroundAlternate=#1e1e2e
+BackgroundNormal=#1e1e2e
+ForegroundNormal=#ffffff
 DecorationFocus=#286983
 DecorationHover=#286983
 
 [Colors:Window]
+BackgroundAlternate=#1e1e2e
+BackgroundNormal=#1e1e2e
 ForegroundNormal=#ffffff
 
 LastUsedCustomAccentColor=#ff0000
-
