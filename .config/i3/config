@@ -219,22 +219,28 @@ client.focused #4c7899 #285577 #ffffff #67799d #67799d
 
 # Maximum volume
 exec --no-startup-id /home/elliot/.config/i3/maxvolume.sh &
-# Polkit
-exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1
 # Fix Unity Repaint issue
 exec_always --no-startup-id /home/elliot/.config/i3/i3-unity-fix/i3unityfix/i3unityfix.py &
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # Wallpaper
-exec --no-startup-id feh --bg-scale ~/Pictures/single-mountain.png
+exec_always --no-startup-id feh --bg-scale ~/pictures/single-mountain.png
+# Compositor
+exec_always --no-startup-id picom &
+# Autorandr
+exec_always --no-startup-id autorandr -c --force
 
 # Start applications
-bindsym $mod+b exec --no-startup-id firefox
-bindsym $mod+p exec --no-startup-id firefox --private-window
-bindsym $mod+e exec --no-startup-id dolphin
+bindsym $mod+b exec firefox
+bindsym $mod+p exec firefox --private-window
+bindsym $mod+e exec dolphin
 
 bindsym $mod+space exec "rofi -show drun"
 bindsym $mod+Tab exec "rofi -show window"
+
+# Sticky windows (put floating windows on all workspaces)
+bindsym $mod+a sticky enable
+bindsym $mod+shift+a sticky disable
 
 # Power options
 bindsym $mod+control+Delete exec "rofi -show power -theme-str 'mainbox { children: [listview]; }'"
