@@ -47,13 +47,17 @@ setopt hist_verify
 bindkey ' ' magic-space
 
 # Command not found handler
-if [ -f /etc/zsh_command_not_found ]; then
-	. /etc/zsh_command_not_found
-	# Prompt for install
-	export COMMAND_NOT_FOUND_INSTALL_PROMPT=1
-else
-	echo "BTW: command-not-found not installed"
-fi
+# if [ -f /etc/zsh_command_not_found ]; then
+# 	. /etc/zsh_command_not_found
+# 	# Prompt for install
+# 	export COMMAND_NOT_FOUND_INSTALL_PROMPT=1
+# else
+# 	echo "BTW: command-not-found not installed"
+# fi
+
+bindkey '^p' up-history
+bindkey '^n' down-history
+bindkey '^l' autosuggest-accept
 
 # Fish-like autocompletion (using history)
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
