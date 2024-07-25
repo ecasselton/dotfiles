@@ -5,7 +5,7 @@ case x"$@" in
         shutdown -h now &
         ;;
     x"suspend")
-        systemctl suspend
+        loginctl lock-session && systemctl suspend && killall rofi
         ;;
     x"reboot")
         reboot
@@ -15,9 +15,9 @@ case x"$@" in
         ;;
 esac
 
-# if [ x"$@" = x"shutdown" ] ; then
-#     shutdown -h now
-# fi
+if [ x"$@" = x"shutdown" ] ; then
+    shutdown -h now
+fi
 
 echo "shutdown"
 echo "suspend"
