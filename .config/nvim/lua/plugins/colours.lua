@@ -1,19 +1,8 @@
--- local theme = "ecasselton/gruvbox"
+-- local theme = "ecasselton/gruvbox.nvim"
 local theme = "rose-pine/neovim"
 
 local rosepine_setup = function ()
     require("rose-pine").setup({
-        variant = "auto", -- auto, main, moon, or dawn
-        dark_variant = "main", -- main, moon, or dawn
-        dim_inactive_windows = false,
-        extend_background_behind_borders = true,
-
-        enable = {
-            terminal = true,
-            legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-            migrations = true, -- Handle deprecated options automatically
-        },
-
         styles = {
             bold = true,
             italic = false,
@@ -54,18 +43,6 @@ local rosepine_setup = function ()
         highlight_groups = {
             Comment = { italic = true },
         },
-
-        before_highlight = function(group, highlight, palette)
-            -- Disable all undercurls
-            -- if highlight.undercurl then
-            --     highlight.undercurl = false
-            -- end
-            --
-            -- Change palette colour
-            -- if highlight.fg == palette.pine then
-            --     highlight.fg = palette.foam
-            -- end
-        end,
     })
 
     -- vim.cmd("colorscheme rose-pine")
@@ -76,34 +53,6 @@ end
 
 local gruvbox_setup = function ()
     require("gruvbox").setup({
-        terminal_colors = true, -- add neovim terminal colors
-        undercurl = true,
-        underline = true,
-        bold = true,
-        text_style = {
-            variables = {},
-            functions = { bold = false },
-            keywords = {},
-            comments = { italic = true },
-            strings = { italic = false },
-            emphasis = { bold = true, italic = true },
-            operators = { italic = false },
-            folds = { italic = true },
-        },
-        italic = {
-            strings = false,
-            emphasis = true,
-            comments = true,
-            operators = false,
-            folds = true,
-        },
-        strikethrough = true,
-        invert_selection = false,
-        invert_signs = false,
-        invert_tabline = false,
-        invert_intend_guides = false,
-        inverse = true, -- invert background for search, diffs, statuslines and errors
-        contrast = "",  -- can be "hard", "soft" or empty string
         palette_overrides = {
             dark1 = "#282828",
         },
@@ -112,7 +61,6 @@ local gruvbox_setup = function ()
             Float = { bg = "none" },
             StatusLineNC = { bg = "none" },
         },
-        dim_inactive = false,
         transparent_mode = true,
     })
 
@@ -126,11 +74,6 @@ return {
         'nvim-lualine/lualine.nvim'
     },
     config = function ()
-        if theme == "rose-pine/neovim" then
-            rosepine_setup()
-        elseif theme == "ecasselton/gruvbox" then
-            gruvbox_setup()
-        end
 
         -- Set transparent centre for theme
         local rosepine = {
@@ -160,7 +103,7 @@ return {
                 c = { fg = "#e0def4", bg = "None" },
             }
         }
-        local gruvbox = require('lualine.themes.auto')
+        local gruvbox = require('lualine.themes.gruvbox_dark')
         gruvbox.normal.c.bg = 'None'
         gruvbox.visual.c.bg = 'None'
         gruvbox.command.c.bg = 'None'
@@ -170,10 +113,20 @@ return {
         gruvbox.visual.c.fg = gruvbox.normal.c.fg
         gruvbox.insert.c.fg = gruvbox.normal.c.fg
         gruvbox.replace.c.fg = gruvbox.normal.c.fg
+
+        local lualine_theme
+        if theme == "rose-pine/neovim" then
+            rosepine_setup()
+            lualine_theme = rosepine
+        elseif theme == "ecasselton/gruvbox.nvim" then
+            gruvbox_setup()
+            lualine_theme = gruvbox
+        end
+
         require('lualine').setup {
             options = {
                 icons_enabled = true,
-                theme = rosepine,
+                theme = lualine_theme,
                 component_separators = { right = '', left = '' },
                 section_separators = { right = '', left = '' },
                 disabled_filetypes = {
