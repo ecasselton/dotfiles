@@ -1,8 +1,13 @@
+import = [
+    "~/.config/alacritty/tokyo-night.toml"
+]
+
 [env]
 term = "xterm-256color"
 
 [window]
 opacity = 0.75
+# opacity = 1
 
 [colors.normal]
 black = "#232627"
@@ -15,10 +20,13 @@ cyan = "#3e8fb0"
 white = "#fcfcfc"
 
 [colors.primary]
-background = "#0f0f17"
+# background = "#0f0f17"
+background = "#08080c"
+foreground = "#fcfcfc"
+# # background = "#202020"
 
 [font]
-size = 9
+size = 15
 
 [font.normal]
 family = "JetBrainsMonoNL Nerd Font Mono"
