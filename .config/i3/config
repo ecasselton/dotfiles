@@ -155,38 +155,13 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 5 px or 5 ppt
-        bindsym j resize grow height 5 px or 5 ppt
-        bindsym k resize shrink height 5 px or 5 ppt
-        bindsym l resize grow width 5 px or 5 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
+# Resize bindings
+bindsym $mod+y resize shrink width 5 px or 5 ppt
+bindsym $mod+i resize grow height 5 px or 5 ppt
+bindsym $mod+u resize shrink height 5 px or 5 ppt
+bindsym $mod+o resize grow width 5 px or 5 ppt
 
 bindsym $mod+r mode "resize"
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-# bar {
-#         status_command i3status
-# }
 
 # ===== My configurations =====
 
@@ -219,8 +194,12 @@ client.focused #4c7899 #285577 #ffffff #67799d #67799d
 
 # Maximum volume
 exec --no-startup-id /home/elliot/.config/i3/maxvolume.sh &
+# Dunst
+exec_always --no-startup-id dunst &
+# Polkit
+exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 # Fix Unity Repaint issue
-exec_always --no-startup-id /home/elliot/.config/i3/i3-unity-fix/i3unityfix/i3unityfix.py &
+exec_always --no-startup-id /home/elliot/repos/i3-unity-fix/i3unityfix/i3unityfix.py &
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # Wallpaper
@@ -246,11 +225,12 @@ bindsym $mod+shift+a sticky disable
 bindsym $mod+control+Delete exec "rofi -show power -theme-str 'mainbox { children: [listview]; }'"
 
 # Screenshots
-bindsym --release $mod+Print exec --no-startup-id "scrot --select --freeze --file 'Pictures/%H:%M:%S_%d-%m-%y.png' --exec 'xclip -selection clipboard -t image/png -i $f'"
-bindsym --release Print exec --no-startup-id "scrot --file 'Pictures/%H:%M:%S_%d-%m-%y.png' --exec 'xclip -selection clipboard -t image/png -i $f'"
+bindsym --release Print exec --no-startup-id scrot --select --freeze --file '/home/elliot/pictures/scrot(%y-%m-%d).png' --exec 'xclip -selection clipboard -t image/png -i "$f"'
+# bindsym --release $mod+Print exec --no-startup-id "scrot --select --freeze --exec 'xclip -selection clipboard -t image/png -i "$f"'"
+bindsym --release $mod+shift+Print exec --no-startup-id scrot --file '/home/elliot/pictures/scrot(%y-%m-%d).png' --exec 'xclip -selection clipboard -t image/png -i "$f"'
 
 # Gaps
-gaps inner 12
+gaps inner 11
 gaps top 42
 
 ## fn buttons

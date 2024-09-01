@@ -4,6 +4,7 @@ import = [
 
 [env]
 term = "xterm-256color"
+WINIT_X11_SCALE_FACTOR = "1.0"
 
 [window]
 opacity = 0.75
