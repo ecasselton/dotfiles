@@ -1,17 +1,22 @@
 return {
     'folke/which-key.nvim',
 
+    dependencies = {
+	{ 'echasnovski/mini.nvim', version = false },
+	'nvim-tree/nvim-web-devicons',
+    },
+
     config = function ()
 	-- document existing key chains
-	require('which-key').register {
-	    ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-	    ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
-	    ['<leader>S'] = { name = '[S]ymbols', _ = 'which_key_ignore' },
-	    ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-	    ['<leader>d'] = { name = '[D]ebug', _ = 'which_key_ignore' },
-	    ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-	    ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-	    ['\\'] = { name = 'vimtex', _ = 'which_key_ignore' },
+	require('which-key').add {
+	    -- { "<leader>c", },
+	    { "<leader>d", group = "[D]ebug", icon = "" },
+	    { "<leader>f", group = "[F]ind", icon = ""  },
+	    { "<leader>g", group = "[G]it", icon = "" },
+	    { "<leader>w", group = "[W]orkspace" },
+	    { "<leader>u", icon = "" },
+	    { "\\", group = "vimtex" },
 	}
+
     end
 }
