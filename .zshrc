@@ -44,10 +44,10 @@ bindkey '^l' autosuggest-accept
 
 # Fish-like autocompletion (using history)
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-	. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-	# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
+    . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 else
-	echo "BTW: zsh-autosuggestions not installed"
+    echo "BTW: zsh-autosuggestions not installed"
 fi
 
 # Navigate autosuggestions using vim keys
@@ -59,51 +59,51 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Syntax highlighting
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-	. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
-	ZSH_HIGHLIGHT_STYLES[default]=none
-	ZSH_HIGHLIGHT_STYLES[unknown-token]=underline
-	ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=cyan,bold
-	ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=green,underline
-	ZSH_HIGHLIGHT_STYLES[global-alias]=fg=green,bold
-	ZSH_HIGHLIGHT_STYLES[precommand]=fg=green,underline
-	ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=green,bold
-	ZSH_HIGHLIGHT_STYLES[autodirectory]=fg=green,underline
-	ZSH_HIGHLIGHT_STYLES[path]=bold
-	ZSH_HIGHLIGHT_STYLES[path_pathseparator]=
-	ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]=
-	ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[command-substitution]=none
-	ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=magenta,bold
-	ZSH_HIGHLIGHT_STYLES[process-substitution]=none
-	ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]=fg=magenta,bold
-	ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=blue
-	ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=blue
-	ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
-	ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
-	ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
-	ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]=fg=yellow
-	ZSH_HIGHLIGHT_STYLES[rc-quote]=fg=magenta
-	ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=magenta,bold
-	ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=magenta,bold
-	ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]=fg=magenta,bold
-	ZSH_HIGHLIGHT_STYLES[assign]=none
-	ZSH_HIGHLIGHT_STYLES[redirection]=fg=green,bold
-	ZSH_HIGHLIGHT_STYLES[comment]=fg=black,bold
-	ZSH_HIGHLIGHT_STYLES[named-fd]=none
-	ZSH_HIGHLIGHT_STYLES[numeric-fd]=none
-	ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
-	ZSH_HIGHLIGHT_STYLES[bracket-error]=fg=red,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-1]=fg=blue,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-2]=fg=green,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-3]=fg=magenta,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-4]=fg=yellow,bold
-	ZSH_HIGHLIGHT_STYLES[bracket-level-5]=fg=cyan,bold
-	ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
+    . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+    ZSH_HIGHLIGHT_STYLES[default]=none
+    ZSH_HIGHLIGHT_STYLES[unknown-token]=underline
+    ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=cyan,bold
+    ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=green,underline
+    ZSH_HIGHLIGHT_STYLES[global-alias]=fg=green,bold
+    ZSH_HIGHLIGHT_STYLES[precommand]=fg=green,underline
+    ZSH_HIGHLIGHT_STYLES[commandseparator]=fg=green,bold
+    ZSH_HIGHLIGHT_STYLES[autodirectory]=bold
+    ZSH_HIGHLIGHT_STYLES[path]=bold
+    ZSH_HIGHLIGHT_STYLES[path_pathseparator]=
+    ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]=
+    ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[command-substitution]=none
+    ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=magenta,bold
+    ZSH_HIGHLIGHT_STYLES[process-substitution]=none
+    ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]=fg=magenta,bold
+    ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
+    ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=cyan
+    ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
+    ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
+    ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
+    ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]=fg=yellow
+    ZSH_HIGHLIGHT_STYLES[rc-quote]=fg=magenta
+    ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=magenta,bold
+    ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=magenta,bold
+    ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]=fg=magenta,bold
+    ZSH_HIGHLIGHT_STYLES[assign]=none
+    ZSH_HIGHLIGHT_STYLES[redirection]=fg=green,bold
+    ZSH_HIGHLIGHT_STYLES[comment]=fg=black,bold
+    ZSH_HIGHLIGHT_STYLES[named-fd]=none
+    ZSH_HIGHLIGHT_STYLES[numeric-fd]=none
+    ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
+    ZSH_HIGHLIGHT_STYLES[bracket-error]=fg=red,bold
+    ZSH_HIGHLIGHT_STYLES[bracket-level-1]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[bracket-level-2]=fg=green,bold
+    ZSH_HIGHLIGHT_STYLES[bracket-level-3]=fg=magenta,bold
+    ZSH_HIGHLIGHT_STYLES[bracket-level-4]=fg=yellow,bold
+    ZSH_HIGHLIGHT_STYLES[bracket-level-5]=fg=cyan,bold
+    ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
 else
-	echo "BTW: zsh-syntax-highlighting not installed"
+    echo "BTW: zsh-syntax-highlighting not installed"
 fi
 
 
@@ -115,9 +115,9 @@ bindkey -rpM viins '\e\e'
 # Change the cursor type depending on vi-mode
 function zle-keymap-select () {
 case $KEYMAP in
-	vicmd) echo -ne '\e[2 q';; # block
-	viopt) echo -ne '\e[2 q';; # block
-	viins|main) echo -ne '\e[6 q';; # beam
+    vicmd) echo -ne '\e[2 q';; # block
+    viopt) echo -ne '\e[2 q';; # block
+    viins|main) echo -ne '\e[6 q';; # beam
 esac
 }
 
@@ -135,15 +135,18 @@ preexec() { echo -ne '\e[6 q' ;} # Use beam shape cursor for each new prompt.
 
 function git_branch() {
     branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
-    if [[ $branch == "" ]]; then
-        :
+    commit=$(git rev-parse HEAD 2> /dev/null | cut -c1-7)
+    if [[ $branch != "" ]]; then
+	echo ' (' $branch ' )' 
+    elif [[ $commit != "" ]]; then
+	echo ' (' $commit ' )'
     else
-        echo ' (' $branch ' )' 
+	:
     fi
 }
 
 function truncated_path() {
-	echo '%48<...<%~%<<'
+    echo '%48<...<%~%<<'
 }
 
 setopt prompt_subst
@@ -168,11 +171,11 @@ export FZF_DEFAULT_COMMAND="find"
 export FZF_DEFAULT_OPTS="--layout=reverse --height=40% --inline-info --border"
 alias cdi='cd ./$(find . -type d 2>/dev/null | fzf)'
 function cdmk {
-	if [[ ! -d $1 ]]; then
-		echo "'$1' doesn't exist, creating it..."
-		mkdir -p $1
-	fi
-	cd $1
+    if [[ ! -d $1 ]]; then
+	echo "'$1' doesn't exist, creating it..."
+	mkdir -p $1
+    fi
+    cd $1
 }
 
 # other aliases
@@ -180,12 +183,11 @@ alias la='ls -lAv'
 alias vim=nvim
 alias dotfiles='/usr/bin/git --git-dir ~/.dotfiles/  --work-tree ~'
 alias history='history 0'
-alias matrix='unimatrix --speed=95 --character-list=k --color=cyan'
+alias matrix='unimatrix --speed=95 --character-list=k --color=green'
 
-function please {
-	echo "Apologies, running command now:"
-	doas ${(A)=history[@][1]}
-}
+# Tetris lol
+autoload -Uz tetriscurses
+
 function calc {
-	python3 -c "from math import *; print($1)"
+    python3 -c "from math import *; print($1)"
 }
