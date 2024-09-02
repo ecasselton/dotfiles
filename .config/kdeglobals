@@ -6,13 +6,25 @@ ForegroundNormal=#ffffff
 [Colors:View]
 BackgroundAlternate=#1e1e2e
 BackgroundNormal=#1e1e2e
-ForegroundNormal=#ffffff
 DecorationFocus=#286983
 DecorationHover=#286983
+ForegroundNormal=#ffffff
 
 [Colors:Window]
 BackgroundAlternate=#1e1e2e
 BackgroundNormal=#1e1e2e
 ForegroundNormal=#ffffff
 
+[General]
 LastUsedCustomAccentColor=#ff0000
+TerminalApplication=alacritty
+
+[KDE]
+ShowDeleteCommand=false
+
+[KShortcutsDialog Settings]
+Dialog Size=600,480
+
+[PreviewSettings]
+EnableRemoteFolderThumbnail=false
+MaximumRemoteSize=0
