@@ -3,5 +3,5 @@
 if [ $(xrandr --listactivemonitors | grep "Monitors" | cut -d" " -f2) = 1 ]; then
 	feh --bg-scale ~/pictures/single-mountain.png
 else
-	feh --bg-scale ~/pictures/double-mountain.png --no-xinerama
+	feh --bg-scale ~/pictures/stacked-mountain.jpg --no-xinerama
 fi
