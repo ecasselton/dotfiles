@@ -1,5 +1,6 @@
--- local theme = "ecasselton/gruvbox.nvim"
-local theme = "rose-pine/neovim"
+-- local theme = "ellisonleao/gruvbox.nvim"
+-- local theme = "rose-pine/neovim"
+local theme = "folke/tokyonight.nvim"
 
 local rosepine_setup = function ()
     require("rose-pine").setup({
@@ -67,6 +68,19 @@ local gruvbox_setup = function ()
     vim.cmd.colorscheme("gruvbox")
 end
 
+local tokyonight_setup = function()
+    require("tokyonight").setup({
+        style = "night",
+        transparent = true,
+        styles = {
+            keywords = { italic = false },
+            floats = "transparent",
+        },
+        lualine_bold = true,
+    })
+    vim.cmd.colorscheme("tokyonight")
+end
+
 return {
     theme,
 
@@ -118,17 +132,22 @@ return {
         if theme == "rose-pine/neovim" then
             rosepine_setup()
             lualine_theme = rosepine
-        elseif theme == "ecasselton/gruvbox.nvim" then
+        elseif theme == "ellisonleao/gruvbox.nvim" then
             gruvbox_setup()
             lualine_theme = gruvbox
+        elseif theme == "folke/tokyonight.nvim" then
+            tokyonight_setup()
+            lualine_theme = "auto"
         end
 
         require('lualine').setup {
             options = {
                 icons_enabled = true,
                 theme = lualine_theme,
-                component_separators = { right = '', left = '' },
-                section_separators = { right = '', left = '' },
+                component_separators = { left = '', right = ''},
+                section_separators = { left = '', right = ''},
+                -- component_separators = { right = '', left = '' },
+                -- section_separators = { right = '', left = '' },
                 disabled_filetypes = {
                     statusline = {},
                     winbar = {},
