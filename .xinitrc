@@ -38,4 +38,4 @@ xinput set-prop "VEN_06CB:00 06CB:CE8C Touchpad" "libinput Disable While Typing 
 xinput set-prop "VEN_06CB:00 06CB:CE8C Touchpad" "libinput Natural Scrolling Enabled" 1 # Natural scrolling
 xinput set-prop "VEN_06CB:00 06CB:CE8C Touchpad" "libinput Accel Speed" 0.5 # Pointer speed
 
-exec i3
+exec awesome
