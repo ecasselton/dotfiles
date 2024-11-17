@@ -159,7 +159,7 @@ eval "$(dircolors -b)"
 export LS_COLORS="$LS_COLORS:ow=30;44:" # ls color for folders with 777 permissions
 # zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-alias ls='ls --color=auto -h --group-directories-first'
+alias ls='ls -v --color=auto -h --group-directories-first'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -169,7 +169,7 @@ alias ip='ip --color=auto'
 # better cd
 export FZF_DEFAULT_COMMAND="find"
 export FZF_DEFAULT_OPTS="--layout=reverse --height=40% --inline-info --border"
-alias cdi='cd ./$(find . -type d 2>/dev/null | fzf)'
+alias cdi='cd ./$(fd -Ht d 2>/dev/null | fzf)'
 function cdmk {
     if [[ ! -d $1 ]]; then
 	echo "'$1' doesn't exist, creating it..."
@@ -188,6 +188,15 @@ alias matrix='unimatrix --speed=95 --character-list=k --color=green'
 # Tetris lol
 autoload -Uz tetriscurses
 
-function calc {
+calc() {
     python3 -c "from math import *; print($1)"
+}
+
+stopwatch() {
+    clear
+    start=$(date +%s)
+    while true; do
+	time="$(($(date +%s) - $start))"
+	printf '%s\r ' "$(date -u -d "@$time" +%H:%M:%S)"
+    done
 }
