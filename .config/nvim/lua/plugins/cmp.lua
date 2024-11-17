@@ -8,8 +8,7 @@ return {
 		-- Extends the completion capabilities
 		'hrsh7th/cmp-cmdline',
 		'hrsh7th/cmp-buffer',
-
-		-- Vimtex innit
+		'saadparwaiz1/cmp_luasnip',
 		'micangl/cmp-vimtex',
 	},
 	-- [[ Configure nvim-cmp ]]
@@ -43,19 +42,27 @@ return {
 			})
 		end
 
-
 		cmp.setup({
+			snippet = {
+				expand = function(args)
+					require'luasnip'.lsp_expand(args.body)
+				end
+			},
+
 			window = {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
 			},
+
 			mapping = custom_mappings(cmp.mapping.preset.insert),
 
 			cmp.setup {
 				sources = cmp.config.sources({
+					{ name = 'lazydev' },
 					{ name = 'nvim_lsp' },
 					{ name = 'vimtex' },
 					{ name = 'buffer' },
+					{ name = 'luasnip' },
 				})
 			}
 		})
@@ -101,5 +108,6 @@ return {
 				}
 			)
 		})
+
 	end
 }
