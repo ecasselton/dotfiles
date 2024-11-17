@@ -1,27 +1,10 @@
-# import = [
-#     "~/.config/alacritty/tokyo-night.toml"
-# ]
+general.import = [
+    "~/.config/alacritty/gruvbox_dark.toml"
+]
 
 [env]
 term = "xterm-256color"
 WINIT_X11_SCALE_FACTOR = "1.0"
-
-[window]
-opacity = 0.75
-
-[colors.normal]
-black = "#121524"
-red = "#BD2E1C"
-white = "#CFE5F2"
-yellow = "#FCD946"
-blue = "#077BC0"
-cyan = "#27B8A9"
-magenta = "#A02EA4"
-green = "#00D100"
-
-[colors.primary]
-background = "#0F0F14"
-foreground = "#CFE5F2"
 
 [font]
 size = 15
