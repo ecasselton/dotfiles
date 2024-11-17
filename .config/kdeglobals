@@ -1,26 +1,13 @@
-[Colors:Header]
-BackgroundAlternate=#1e1e2e
-BackgroundNormal=#091223
-ForegroundNormal=#ffffff
-
-[Colors:View]
-BackgroundAlternate=#1e1e2e
-BackgroundNormal=#0E2949
-DecorationFocus=#286983
-DecorationHover=#286983
-ForegroundNormal=#ffffff
-
-[Colors:Window]
-BackgroundAlternate=#1e1e2e
-BackgroundNormal=#0E2949
-ForegroundNormal=#ffffff
-
 [General]
 LastUsedCustomAccentColor=#ff0000
 TerminalApplication=alacritty
 
+[Icons]
+Theme=breeze-dark
+
 [KDE]
 ShowDeleteCommand=false
+widgetStyle=qt6ct-style
 
 [KShortcutsDialog Settings]
 Dialog Size=600,480
