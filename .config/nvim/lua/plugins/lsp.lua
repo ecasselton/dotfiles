@@ -6,7 +6,17 @@ return {
 		'williamboman/mason-lspconfig.nvim',
 		'barreiroleo/ltex_extra.nvim',
 		-- 'icewind/ltex-client.nvim',
-		'folke/neodev.nvim',
+		{
+			"folke/lazydev.nvim",
+			ft = "lua", -- only load on lua files
+			opts = {
+				library = {
+					-- See the configuration section for more details
+					-- Load luvit types when the `vim.uv` word is found
+					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				},
+			},
+		},
 
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 		{
@@ -39,7 +49,7 @@ return {
 			end
 
 			nmap('n', '<leader>r', vim.lsp.buf.rename, '[R]ename')
-			nmap('n', '<leader>c', vim.lsp.buf.code_action, '[C]ode actions')
+			nmap('n', '<leader>a', vim.lsp.buf.code_action, '[C]ode actions')
 
 			nmap('n', 'gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 			nmap('n', 'gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -70,6 +80,12 @@ return {
 		local servers = {
 			clangd = {},
 
+			-- asm_lsp = {
+			-- 	asm = {
+			-- 		syntax = "nasm"
+			-- 	},
+			-- },
+
 			texlab = {},
 
 			pylsp = {
@@ -89,7 +105,7 @@ return {
 				},
 			},
 
-			omnisharp_mono = {},
+			omnisharp = {},
 
 			ltex = {
 				ltex = {
@@ -101,7 +117,7 @@ return {
 		}
 
 		require('mason').setup()
-		require('neodev').setup({ library = { plugins = { "nvim-dap-ui" }, types = true }, })
+		-- require('neodev').setup({ library = { plugins = { "nvim-dap-ui" }, types = true }, })
 
 		-- nvim-cmp supports additional completion capabilities,
 		-- so broadcast that to servers
