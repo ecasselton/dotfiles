@@ -22,7 +22,7 @@ return {
             },
             signs_staged_enable = true,
             signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-            numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
+            numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
             linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
             word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
             watch_gitdir = {
@@ -81,11 +81,11 @@ return {
 
                 -- Actions
                 map('n', '<leader>ga', gitsigns.stage_hunk, { desc = '[A]dd hunk' } )
+				map('n', '<leader>gA', gitsigns.stage_buffer, { desc = '[A]dd buffer' } )
+				map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = '[U]ndo add hunk' } )
+				map('n', '<leader>gp', gitsigns.preview_hunk, { desc = '[P]review hunk' } )
                 map('n', '<leader>gr', gitsigns.reset_hunk, { desc = '[R]eset hunk' } )
-                map('n', '<leader>gA', gitsigns.stage_buffer, { desc = '[A]dd buffer' } )
-                map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = '[U]ndo add hunk' } )
-                map('n', '<leader>gR', gitsigns.reset_buffer, { desc = '[R]eset buffer' } )
-                map('n', '<leader>gp', gitsigns.preview_hunk, { desc = '[P]review hunk' } )
+				map('n', '<leader>gR', gitsigns.reset_buffer, { desc = '[R]eset buffer' } )
                 map('n', '<leader>gb', gitsigns.toggle_current_line_blame, { desc = '[B]lame line' } )
                 map('n', '<leader>gB', function() gitsigns.blame_line({full = true})end, { desc = '[B]lame line (full)' } )
                 map('n', '<leader>gd', gitsigns.diffthis, { desc = '[D]iff this' } )
