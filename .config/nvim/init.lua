@@ -26,7 +26,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = 'auto'
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -64,7 +64,7 @@ vim.keymap.set("n", "<leader>e", ":Ex<CR>", { silent = true })
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', function () vim.diagnostic.open_float({ border = 'rounded' }) end, { desc = 'Open floating diagnostic message' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Don't get dizzy when jumping
@@ -100,7 +100,7 @@ require('lazy').setup({
     'theprimeagen/vim-be-good',
     'tpope/vim-fugitive',
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-    { 'numToStr/Comment.nvim', opts = {} },
+    'numToStr/Comment.nvim',
 
     { import = 'plugins' }
 }, {})
@@ -117,5 +117,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = highlight_group,
     pattern = '*',
 })
-
--- vim: ts=4 sts=4 sw=4 et
