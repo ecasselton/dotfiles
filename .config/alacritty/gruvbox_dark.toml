@@ -5,7 +5,7 @@ opacity = 0.5
 
 [colors.primary]
 background = '#080808'
-foreground = '#ebdbc2'
+foreground = '#ebdbb2'
 
 # Normal colors
 [colors.normal]

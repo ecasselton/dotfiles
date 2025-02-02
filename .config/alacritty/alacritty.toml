@@ -6,6 +6,10 @@ general.import = [
 term = "xterm-256color"
 WINIT_X11_SCALE_FACTOR = "1.0"
 
+[window]
+padding = { x = 1, y = 1 }
+dynamic_padding = true
+
 [font]
 size = 15
 
