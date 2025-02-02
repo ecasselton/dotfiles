@@ -11,9 +11,7 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+-- vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -26,7 +24,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'auto'
+vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -41,7 +39,7 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 
 -- Scroll buffer before cursor reaches the end
-vim.o.scrolloff = 12
+vim.o.scrolloff = 6
 
 -- Word wrap settings
 vim.o.wrap = false
@@ -54,12 +52,9 @@ vim.o.linebreak = true
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
--- Open netrw
-vim.keymap.set("n", "<leader>e", ":Ex<CR>", { silent = true })
-
 -- Remap for dealing with word wrap
--- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -77,7 +72,16 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 vim.keymap.set("n", "<leader>kms", "<cmd>CellularAutomaton make_it_rain<CR>")
 
+-- Interacting with system clipboard
+vim.keymap.set({"n", "v"}, "<leader>p", '"+p')
+vim.keymap.set({"n", "v"}, "<leader>P", '"+P')
+vim.keymap.set({"n", "v"}, "<leader>y", '"+y')
+vim.keymap.set({"n", "v"}, "<leader>Y", '"+y$')
 -- vim.loader.enable()
+
+-- Use ere for substitute commands
+vim.cmd("cabbrev s/ s/\\v")
+vim.cmd("cabbrev %s/ %s/\\v")
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -100,7 +104,6 @@ require('lazy').setup({
     'theprimeagen/vim-be-good',
     'tpope/vim-fugitive',
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-    'numToStr/Comment.nvim',
 
     { import = 'plugins' }
 }, {})
