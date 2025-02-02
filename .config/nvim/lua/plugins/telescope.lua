@@ -59,24 +59,24 @@ return {
 		-- See `:help telescope.builtin`
 		vim.keymap.set('n', '<leader><space>', require('telescope.builtin').oldfiles, { desc = 'Find recently opened files' })
 		vim.keymap.set('n', '<leader>/', require('telescope.builtin').buffers, { desc = 'Find existing buffers' })
-		vim.keymap.set('n', '<leader>fb', function()
+		vim.keymap.set('n', '<leader>sb', function()
 			-- You can pass additional configuration to telescope to change theme, layout, etc.
 			require('telescope.builtin').current_buffer_fuzzy_find(
 				require('telescope.themes').get_cursor({
 					previewer = false,
 				})
 			)
-		end, { desc = '[F]ind in current [B]uffer' }
+		end, { desc = '[S]earch in current [B]uffer' }
 		)
 
-		vim.keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_files({ hidden=true }) end, { desc = '[F]ind [F]iles' })
-		vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind in [H]elp' })
-		vim.keymap.set('n', '<leader>fw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })
-		vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[F]ind by [G]rep' })
+		vim.keymap.set('n', '<leader>sf', function() require('telescope.builtin').find_files({ hidden=true }) end, { desc = '[S]earch [F]iles' })
+		vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch in [H]elp' })
+		vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+		vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 		vim.keymap.set('n', '<leader>gg', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
-		vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = '[F]ind [G]it' })
-		vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[F]ind [D]iagnostics' })
-		vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, { desc = '[F]ind [R]esume' })
+		vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_files, { desc = '[S]earch [G]it' })
+		vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+		vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
 		-- [[ Configure Telescope ]]
 		-- See `:help telescope` and `:help telescope.setup()`
