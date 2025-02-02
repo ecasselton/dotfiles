@@ -37,53 +37,37 @@ return {
 		-- [[ Configure LSP ]]
 		--  This function gets run when an LSP connects to a particular buffer.
 		local on_attach = function(_, bufnr)
-			-- Create a function that lets us more easily define mappings specific
-			-- for LSP related items. It sets the mode, buffer and description for us each time.
 			local nmap = function(mode, keys, func, desc)
-				if desc then
-					desc = 'LSP: ' .. desc
-				end
-
 				vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
 			end
 
-			nmap('n', '<leader>r', vim.lsp.buf.rename, '[R]ename')
-			nmap('n', '<leader>a', vim.lsp.buf.code_action, '[C]ode actions')
+			nmap('n', '<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
+			nmap('n', '<leader>la', vim.lsp.buf.code_action, '[L]SP code [A]ctions')
 
 			nmap('n', 'gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+			nmap('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 			nmap('n', 'gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 			nmap('n', 'gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-			nmap('n', '<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-			nmap('n', '<leader>Ss', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-			nmap('n', '<leader>Sw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+			nmap('n', '<leader>ld', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+			nmap('n', '<leader>ls', require('telescope.builtin').lsp_document_symbols, '[S]ymbols')
+			nmap('n', '<leader>lf', vim.lsp.buf.format, '[L]sp [F]ormat' )
 
 			-- See `:help K` for why this keymap
 			nmap('n', 'K', vim.lsp.buf.hover, 'Hover Documentation')
 			nmap('i', '<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-			-- Lesser used LSP functionality
-			nmap('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-			nmap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-			nmap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-			nmap('n', '<leader>wl', function()
-				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-			end, '[W]orkspace [L]ist Folders')
+			-- [[ I don't really use workspaces? ]]
+			-- nmap('n', '<leader>Sw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+			-- nmap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+			-- nmap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+			-- nmap('n', '<leader>wl', function()
+			-- 	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+			-- end, '[W]orkspace [L]ist Folders')
 
-			-- Create a command `:Format` local to the LSP buffer
-			vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-				vim.lsp.buf.format()
-			end, { desc = 'Format current buffer with LSP' })
 		end
 
-		-- Enable the following language servers
 		local servers = {
 			clangd = {},
-
-			-- asm_lsp = {
-			-- 	asm = {
-			-- 		syntax = "nasm"
-			-- 	},
-			-- },
 
 			texlab = {},
 
@@ -109,9 +93,9 @@ return {
 			ltex = {
 				ltex = {
 					language = 'en-GB',
-					-- Don't spellcheck markdown files
-					enabled = { "bibtex", "context", "context.tex", "latex", "org", "restructuredtext", "rsweave" },
-				}
+				},
+				-- Don't spellcheck markdown files
+				filetypes = { "bib", "gitcommit", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd", "context", "html", "xhtml", "mail", "text" }
 			}
 		}
 
@@ -127,7 +111,7 @@ return {
 			-- The first entry (without a key) will be the default handler
 			-- and will be called for each installed server that doesn't have
 			-- a dedicated handler.
-			function (server_name) -- default handler (optional)
+			function(server_name) -- default handler (optional)
 				require('lspconfig')[server_name].setup {
 					capabilities = capabilities,
 					on_attach = on_attach,
@@ -137,10 +121,10 @@ return {
 			end,
 
 			-- Next, you can provide targeted overrides for specific servers.
-			["ltex"] = function ()
+			["ltex"] = function()
 				require('lspconfig').ltex.setup {
 					capabilities = capabilities,
-					on_attach = function (client, bufnr)
+					on_attach = function(client, bufnr)
 						on_attach(client, bufnr)
 
 						require("ltex_extra").setup({
@@ -153,10 +137,18 @@ return {
 							log_level = "none",
 						})
 					end,
-					settings = servers.ltex
+					settings = servers.ltex,
+					filetypes = (servers.ltex or {}).filetypes,
 				}
 			end,
 		}
+
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = "rounded",
+		})
+		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+			border = "rounded",
+		})
 
 		-- Ensure the servers above are installed
 		local mason_lspconfig = require('mason-lspconfig')
