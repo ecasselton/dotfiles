@@ -50,7 +50,7 @@
 	# Default text color
 	#
 	# All text defaults to this color if not otherwise specified.
-	text-color = #FFFFFF
+	text-color = #ebdbb2
 
 	# All pieces of text have the same theming attributes available:
 	#
@@ -86,7 +86,7 @@
 	input-background-corner-radius = 0
 
 	# Default result text theme
-	default-result-color = #999999
+	default-result-color = #504b48
 	default-result-background = #00000000
 	default-result-background-padding = 0
 	default-result-background-corner-radius = 0
@@ -102,7 +102,7 @@
 	# alternate-result-background-corner-radius = 0
 
 	# Selection text
-	selection-color = #27B8A9
+	selection-color = #98971a
 	selection-background = #00000000
 	selection-background-padding = 0
 	selection-background-corner-radius = 0
