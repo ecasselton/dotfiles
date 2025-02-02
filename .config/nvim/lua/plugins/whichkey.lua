@@ -13,7 +13,8 @@ return {
 	    { "<leader>d", group = "[D]ebug", icon = "" },
 	    { "<leader>f", group = "[F]ind", icon = ""  },
 	    { "<leader>g", group = "[G]it", icon = "" },
-	    { "<leader>w", group = "[W]orkspace" },
+	    -- { "<leader>w", group = "[W]orkspace" },
+	    { "<leader>l", group = "[L]SP" },
 	    { "<leader>u", icon = "" },
 	    { "\\", group = "vimtex" },
 	}

@@ -46,7 +46,7 @@ return {
             max_file_length = 40000, -- Disable if file is longer than this (in lines)
             preview_config = {
                 -- Options passed to nvim_open_win
-                border = 'single',
+                border = 'rounded',
                 style = 'minimal',
                 relative = 'cursor',
                 row = 0,
@@ -89,7 +89,7 @@ return {
                 map('n', '<leader>gb', gitsigns.toggle_current_line_blame, { desc = '[B]lame line' } )
                 map('n', '<leader>gB', function() gitsigns.blame_line({full = true})end, { desc = '[B]lame line (full)' } )
                 map('n', '<leader>gd', gitsigns.diffthis, { desc = '[D]iff this' } )
-                map('n', '<leader>gD', function() gitsigns.diffthis('~', {"myers"}) end, { desc = '[D]iff buffer' } )
+                map('n', '<leader>gD', function() gitsigns.diffthis('~') end, { desc = '[D]iff buffer' } )
                 -- map('n', '<leader>gd', gitsigns.toggle_deleted)
 
                 -- Text object
