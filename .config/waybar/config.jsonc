@@ -1,0 +1,186 @@
+// -*- mode: jsonc -*-
+{
+    // "layer": "top", // Waybar at top layer
+    // "position": "left", // Waybar position (top|bottom|left|right)
+    "height": 32, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    // "spacing": 0, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+		"hyprland/workspaces",
+    ],
+    "modules-center": [
+		//"custom/left",
+		"clock#date",
+		"custom/clockface",
+		"clock#time"
+		//"custom/right"
+    ],
+    "modules-right": [
+        // "mpd",
+        "tray",
+        "custom/separator",
+        "pulseaudio",
+        "backlight",
+        //"custom/separator",
+        "network",
+        "battery",
+        "custom/separator",
+        "custom/arch"
+        // "custom/power",
+    ],
+    // Modules configuration
+    "custom/separator": {
+        "format": " ",
+        "tooltip": false,
+    },
+    "custom/arch": {
+        "format": "󰣇",
+        "on-click": "wlogout",
+        "tooltip": false,
+    },
+    "custom/clockface": {
+        "format": "{}",
+        "interval": 60,
+        "exec": "/home/elliot/.config/waybar/clock",
+        "tooltip": false,
+    },
+    "hyprland/workspaces": {
+        "sort-by-number": true,
+		//"show-special": true,
+        "format" : "{icon}", 
+		"persistent-workspaces": {
+			"eDP-1": 10,
+			"DP-1": 10,
+			"*": 1,
+		},
+        "format-icons": {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4",
+                "5": "5",
+                "6": "6",
+                "7": "7",
+                "8": "8",
+                "9": "9",
+                "10": "0",
+                "11": "1",
+                "12": "2",
+                "13": "3",
+                "14": "4",
+                "15": "5",
+                "16": "6",
+                "17": "7",
+                "18": "8",
+                "19": "9",
+                "20": "0",
+                "magic": "󰎛",
+        },
+    },
+
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 5,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "tray": {
+        "icon-size": 20,
+        "spacing": 10
+    },
+    "clock#date": {
+        "format": "{:%a %d %b}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%d/%m/%Y}"
+    },
+    "clock#time": {
+        "interval": 60,
+        "format": "{:%I:%M %p}",
+        "tooltip": false,
+        "format-alt": "{:%H:%M:%S}"
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", "", ""],
+        "tooltip-format": "Brightness: {percent}%"
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 10
+        },
+        "format": "{icon}",
+        "format-full": "{icon}",
+        "format-charging": "󰂄",
+        "format-plugged": "",
+        // "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "tooltip-format": "Capacity: {capacity}%\n{timeTo}",
+        "format-icons": ["󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"],
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{icon}",
+        // "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} ({ipaddr}/{cidr}) ",
+        // "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "󰤭",
+        "format-icons" : [ "󰤯", "󰤟", "󰤢", "󰤥", "󰤨" ]
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon}",
+        "format-bluetooth": "{icon}",
+        "format-bluetooth-muted": "{icon}",
+        // "format-source": "",
+        // "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "󱡏",
+            "headset-muted": "󱡐",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["󰸈", "󰕿", "󰕿", "󰕿", "󰖀", "󰖀", "󰖀", "󰕾", "󰕾", "󰕾"],
+            "default-muted": "󰸈",
+        },
+        "on-click": "qpwgraph"
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+}

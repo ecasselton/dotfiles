@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+clocks=(󱐿 󱑀 󱑁 󱑂 󱑃 󱑄 󱑅 󱑆 󱑇 󱑈 󱑉 󱑊)
+
+hour=$(date +%l)
+# minute=$(($(date +%M) / 5))
+# echo ${clocks[$((($hour-2+$minute)%11))]}
+echo ${clocks[$(($hour-1))]}

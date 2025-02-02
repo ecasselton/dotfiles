@@ -1,0 +1,149 @@
+window#waybar {
+	font-family: SymbolsNerdFontMono, JetBrainsMonoNerdFont;
+	font-size: 16px;
+    background-color: #141414; 
+	color: #ebdbc2;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -2px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    background: inherit;
+    /* box-shadow: inset 0 -3px #ffffff; */
+}
+
+#workspaces button {
+    padding: 0 5px;
+	color: #ebdbc2;
+    background-color: transparent;
+    transition-duration: 0s;
+}
+
+#workspaces button:hover {
+    background: #202020;
+}
+
+#workspaces button.empty {
+	color: #333;
+}
+
+#workspaces button.visible {
+    background: #202020;
+	color: #ebdbc2;
+	/*border-top: 4px solid #d79921;*/
+	box-shadow: inset 0 2px #d79921;
+	/*border-bottom: 2px solid transparent;*/
+}
+
+#workspaces button.urgent {
+    border-top: 2px solid #cc241d;
+}
+
+#battery,
+#network,
+#backlight,
+#pulseaudio {
+	padding: 0px 8px;
+	border-top: 2px solid #98971a;
+	color: #ebdbc2;
+}
+
+#tray {
+	margin-right: 16px;
+	padding: 0 8px;
+	border-top: 2px solid #d79921;
+}
+
+#clock {
+	/*background-color: #000;*/
+	/*color: #000;*/
+}
+
+#custom-arch {
+	margin-left: 16px;
+}
+
+#custom-clockface {
+    font-size: 18px;
+	/*background-color: #000;*/
+	/*color: #000000;*/
+}
+
+#clock.time {
+	font-family: DSEG14Modern;
+    padding: 0 16px;
+	margin-right: 16px;
+}
+#clock.date {
+	/*font-family: DSEG14Modern;*/
+    padding: 0 16px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#battery.charging, #battery.plugged {
+    color: #26A65B;
+}
+
+@keyframes blink {
+    to {
+        /* background-color: rgba(#000000, 0); */
+        color: #FFFFFF;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    color: #cc241d;
+    background-color: rgba(0, 0, 0, 0);
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#pulseaudio-slider trough {
+    min-height: 10px;
+    min-width: 80px;
+}
+
+#custom-arch {
+    padding: 0 16px;
+    color: #181818;
+	background-color: #458588;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #cc241d;
+}
