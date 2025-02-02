@@ -21,7 +21,7 @@ return {
 			[[
 			\begin{<>}
 				<>
-			\end{<>}
+			\end{<>
 			]],
 			{ i(1), i(0), rep(1) },
 			{ delimiters = "<>" }
