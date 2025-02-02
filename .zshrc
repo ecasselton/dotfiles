@@ -17,26 +17,17 @@ zstyle :compinstall filename '/home/elliot/.zshrc'
 autoload -Uz compinit
 compinit
 
-# # Lines configured by zsh-newuser-install
+# Lines configured by zsh-newuser-install
 HISTFILE=~/.zhistory
 HISTSIZE=1000
 SAVEHIST=1000
 setopt autocd nomatch
 unsetopt beep extendedglob notify
 bindkey -v
-# # End of lines configured by zsh-newuser-install
+# End of lines configured by zsh-newuser-install
 
 setopt hist_verify
 bindkey ' ' magic-space
-
-# Command not found handler
-# if [ -f /etc/zsh_command_not_found ]; then
-# 	. /etc/zsh_command_not_found
-# 	# Prompt for install
-# 	export COMMAND_NOT_FOUND_INSTALL_PROMPT=1
-# else
-# 	echo "BTW: command-not-found not installed"
-# fi
 
 bindkey '^p' up-history
 bindkey '^n' down-history
@@ -54,7 +45,7 @@ fi
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
-# bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Syntax highlighting
@@ -133,32 +124,52 @@ preexec() { echo -ne '\e[6 q' ;} # Use beam shape cursor for each new prompt.
 
 # ======= Prompt stuff =======
 
-function git_branch() {
+function path_to_git_root() {
+	if git rev-parse --is-inside-work-tree &> /dev/null; then
+		parentdir=$(git rev-parse --show-toplevel | rev | cut -d '/' -f 1 | rev)
+		prefix=$(git rev-parse --show-prefix)
+		if [ $prefix ]; then
+			echo "$parentdir/${prefix:0:${#prefix}-1}"
+		else
+			echo "$parentdir"
+		fi
+	else
+		echo "%~"
+	fi
+}
+
+function prompt_git_branch() {
     branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
     commit=$(git rev-parse HEAD 2> /dev/null | cut -c1-7)
     if [[ $branch != "" ]]; then
-	echo ' (' $branch ' )' 
+		echo '  %B%F{yellow}'$branch '%f%b'
     elif [[ $commit != "" ]]; then
-	echo ' (' $commit ' )'
-    else
-	:
+		echo ' (  '$commit ')'
     fi
 }
 
-function truncated_path() {
-    echo '%48<...<%~%<<'
+function prompt_path() {
+	echo '%B%F{green}'$(path_to_git_root)'%f%b'
+}
+
+function pyvenv_name() {
+	echo '%B%F{green}'$(path_to_git_root)'%f%b'
 }
 
 setopt prompt_subst
+PROMPT_EOL_MARK=$'\033[F\033[F'
 
-PROMPT=' %F{blue}$(truncated_path)%f%F{magenta}$(git_branch)%f %B%F{white}$%f%b '
+# # Add newline before all prompts except the first one
+precmd() { precmd() { print "" } }
+PROMPT='$(prompt_path)$(prompt_git_branch)
+%F{blue}󰣇%f '
 RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
 # Moar colours!
 eval "$(dircolors -b)"
 export LS_COLORS="$LS_COLORS:ow=30;44:" # ls color for folders with 777 permissions
-# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 alias ls='ls -v --color=auto -h --group-directories-first'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -170,13 +181,6 @@ alias ip='ip --color=auto'
 export FZF_DEFAULT_COMMAND="find"
 export FZF_DEFAULT_OPTS="--layout=reverse --height=40% --inline-info --border"
 alias cdi='cd ./$(fd -Ht d 2>/dev/null | fzf)'
-function cdmk {
-    if [[ ! -d $1 ]]; then
-	echo "'$1' doesn't exist, creating it..."
-	mkdir -p $1
-    fi
-    cd $1
-}
 
 # other aliases
 alias la='ls -lAv'
@@ -192,11 +196,4 @@ calc() {
     python3 -c "from math import *; print($1)"
 }
 
-stopwatch() {
-    clear
-    start=$(date +%s)
-    while true; do
-	time="$(($(date +%s) - $start))"
-	printf '%s\r ' "$(date -u -d "@$time" +%H:%M:%S)"
-    done
-}
+sched +1 "unset PROMPT_EOL_MARK" &>/dev/null
