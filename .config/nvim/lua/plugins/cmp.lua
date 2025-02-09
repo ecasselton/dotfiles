@@ -71,7 +71,6 @@ return {
 			sources = {
 				{ name = 'vimtex' },
 				{ name = 'buffer' },
-				-- other sources
 			},
 		})
 

@@ -120,3 +120,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = highlight_group,
     pattern = '*',
 })
+
+-- [[ Force write if inside OneDrive ]]
+-- This forces neovim to ignore the modified time, caused by onedrive-abraunegg
+vim.api.nvim_create_autocmd('BufWriteCmd', {
+	callback = function()
+		local isOneDriveFile = string.find(vim.api.nvim_buf_get_name(0), "OneDrive")
+		if isOneDriveFile then
+			vim.cmd("write!")
+		else
+			vim.cmd("write")
+		end
+	end
+})
