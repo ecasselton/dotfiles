@@ -23,6 +23,10 @@
     "modules": [
         {
             "type": "os",
+            //"separator": "~",
+        },
+        {
+            "type": "kernel",
             "separator": "~",
         },
         {
