@@ -1,55 +1,26 @@
 -- Must happen before plugins and remaps are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
+
 vim.o.termguicolors = true
-
--- [[ Setting options ]]
--- Unset highlight on search
 vim.o.hlsearch = false
-
--- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = true
-
--- Sync clipboard between OS and Neovim.
--- vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
 vim.o.breakindent = true
-
--- Save undo history
 vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
--- Keep signcolumn on by default
+vim.o.timeout = false
 vim.wo.signcolumn = 'yes'
-
--- Decrease update time
 vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone'
-
--- Set tab to be width of 4 spaces by default
 vim.o.softtabstop = 4
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-
--- Scroll buffer before cursor reaches the end
 vim.o.scrolloff = 6
-
--- Word wrap settings
 vim.o.wrap = false
 vim.o.linebreak = true
-
--- Vertical Line
 -- vim.o.colorcolumn = '80'
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
@@ -57,8 +28,8 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '[d', function () vim.diagnostic.jump({count=1, float=true}) end, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', function () vim.diagnostic.jump({count=-1, float=true}) end, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>q', function () vim.diagnostic.open_float({ border = 'rounded' }) end, { desc = 'Open floating diagnostic message' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
@@ -83,17 +54,20 @@ vim.keymap.set({"n", "v"}, "<leader>Y", '"+y$')
 vim.cmd("cabbrev s/ s/\\v")
 vim.cmd("cabbrev %s/ %s/\\v")
 
--- [[ Install `lazy.nvim` plugin manager ]]
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system {
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
-        lazypath,
-    }
+-- [[ Bootstrap lazy.nvim ]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
 end
 
 vim.opt.rtp:prepend(lazypath)

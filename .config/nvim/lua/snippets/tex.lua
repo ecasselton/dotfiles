@@ -11,20 +11,4 @@ local rep = require("luasnip.extras").rep
 
 return {
 	-- trigger is `fn`, second argument to snippet-constructor are the nodes to insert into the buffer on expansion.
-	require("luasnip").snippet(
-		{
-			name = "\\begin{env}",
-			trig = "\\begin{",
-			snippetType = "autosnippet"
-		},
-		fmt(
-			[[
-			\begin{<>}
-				<>
-			\end{<>
-			]],
-			{ i(1), i(0), rep(1) },
-			{ delimiters = "<>" }
-		)
-	)
 }
