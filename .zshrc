@@ -27,6 +27,7 @@ bindkey -v
 # End of lines configured by zsh-newuser-install
 
 setopt hist_verify
+setopt histignoredups
 bindkey ' ' magic-space
 
 bindkey '^p' up-history
@@ -99,28 +100,7 @@ fi
 
 
 # Vim-mode improvements
-. ~/repos/zsh-vim-mode/zsh-vim-mode.plugin.zsh
-
-bindkey -rpM viins '\e\e'
-
-# Change the cursor type depending on vi-mode
-function zle-keymap-select () {
-case $KEYMAP in
-    vicmd) echo -ne '\e[2 q';; # block
-    viopt) echo -ne '\e[2 q';; # block
-    viins|main) echo -ne '\e[6 q';; # beam
-esac
-}
-
-zle -N zle-keymap-select
-zle-line-init() {
-echo -ne "\e[6 q"
-}
-
-zle -N zle-line-init
-
-echo -ne '\e[6 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[6 q' ;} # Use beam shape cursor for each new prompt.
+. /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # ======= Prompt stuff =======
 
@@ -157,7 +137,7 @@ function pyvenv_name() {
 }
 
 setopt prompt_subst
-PROMPT_EOL_MARK=$'\033[F\033[F'
+PROMPT_EOL_MARK=$'\033[F'
 
 # # Add newline before all prompts except the first one
 precmd() { precmd() { print "" } }
@@ -170,7 +150,6 @@ eval "$(dircolors -b)"
 export LS_COLORS="$LS_COLORS:ow=30;44:" # ls color for folders with 777 permissions
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-alias ls='ls -v --color=auto -h --group-directories-first'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -180,17 +159,33 @@ alias ip='ip --color=auto'
 # better cd
 export FZF_DEFAULT_COMMAND="find"
 export FZF_DEFAULT_OPTS="--layout=reverse --height=40% --inline-info --border"
-alias cdi='cd ./$(fd -Ht d 2>/dev/null | fzf)'
+alias cdi='cd "./$(fd -Ht d 2>/dev/null | fzf)"'
+
+# ls/eza aliases
+alias ls='exa --group-directories-first'
+alias la='exa -la --group-directories-first'
+lt() {
+	if [ ${1} ]; then
+		exa --tree -L $1
+	else
+		exa --tree
+	fi
+}
 
 # other aliases
-alias la='ls -lAv'
 alias vim=nvim
-alias dotfiles='/usr/bin/git --git-dir ~/.dotfiles/  --work-tree ~'
-alias history='history 0'
+alias dotfiles='/usr/bin/git --git-dir ~/.dotfiles/ --work-tree ~'
 alias matrix='unimatrix --speed=95 --character-list=k --color=green'
+alias mkdir='mkdir -p'
+mkcd() {
+	mkdir -p $1
+	cd $1
+}
+alias please=sudo
+alias img=qimgv
 
 # Tetris lol
-autoload -Uz tetriscurses
+# autoload -Uz tetriscurses
 
 calc() {
     python3 -c "from math import *; print($1)"
