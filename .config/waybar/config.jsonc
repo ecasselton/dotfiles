@@ -112,7 +112,6 @@
     "clock#date": {
         "format": "{:%a %d %b}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%d/%m/%Y}"
     },
     "clock#time": {
         "interval": 60,
@@ -135,12 +134,13 @@
         "format": "{icon}",
         "format-full": "{icon}",
         "format-charging": "󰂄",
-        "format-plugged": "",
+        //"format-plugged": "",
         // "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "tooltip-format": "Capacity: {capacity}%\n{timeTo}",
         "format-icons": ["󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"],
+		"interval": 5,
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
