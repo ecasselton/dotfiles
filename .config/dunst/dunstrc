@@ -100,7 +100,7 @@
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 2
+    frame_width = 1
 
     # Defines color of the frame around the notification window.
     frame_color = "#aaaaaa"
@@ -264,7 +264,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 10
+    corner_radius = 4
 
     # Define which corners to round when drawing the window. If the corner radius
     # is set to 0 this option will be ignored.
@@ -334,7 +334,7 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#22222288"
+    background = "#10101088"
     foreground = "#dddddd"
     highlight = "#00a2a2"
     frame_color = "#aaaaaa"
@@ -343,7 +343,7 @@
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#e0eff4dd"
+    background = "#e0eff488"
     foreground = "#222222"
     frame_color = "#0D8EB3"
     timeout = 10
