@@ -1,5 +1,6 @@
 return {
 	'neovim/nvim-lspconfig',
+
 	lazy = false,
 	dependencies = {
 		'williamboman/mason.nvim',
@@ -36,16 +37,16 @@ return {
 	config = function()
 		-- [[ Configure LSP ]]
 		--  This function gets run when an LSP connects to a particular buffer.
-		local on_attach = function(_, bufnr)
-			local nmap = function(mode, keys, func, desc)
+		local function on_attach(_, bufnr)
+			local function nmap(mode, keys, func, desc)
 				vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
 			end
 
 			nmap('n', '<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
 			nmap('n', '<leader>la', vim.lsp.buf.code_action, '[L]SP code [A]ctions')
 
-			nmap('n', 'gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-			nmap('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+			nmap('n', 'gd', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+			nmap('n', 'gD', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 			nmap('n', 'gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 			nmap('n', 'gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 			nmap('n', '<leader>ld', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
@@ -143,12 +144,12 @@ return {
 			end,
 		}
 
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-			border = "rounded",
-		})
-		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-			border = "rounded",
-		})
+		-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+		-- 	border = "rounded",
+		-- })
+		-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+		-- 	border = "rounded",
+		-- })
 
 		-- Ensure the servers above are installed
 		local mason_lspconfig = require('mason-lspconfig')

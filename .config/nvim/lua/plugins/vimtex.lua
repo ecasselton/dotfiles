@@ -12,5 +12,6 @@ return {
 
 		vim.g.Tex_DefaultTargetFormat = 'pdf'
 		vim.g.Tex_MultipleCompileFormats ='pdf,bibtex,pdf'
+		vim.g.vimtex_imaps_leader = '<C-i>'
 	end
 }
