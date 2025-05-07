@@ -7,3 +7,4 @@ export KEYTIMEOUT=1
 export PYTHONPATH="/home/elliot/OneDrive/Programming/CipherChallenge"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export MANPAGER="nvim +Man!"
+export DIFFPROG="nvim -d"
