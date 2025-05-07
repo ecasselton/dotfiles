@@ -108,40 +108,29 @@ return {
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-		local handlers = {
-			-- The first entry (without a key) will be the default handler
-			-- and will be called for each installed server that doesn't have
-			-- a dedicated handler.
-			function(server_name) -- default handler (optional)
-				require('lspconfig')[server_name].setup {
-					capabilities = capabilities,
-					on_attach = on_attach,
-					settings = servers[server_name],
-					filetypes = (servers[server_name] or {}).filetypes,
-				}
+		vim.lsp.config("*", {
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+		vim.tbl_deep_extend('force', vim.lsp.config, servers)
+
+		vim.lsp.config.ltex = {
+			capabilities = capabilities,
+			on_attach = function(client, bufnr)
+				on_attach(client, bufnr)
+
+				require("ltex_extra").setup({
+					load_langs = { "en-GB" }, -- en-US as default
+
+					init_check = true,
+
+					path = vim.fn.expand("~") .. "/.local/share/ltex", -- Default is "" which means project root or current working directory
+					-- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
+					log_level = "none",
+				})
 			end,
-
-			-- Next, you can provide targeted overrides for specific servers.
-			["ltex"] = function()
-				require('lspconfig').ltex.setup {
-					capabilities = capabilities,
-					on_attach = function(client, bufnr)
-						on_attach(client, bufnr)
-
-						require("ltex_extra").setup({
-							load_langs = { "en-GB" }, -- en-US as default
-
-							init_check = true,
-
-							path = vim.fn.expand("~") .. "/.local/share/ltex", -- Default is "" which means project root or current working directory
-							-- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
-							log_level = "none",
-						})
-					end,
-					settings = servers.ltex,
-					filetypes = (servers.ltex or {}).filetypes,
-				}
-			end,
+			settings = servers.ltex,
+			filetypes = (servers.ltex or {}).filetypes,
 		}
 
 		-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -155,7 +144,6 @@ return {
 		local mason_lspconfig = require('mason-lspconfig')
 
 		mason_lspconfig.setup({ ensure_installed = vim.tbl_keys(servers) })
-		mason_lspconfig.setup_handlers(handlers)
 
 		require('lspconfig.ui.windows').default_options = {
 			border = 'rounded',
