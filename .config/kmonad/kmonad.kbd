@@ -15,15 +15,15 @@
 	caps_remap (tap-hold 180 esc lctl)
 
 	#| homerow mods |#
-    alt_a (tap-hold-next-release 180 a ralt)
+    alt_a (tap-hold-next-release 180 a lalt)
     met_s (tap-hold-next-release 180 s lmet)
     ctl_d (tap-hold-next-release 180 d lctl)
     sft_f (tap-hold-next-release 180 f lsft)
-	sym_g (tap-next g (layer-toggle symbols))
-	sym_h (tap-next h (layer-toggle symbols))
+	sym_g (tap-next-release g (layer-toggle symbols))
+	sym_h (tap-next-release h (layer-toggle symbols))
     sft_j (tap-hold-next-release 180 j rsft)
     ctl_k (tap-hold-next-release 180 k rctl)
-    met_l (tap-hold-next-release 180 l lmet)
+    met_l (tap-hold-next-release 180 l rmet)
     alt_; (tap-hold-next-release 180 ; ralt)
 
 )
