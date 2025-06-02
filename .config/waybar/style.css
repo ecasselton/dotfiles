@@ -72,10 +72,6 @@ button:hover {
 	/*color: #000;*/
 }
 
-#custom-arch {
-	margin-left: 16px;
-}
-
 #custom-clockface {
     font-size: 18px;
 	/*background-color: #000;*/
@@ -134,7 +130,8 @@ label:focus {
 }
 
 #custom-arch {
-    padding: 0 16px;
+	margin-left: 16px;
+    padding: 0 18px;
     color: #181818;
 	background-color: #458588;
 }

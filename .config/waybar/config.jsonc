@@ -47,13 +47,12 @@
     },
     "hyprland/workspaces": {
         "sort-by-number": true,
-		//"show-special": true,
+		// "show-special": true,
         "format" : "{icon}", 
 		"persistent-workspaces": {
-			"eDP-1": 10,
-			"DP-1": 10,
-			"*": 1,
+			"*": 10,
 		},
+		"all-outputs": false,
         "format-icons": {
                 "1": "1",
                 "2": "2",
