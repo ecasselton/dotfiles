@@ -1,0 +1,76 @@
+(defcfg
+  input	(device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink "KMonad laptop keyboard")
+  fallthrough true
+  implicit-around around-only
+)
+
+(defsrc
+  esc  q w e r t y u i o p bspc
+  caps a s d f g h j k l ; ret
+  102d z x c v b n m , . /
+  alt space ralt
+)
+
+(defalias
+	#| caps lock to escape |#
+	caps_remap (tap-hold 200 esc (layer-toggle func))
+
+	pipe S-102d
+
+	xor S-6
+	and S-7
+	not S-\\
+
+	less S-,
+	more S-.
+	undr S--
+	excl S-1
+	plus S-=
+	mult S-8
+	
+	#| Define that equals starts by releasing the key.
+		This ensures that rolling += works, because they are both on the same 'key'. |#
+	eqls (tap-macro (release-only =) =)
+
+	#| homerow mods |#
+    base_lalt (tap-hold-next-release 200 a alt)
+    base_lctl (tap-hold-next-release 200 s lctl)
+    base_lsft (tap-hold-next-release 200 d lsft)
+    base_lmet (tap-hold-next-release 200 f lmet)
+    base_rmet (tap-hold-next-release 200 j rmet)
+    base_rsft (tap-hold-next-release 200 k rsft)
+    base_rctl (tap-hold-next-release 200 l rctl)
+    base_ralt (tap-hold-next-release 200 ; alt)
+	base_sym (tap-hold-next-release 200 space (layer-toggle symbols))
+
+    sym_lalt (tap-hold-next-release 200 @less alt)
+    sym_lctl (tap-hold-next-release 200 - lctl)
+    sym_lsft (tap-hold-next-release 200 @more lsft)
+    sym_lmet (tap-hold-next-release 200 @undr lmet)
+    sym_rmet (tap-hold-next-release 200 \) rmet)
+    sym_rsft (tap-hold-next-release 200 @ rsft)
+    sym_rctl (tap-hold-next-release 200 ' rctl)
+    sym_ralt (tap-hold-next-release 200 \( alt)
+)
+
+(deflayer base
+	caps _ _ _ _ _ _ _ _ _ _ rsft
+    @caps_remap   @base_lalt @base_lctl @base_lsft @base_lmet _ _ @base_rmet @base_rsft @base_rctl @base_ralt rsft
+	z x b c v 102d _ _ _ _ _
+	ret @base_sym bspc
+)
+
+(deflayer symbols
+		   caps @xor @pipe @and  @not _ _  ] } {  [ rsft
+	@caps_remap @sym_lalt @sym_lctl @sym_lsft @sym_lmet _ _ @sym_rmet @sym_rsft @sym_rctl @sym_ralt rsft
+	        @excl @plus @mult @eqls _ _ _  $ \ %  "
+			ret _ bspc
+)
+
+(deflayer func
+	caps _ _ _ _ _ _ _ _ _ _ rsft
+	_ _ _ _ _ _ left down up right bspc rsft
+	_ _ _ _ _ _ _ _ _ _ _
+	ret _ bspc
+)
