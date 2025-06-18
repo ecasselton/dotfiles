@@ -1,8 +1,5 @@
 # Colors (Gruvbox dark)
 
-[window]
-opacity = 0.75
-
 [colors.primary]
 background = '#101010'
 foreground = '#ebdbb2'

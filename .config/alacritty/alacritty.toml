@@ -9,6 +9,7 @@ WINIT_X11_SCALE_FACTOR = "1.0"
 [window]
 padding = { x = 1, y = 1 }
 dynamic_padding = true
+opacity = 0.75
 
 [font]
 size = 15
