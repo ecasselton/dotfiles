@@ -1,7 +1,6 @@
 return {
-	dir = '~/repos/polarbare.nvim',
+	dir = '~/git/polarbare.nvim',
+	event = "VeryLazy",
 	dev = { true },
-	config = function()
-		require('polarbare').setup()
-	end
+	opts = {},
 }

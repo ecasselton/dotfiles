@@ -2,18 +2,18 @@
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 return {
-    -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
         'nvim-treesitter/nvim-treesitter-context',
     },
     build = ':TSUpdate',
+	event = "VeryLazy",
 
-    config = vim.defer_fn(function()
+    config = function()
         require('nvim-treesitter.configs').setup {
             -- Add languages to be installed here that you want installed for treesitter
-            ensure_installed = { 'c', 'c_sharp', 'lua', 'python', 'bash' },--, 'markdown', 'markdown_inline' ,
+            ensure_installed = { 'c', 'c_sharp', 'lua', 'python', 'bash' },
 
             -- Add languages to be ignored here (when ensure_installed = all)
             ignore_install = { "latex" },
@@ -97,5 +97,5 @@ return {
             zindex = 20, -- The Z-index of the context window
             on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
         }
-    end, 0)
+    end,
 }

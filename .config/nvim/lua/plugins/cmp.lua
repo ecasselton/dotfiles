@@ -1,6 +1,7 @@
 return {
 	-- Autocompletion
 	'hrsh7th/nvim-cmp',
+	event = "VeryLazy",
 	dependencies = {
 		-- Adds LSP completion capabilities
 		'hrsh7th/cmp-nvim-lsp',

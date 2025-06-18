@@ -1,6 +1,7 @@
 return {
 	"L3MON4D3/LuaSnip",
 
+	event = "VeryLazy",
 	-- follow latest release.
 	version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 
@@ -14,7 +15,7 @@ return {
 			enable_autosnippets = true
 		})
 
-		vim.keymap.set({"i"}, "<C-l>", function()
+		vim.keymap.set({"i"}, "<C-j>", function()
 			if ls.expand_or_jumpable() then
 				ls.expand_or_jump()
 			end
@@ -24,7 +25,7 @@ return {
 			ls.jump(-1)
 		end, {silent = true})
 
-		vim.keymap.set({"i", "s"}, "<C-E>", function()
+		vim.keymap.set({"i", "s"}, "<C-e>", function()
 			if ls.choice_active() then
 				ls.change_choice(1)
 			end

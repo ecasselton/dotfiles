@@ -1,5 +1,6 @@
 return {
 	'nvim-lualine/lualine.nvim',
+	event = "VeryLazy",
 
     config = function ()
         local gruvbox = require('lualine.themes.gruvbox_dark')
@@ -16,11 +17,11 @@ return {
         require('lualine').setup {
             options = {
                 icons_enabled = true,
-                theme = gruvbox,
-                -- component_separators = { left = '', right = ''},
-                -- section_separators = { left = '', right = ''},
-                component_separators = { right = '', left = '' },
-                section_separators = { right = '', left = '' },
+                theme = "auto",
+                component_separators = { left = '', right = ''},
+                section_separators = { left = '', right = ''},
+                -- component_separators = { right = '', left = '' },
+                -- section_separators = { right = '', left = '' },
                 disabled_filetypes = {
                     statusline = {},
                     winbar = {},

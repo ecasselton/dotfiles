@@ -1,6 +1,7 @@
 return {
 	'nvim-telescope/telescope.nvim',
 	branch = "0.1.x",
+	event = "VeryLazy",
 	dependencies = {
 		'nvim-lua/plenary.nvim',
 		'nvim-tree/nvim-web-devicons',
@@ -73,7 +74,7 @@ return {
 		vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch in [H]elp' })
 		vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 		vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-		vim.keymap.set('n', '<leader>gg', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
+		vim.keymap.set('n', '<leader>gg', '<cmd>LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
 		vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_files, { desc = '[S]earch [G]it' })
 		vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 		vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
@@ -84,6 +85,7 @@ return {
 			mappings = {
 			},
 			defaults = {
+				border = true,
 				layout_strategy = "flex",
 				layout_config = {
 					horizontal = {

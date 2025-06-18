@@ -1,8 +1,8 @@
 -- Must happen before plugins and remaps are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 vim.o.termguicolors = true
-vim.o.hlsearch = false
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.breakindent = true
@@ -19,9 +19,11 @@ vim.o.shiftwidth = 4
 vim.o.scrolloff = 6
 vim.o.wrap = false
 vim.o.linebreak = true
+vim.o.winborder = 'rounded'
 -- vim.o.colorcolumn = '80'
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+-- Turn off search highlight with esc
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -36,6 +38,8 @@ vim.keymap.set('n', '<leader>q', function () vim.diagnostic.open_float({ border 
 -- Don't get dizzy when jumping
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-f>", "<C-f>zz")
+vim.keymap.set("n", "<C-b>", "<C-b>zz")
 
 -- Move text in visual mode with J and K
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -50,9 +54,14 @@ vim.keymap.set({"n", "v"}, "<leader>y", '"+y')
 vim.keymap.set({"n", "v"}, "<leader>Y", '"+y$')
 -- vim.loader.enable()
 
--- Use ere for substitute commands
-vim.cmd("cabbrev s/ s/\\v")
-vim.cmd("cabbrev %s/ %s/\\v")
+-- Use extended regex for substitute commands
+-- vim.cmd("cabbrev s s/\\v")
+-- vim.cmd("cabbrev %s %s/\\v<BS>")
+
+-- Keybinds for marks
+for v = 65, 65+25  do
+	vim.keymap.set("n", "<M-"..string.char(v+32)..">", '`'..string.char(v))
+end
 
 -- [[ Bootstrap lazy.nvim ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -73,14 +82,15 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure plugins ]]
-require('lazy').setup({
-    'eandrju/cellular-automaton.nvim',
-    'theprimeagen/vim-be-good',
-    'tpope/vim-fugitive',
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+require('lazy').setup(
+	{
 
-    { import = 'plugins' }
-}, {})
+		{ import = 'plugins' }
+	},
+	{
+		ui = { border = "rounded" }
+	}
+)
 
 
 -- [[ Highlight on yank ]]

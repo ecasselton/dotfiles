@@ -1,6 +1,7 @@
 return {
 	'lervag/vimtex',
 	lazy = false,
+	event = "VeryLazy",
 
 	config = function()
 		vim.g.vimtex_mappings_prefix = '\\'

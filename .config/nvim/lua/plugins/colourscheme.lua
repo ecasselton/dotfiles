@@ -1,28 +1,14 @@
-local nightfox = function ()
+local nightfox = function()
 	return {
 		"EdenEast/nightfox.nvim",
 
 		config = function()
 			require("nightfox").setup({
 				options = {
-					-- Compiled file's destination location
-					-- compile_path = vim.fn.stdpath("cache") .. "/nightfox",
-					-- compile_file_suffix = "_compiled", -- Compiled file suffix
-					transparent = true,     -- Disable setting background
-					terminal_colors = true,  -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-					dim_inactive = false,    -- Non focused panes set to alternative background
-					module_default = true,   -- Default enable value for modules
-					colorblind = {
-						enable = false,        -- Enable colorblind support
-						simulate_only = false, -- Only show simulated colorblind colors and not diff shifted
-						severity = {
-							-- protan = 0,          -- Severity [0,1] for protan (red)
-							-- deutan = 0,          -- Severity [0,1] for deutan (green)
-							-- tritan = 1,          -- Severity [0,1] for tritan (blue)
-						},
-					},
-					styles = {               -- Style to be applied to different syntax groups
-						comments = "NONE",     -- Value is any valid attr-list value `:help attr-list`
+					transparent = true, -- Disable setting background
+					dim_inactive = false, -- Non focused panes set to alternative background
+					styles = { -- Style to be applied to different syntax groups
+						comments = "italic", -- Value is any valid attr-list value `:help attr-list`
 						conditionals = "NONE",
 						constants = "NONE",
 						functions = "NONE",
@@ -33,22 +19,22 @@ local nightfox = function ()
 						types = "NONE",
 						variables = "NONE",
 					},
-					inverse = {             -- Inverse highlight for different types
+					inverse = {
 						match_paren = false,
 						visual = false,
 						search = false,
 					},
-					modules = {             -- List of various plugins and additional options
-						-- ...
-					},
 				},
 				palettes = {},
 				specs = {},
-				groups = {},
+				groups = {
+					all = {
+						-- ["@variable"] = { fg = "fg2" }, -- Non-current windows
+					},
+				},
 			})
 
-			-- setup must be called before loading
-			vim.cmd("colorscheme terafox")
+			vim.cmd.colorscheme("terafox")
 		end,
 	}
 end
@@ -60,48 +46,35 @@ local rosepine = function()
 		config = function()
 			require("rose-pine").setup({
 				styles = {
-					bold = true,
+					bold = false,
 					italic = false,
 					transparency = true,
 				},
 
-				groups = {
-					border = "muted",
-					link = "iris",
-					panel = "surface",
-
-					error = "love",
-					hint = "iris",
-					info = "foam",
-					note = "pine",
-					todo = "rose",
-					warn = "gold",
-
-					git_add = "foam",
-					git_change = "rose",
-					git_delete = "love",
-					git_dirty = "rose",
-					git_ignore = "muted",
-					git_merge = "iris",
-					git_rename = "pine",
-					git_stage = "iris",
-					git_text = "rose",
-					git_untracked = "subtle",
-
-					h1 = "pine",
-					h2 = "iris",
-					h3 = "gold",
-					h4 = "rose",
-					h5 = "foam",
-					h6 = "subtle",
+				palette = {
+					main = {
+						foam = "#8dc0c9",
+						rose = "#d7827e",
+						gold = "#ea9d34",
+						iris = "#b497e7",
+					},
 				},
 
 				highlight_groups = {
 					Comment = { italic = true },
+					["@variable"] = { fg = "#d5eef2" },
+					TreesitterContext = { bg = "base" }
 				},
+				-- before_highlight = function(group, highlight, palette)
+				-- 	-- Change palette colour
+				-- 	if highlight.fg == palette.love then
+				-- 	    highlight.fg = palette.foam
+				-- 	end
+				-- end,
 			})
-			vim.cmd("colorscheme rose-pine")
-			-- vim.cmd("colorscheme rose-pine-main")
+
+			-- vim.cmd("colorscheme rose-pine")
+			vim.cmd("colorscheme rose-pine-main")
 			-- vim.cmd("colorscheme rose-pine-moon")
 			-- vim.cmd("colorscheme rose-pine-dawn")
 		end
@@ -136,7 +109,7 @@ local tokyonight = function()
 				transparent = true,
 				styles = {
 					keywords = { italic = false },
-					-- floats = "transparent",
+					floats = "transparent",
 				},
 				lualine_bold = true,
 			})
@@ -145,19 +118,4 @@ local tokyonight = function()
 	}
 end
 
-local neosolarized = function()
-	return {
-		"Tsuzat/NeoSolarized.nvim",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
-			vim.cmd [[ colorscheme NeoSolarized ]]
-			require("NeoSolarized").setup({
-				style = "dark",
-				transparent = true,
-			})
-		end
-	}
-end
-
-return gruvbox()
+return rosepine()
