@@ -1,3 +1,5 @@
+sched +1 'unset PROMPT_EOL_MARK'
+
 # Completions
 zstyle ':completion:*' completer _expand _complete _ignored _correct 
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
@@ -30,8 +32,8 @@ setopt hist_verify
 setopt histignoredups
 bindkey ' ' magic-space
 
-bindkey '^p' up-history
-bindkey '^n' down-history
+bindkey '^k' up-history
+bindkey '^j' down-history
 bindkey '^l' autosuggest-accept
 
 # Fish-like autocompletion (using history)
@@ -122,9 +124,9 @@ function prompt_git_branch() {
     branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
     commit=$(git rev-parse HEAD 2> /dev/null | cut -c1-7)
     if [[ $branch != "" ]]; then
-		echo '  %B%F{yellow}'$branch '%f%b'
+		echo ' : %B%F{yellow}'$branch' %f%b'
     elif [[ $commit != "" ]]; then
-		echo ' (  '$commit ')'
+		echo ' : %B%F{yellow}'$commit' %f%b'
     fi
 }
 
@@ -139,10 +141,9 @@ function pyvenv_name() {
 setopt prompt_subst
 PROMPT_EOL_MARK=$'\033[F'
 
-# # Add newline before all prompts except the first one
-precmd() { precmd() { print "" } }
-PROMPT='$(prompt_path)$(prompt_git_branch)
-%F{blue}󰣇%f '
+# Add newline before all prompts except the first one
+# precmd() { precmd() { print "" } }
+PROMPT='$(prompt_path)$(prompt_git_branch) %F{blue}󰣇%f '
 RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
 # Moar colours!
@@ -163,6 +164,7 @@ alias cdi='cd "./$(fd -Ht d 2>/dev/null | fzf)"'
 
 # ls/eza aliases
 alias ls='exa --group-directories-first'
+alias li='exa -l --group-directories-first'
 alias la='exa -la --group-directories-first'
 lt() {
 	if [ ${1} ]; then
@@ -183,6 +185,7 @@ mkcd() {
 }
 alias please=sudo
 alias img=qimgv
+alias history="history 0"
 
 # Tetris lol
 # autoload -Uz tetriscurses
@@ -190,5 +193,3 @@ alias img=qimgv
 calc() {
     python3 -c "from math import *; print($1)"
 }
-
-sched +1 "unset PROMPT_EOL_MARK" &>/dev/null
