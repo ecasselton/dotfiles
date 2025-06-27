@@ -1,5 +1,3 @@
-sched +1 'unset PROMPT_EOL_MARK'
-
 # Completions
 zstyle ':completion:*' completer _expand _complete _ignored _correct 
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
@@ -25,16 +23,11 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt autocd nomatch
 unsetopt beep extendedglob notify
-bindkey -v
+# bindkey -v
 # End of lines configured by zsh-newuser-install
 
-setopt hist_verify
-setopt histignoredups
-bindkey ' ' magic-space
-
-bindkey '^k' up-history
-bindkey '^j' down-history
-bindkey '^l' autosuggest-accept
+# Vim-mode improvements
+source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # Fish-like autocompletion (using history)
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -100,9 +93,11 @@ else
     echo "BTW: zsh-syntax-highlighting not installed"
 fi
 
+setopt hist_verify
+setopt histignoredups
+bindkey ' ' magic-space
 
-# Vim-mode improvements
-. /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+bindkey '^L' autosuggest-accept
 
 # ======= Prompt stuff =======
 
@@ -139,7 +134,6 @@ function pyvenv_name() {
 }
 
 setopt prompt_subst
-PROMPT_EOL_MARK=$'\033[F'
 
 # Add newline before all prompts except the first one
 # precmd() { precmd() { print "" } }
@@ -166,13 +160,14 @@ alias cdi='cd "./$(fd -Ht d 2>/dev/null | fzf)"'
 alias ls='exa --group-directories-first'
 alias li='exa -l --group-directories-first'
 alias la='exa -la --group-directories-first'
-lt() {
-	if [ ${1} ]; then
-		exa --tree -L $1
-	else
-		exa --tree
-	fi
-}
+alias lt='exa --tree'
+# lt() {
+# 	if [ ${1} -ge 48 && ${1} -lt 58 ]; then
+# 		exa --tree -L $1
+# 	else
+# 		exa --tree
+# 	fi
+# }
 
 # other aliases
 alias vim=nvim
