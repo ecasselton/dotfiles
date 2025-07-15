@@ -1,5 +1,5 @@
 return {
-	dir = '~/git/polarbare.nvim',
+	dir = '~/dev/polarbare.nvim',
 	event = "VeryLazy",
 	dev = { true },
 	opts = {},

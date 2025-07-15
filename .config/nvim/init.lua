@@ -59,9 +59,9 @@ vim.keymap.set({"n", "v"}, "<leader>Y", '"+y$')
 -- vim.cmd("cabbrev %s %s/\\v<BS>")
 
 -- Keybinds for marks
-for v = 65, 65+25  do
-	vim.keymap.set("n", "<M-"..string.char(v+32)..">", '`'..string.char(v))
-end
+-- for v = 65, 65+25  do
+-- 	vim.keymap.set("n", "<M-"..string.char(v+32)..">", '`'..string.char(v))
+-- end
 
 -- [[ Bootstrap lazy.nvim ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

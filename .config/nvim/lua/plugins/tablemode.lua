@@ -1,7 +1,5 @@
 return {
 	"dhruvasagar/vim-table-mode",
 	ft = { "norg", "markdown" },
-	config = function()
-		vim.keymap.set("i", "__", '<cmd>TableModeToggle<cr>')
-	end
+	keys = { "__", '<cmd>TableModeToggle<cr>', 'i' },
 }
