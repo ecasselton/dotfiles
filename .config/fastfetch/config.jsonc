@@ -3,11 +3,11 @@
 	"logo": {
         "source": "~/.config/fastfetch/arch.sixel",
         "type": "raw",
-        "height": 15,
-        "width": 30,
+        "height": 16,
+        "width": 36,
         "padding": {
-            "top": 4,
-            "left": 3
+            "top": 6,
+            "left": 2
         }
     },
 	"display": {
