@@ -1,29 +1,29 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-# This is the example configuration file for river.
-#
-# If you wish to edit this, you will probably want to copy it to
-# $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
-#
-# See the river(1), riverctl(1), and rivertile(1) man pages for complete
-# documentation.
-
-# Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
-
-# Autostart
+# ====== Autostart =======
 if !(pidof -q waybar); then
 	riverctl spawn waybar
 fi
 
+riverctl spawn "foot --server"
+
+# Manage outputs dynamically
+if !(pidof -q kanshi); then
+	riverctl spawn kanshi
+fi
+
+riverctl spawn LibreWolf
+
 # ====== Application bindings =======
-riverctl map normal Super+Shift Escape spawn alacritty
-riverctl map normal Super Escape spawn foot
+riverctl map normal Super Escape spawn "footclient tmux"
+riverctl map normal Super+Shift Escape spawn foot
 riverctl map normal Super B spawn librewolf
+riverctl map normal Super N spawn "if !(pidof -q gammastep); then gammastep -O 4500; else pkill gammastep; fi"
+riverctl map normal Super E spawn dolphin
 
 # ====== Window bindings ======
 riverctl map normal Super Q close
-riverctl map normal Super Z toggle-fullscreen
-riverctl map normal Super+Shift E exit
+riverctl map normal Super F toggle-fullscreen
 
 riverctl map normal Super J focus-view next
 riverctl map normal Super K focus-view previous
@@ -33,33 +33,40 @@ riverctl map normal Super+Shift K swap previous
 riverctl map normal Super Space focus-output next
 riverctl map normal Super+Shift Space send-to-output next
 
-riverctl map normal Super Return zoom
+riverctl map normal Super Z zoom
 
 riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count +1"
+
+# ====== Floating mode =======
+riverctl declare-mode float
+riverctl map normal Super R enter-mode float
+riverctl map float Super R enter-mode normal
+riverctl map float None Escape enter-mode normal
+
+riverctl map-pointer float Super BTN_MIDDLE toggle-float
+riverctl map float Super T toggle-float
+riverctl map normal Super T toggle-float
 
 # Move floating windows
-riverctl map normal Super+Alt H move left 100
-riverctl map normal Super+Alt J move down 100
-riverctl map normal Super+Alt K move up 100
-riverctl map normal Super+Alt L move right 100
+riverctl map float Super H move left 100
+riverctl map float Super J move down 100
+riverctl map float Super K move up 100
+riverctl map float Super L move right 100
 riverctl map-pointer normal Super BTN_LEFT move-view
-# Snap floating windows to edges
-riverctl map normal Super+Alt+Control H snap left
-riverctl map normal Super+Alt+Control J snap down
-riverctl map normal Super+Alt+Control K snap up
-riverctl map normal Super+Alt+Control L snap right
 # Resize floating windows
-riverctl map normal Super+Alt+Shift H resize horizontal -100
-riverctl map normal Super+Alt+Shift J resize vertical 100
-riverctl map normal Super+Alt+Shift K resize vertical -100
-riverctl map normal Super+Alt+Shift L resize horizontal 100
+riverctl map float Super+Shift H resize horizontal -100
+riverctl map float Super+Shift J resize vertical -100
+riverctl map float Super+Shift K resize vertical 100
+riverctl map float Super+Shift L resize horizontal 100
 riverctl map-pointer normal Super BTN_RIGHT resize-view
-
-riverctl map-pointer normal Super BTN_MIDDLE toggle-float
-riverctl map normal Super T toggle-float
+# Snap floating windows to edges
+riverctl map float Super+Control H snap left
+riverctl map float Super+Control J snap down
+riverctl map float Super+Control K snap up
+riverctl map float Super+Control L snap right
 
 
 # ====== Tags =======
@@ -88,10 +95,10 @@ riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
 
 # Super+{Up,Right,Down,Left} to change layout orientation
-riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
-riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
-riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
-riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
+riverctl map normal Super+Alt K send-layout-cmd rivertile "main-location top"
+riverctl map normal Super+Alt L send-layout-cmd rivertile "main-location right"
+riverctl map normal Super+Alt J send-layout-cmd rivertile "main-location bottom"
+riverctl map normal Super+Alt H send-layout-cmd rivertile "main-location left"
 
 # Declare a passthrough mode. This mode has only a single mapping to return to
 # normal mode. This makes it useful for testing a nested wayland compositor
@@ -135,17 +142,13 @@ riverctl keyboard-layout gb
 riverctl set-repeat 50 300 # Set keyboard repeat rate
 
 # ======= Outputs =======
-# Set background and border color
-# riverctl background-color 0x404040
-wlr-randr --output DP-1 --pos 0,-1080
+# Set background image
+swaybg -i ~/pictures/wallpapers/carnotaurus.jpg &
 
-swww-daemon &
-swww img ~/pictures/wallpapers/carnotaurus.jpg
-
+# Configure borders
 riverctl border-color-focused 0x983e55
 riverctl border-color-unfocused 0x666666
 riverctl border-width 2
-
 
 # ======== Rules =========
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
@@ -153,9 +156,6 @@ riverctl border-width 2
 
 # Make all views with app-id "bar" and any title use client-side decorations
 # riverctl rule-add -app-id "bar" csd
-
-# Always spawn browser on tag 1
-riverctl rule-add -title "LibreWolf" tags 000000001
 
 # ======== Layout =========
 # Set the default layout generator to be rivertile and start it.
