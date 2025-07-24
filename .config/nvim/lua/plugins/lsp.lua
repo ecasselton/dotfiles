@@ -143,8 +143,8 @@ return {
 
 				nmap('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 				nmap('n', 'gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-				nmap('n', 'gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-				nmap('n', 'gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+				nmap('n', '<leader>lR', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+				nmap('n', '<leader>li', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
 				nmap('n', 'K', function() vim.lsp.buf.hover() end, 'Hover Documentation')
 				nmap('i', '<C-k>', function() vim.lsp.buf.signature_help() end, 'Signature Documentation')
