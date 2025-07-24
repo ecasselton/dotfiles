@@ -1,7 +1,7 @@
 # Colors (Gruvbox dark)
 
 [colors.primary]
-background = '#101010'
+background = '#121018'
 foreground = '#ebdbb2'
 
 # Normal colors
