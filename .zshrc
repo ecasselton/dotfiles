@@ -130,14 +130,14 @@ function prompt_path() {
 }
 
 function pyvenv_name() {
-	echo '%B%F{green}'$(path_to_git_root)'%f%b'
+	echo '%B%F{yellow}'$(path_to_git_root)'%f%b'
 }
 
 setopt prompt_subst
 
 # Add newline before all prompts except the first one
 # precmd() { precmd() { print "" } }
-PROMPT='$(prompt_path)$(prompt_git_branch) %F{blue}󰣇%f '
+PROMPT='$(prompt_path)$(prompt_git_branch) %F{green}󰣇%f '
 RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
 # Moar colours!
