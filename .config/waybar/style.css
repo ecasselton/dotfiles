@@ -1,19 +1,16 @@
 window#waybar {
 	font-family: SymbolsNerdFontMono, JetBrainsMonoNerdFont;
 	font-size: 16px;
-    background-color: #141414; 
-	color: #ebdbc2;
-    transition-property: background-color;
-    transition-duration: .5s;
+	background-color: transparent;
+    /* transition-property: background-color; */
+    /* transition-duration: .5s; */
 }
 
 window#waybar.hidden {
-    opacity: 0.2;
+    opacity: 0.0;
 }
 
 button {
-    /* Use box-shadow instead of border so the text isn't offset */
-    box-shadow: inset 0 -2px transparent;
     /* Avoid rounded borders under each button name */
     border: none;
     border-radius: 0;
@@ -25,77 +22,217 @@ button:hover {
     /* box-shadow: inset 0 -3px #ffffff; */
 }
 
-#workspaces button {
-    padding: 0 5px;
-	color: #ebdbc2;
-    background-color: transparent;
-    transition-duration: 0s;
+
+
+
+
+/* TAGS */
+
+#tags {
+	font-size: 16px;
+	background-color: rgba(16, 16, 16, 0.9);
+	border-radius: 4px;
+	margin: 0 2px;
+	padding: 0 4px;
 }
 
-#workspaces button:hover {
+#tags button {
+	margin: 2px -2px;
+	padding: 0 10px;
+	border-radius: 3px;
+	background-color: transparent;
+	color: #444;
+}
+
+#tags button:hover {
     background: #202020;
 }
 
-#workspaces button.empty {
-	color: #333;
+#tags button.occupied,
+#tags button.occupied.focused {
+	color: white;
 }
 
-#workspaces button.visible {
-    background: #202020;
-	color: #ebdbc2;
-	/*border-top: 4px solid #d79921;*/
-	box-shadow: inset 0 2px #d79921;
-	/*border-bottom: 2px solid transparent;*/
+#tags button.focused {
+	background-color: #286983;
+	color: #222;
 }
 
-#workspaces button.urgent {
-    border-top: 2px solid #cc241d;
+#tags button.urgent {
+    background-color: #cc241d;
 }
 
-#battery,
-#network,
-#backlight,
-#pulseaudio {
-	padding: 0px 8px;
-	border-top: 2px solid #98971a;
-	color: #ebdbc2;
-}
 
-#tray {
-	margin-right: 16px;
-	padding: 0 8px;
-	border-top: 2px solid #d79921;
-}
 
+
+
+
+/* CLOCK */
+
+#time {
+	background-color: rgba(16, 16, 16, 0.9);
+	border-radius: 4px;
+}
 #clock {
-	/*background-color: #000;*/
 	/*color: #000;*/
+	padding: 0 12px;
 }
 
 #custom-clockface {
     font-size: 18px;
-	/*background-color: #000;*/
+	padding: 0 0 0 12px;
+	margin: 2px 0 2px 2px;
+	border-radius: 2px 0 0 2px;
+	background-color: #f2e9e1;
+	color: rgba(16, 16, 16, 0.9);
 	/*color: #000000;*/
+}
+
+#clock.date {
 }
 
 #clock.time {
 	font-family: DSEG14Modern;
-    padding: 0 16px;
+	margin: 2px 2px 2px 0;
+	border-radius: 0 2px 2px 0;
+	background-color: #f2e9e1;
+	color: rgba(16, 16, 16, 0.9);
+}
+
+
+
+
+
+
+
+
+
+/* SLIDERS */
+
+#backlightgroup {
+	padding: 0 2px 0 4px;
+	background-color: rgba(16, 16, 16, 0.9);
+	border-radius: 4px;
+}
+#backlight {
+	padding: 0 4px 0 4px;
+	color: #f2e9e1;
+}
+#backlight-slider {
+	min-width: 100px;
+	padding: 0 0 0 4px;
+	border-radius: 2px;
+}
+#backlight-slider slider {
+	min-height: 28px;
+	min-width: 0px;
+	box-shadow: none;
+	border-radius: 0;
+	border: none;
+}
+#backlight-slider highlight {
+	min-height: 28px;
+	min-width: 0px;
+	padding: 0px;
+	background-color: #ea9d34;
+	border: none;
+	border-width: 0px;
+}
+#backlight-slider trough {
+	background-color: #333;
+	border: none;
+}
+
+
+#pulseaudiogroup {
+	padding: 0 2px 0 4px;
+	background-color: rgba(16, 16, 16, 0.9);
+	border-radius: 4px;
+}
+#pulseaudio {
+	padding: 0 4px 0 4px;
+	color: #f2e9e1;
+}
+#pulseaudio-slider {
+	min-width: 100px;
+	padding: 0 0 0 4px;
+	border-radius: 4px;
+}
+#pulseaudio-slider slider {
+	min-height: 28px;
+	min-width: 0px;
+	box-shadow: none;
+	border-radius: 0;
+	border: none;
+}
+#pulseaudio-slider highlight {
+	min-height: 28px;
+	min-width: 0px;
+	padding: 0px;
+	background-color: #907aa9;
+	border: none;
+	border-width: 0px;
+}
+#pulseaudio-slider trough {
+	background-color: #333;
+	border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Connections */
+#connections {
+	background-color: rgba(16, 16, 16, 0.9);
+	padding: 2px;
+	border-radius: 4px 0 0 4px;
+}
+#network {
+	background-color: #f2e9e1;
+	padding: 0 8px 0 12px;
+	border-radius: 2px 0 0 2px;
+	color: rgba(16, 16, 16, 0.9);
+}
+#bluetooth {
+	background-color: #f2e9e1;
+	border-radius: 0 2px 2px 0;
+	padding: 0 12px 0 8px;
+	color: rgba(16, 16, 16, 0.9);
+}
+#bluetooth.disabled {
+	color: #555;
+}
+#bluetooth.connected {
+	color: rgb(0, 130, 252);
+}
+
+
+
+
+
+
+
+
+/* MISC */
+
+#battery {
+	background-color: rgba(16, 16, 16, 0.9);
+	padding: 0 12px 0 8px;
+	border-radius: 0 4px 4px 0;
+}
+
+
+#tray {
 	margin-right: 16px;
-}
-#clock.date {
-	/*font-family: DSEG14Modern;*/
-    padding: 0 16px;
-}
-
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
-}
-
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
+	border-left: 2px solid #d79921;
 }
 
 #battery.charging, #battery.plugged {
@@ -112,7 +249,6 @@ button:hover {
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
     color: #cc241d;
-    background-color: rgba(0, 0, 0, 0);
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
@@ -124,17 +260,59 @@ label:focus {
     background-color: #000000;
 }
 
-#pulseaudio-slider trough {
-    min-height: 10px;
-    min-width: 80px;
+
+
+
+
+
+
+/* Power options */
+
+#power {
+	background-color: rgba(16, 16, 16, 0.9);
+	padding: 2px;
+	border-radius: 4px;
 }
 
 #custom-arch {
-	margin-left: 16px;
-    padding: 0 18px;
+	padding: 0 20px;
     color: #181818;
-	background-color: #458588;
+	background-color: #286983;
+	border-radius: 2px;
 }
+
+#custom-shutdown {
+	color: #eb6f92;
+	font-size: 14px;
+	padding: 0 12px 0 8px;
+}
+#custom-reboot {
+	color: #ea9d34;
+	font-size: 14px;
+	padding: 0 8px;
+}
+#custom-sleep {
+	color: #c4a7e7;
+	font-size: 14px;
+	padding: 0 8px;
+}
+#custom-lock {
+	color: #31748f;
+	font-size: 14px;
+	padding: 0 8px;
+}
+#custom-logout {
+	color: #ea9a97;
+	font-size: 14px;
+	padding: 0 8px;
+}
+
+
+
+
+
+
+
 
 #tray > .passive {
     -gtk-icon-effect: dim;
