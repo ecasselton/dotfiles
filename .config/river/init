@@ -17,9 +17,11 @@ riverctl spawn LibreWolf
 # ====== Application bindings =======
 riverctl map normal Super Escape spawn "footclient tmux"
 riverctl map normal Super+Shift Escape spawn foot
+riverctl map normal Super Return spawn fuzzel
 riverctl map normal Super B spawn librewolf
 riverctl map normal Super N spawn "if !(pidof -q gammastep); then gammastep -O 4500; else pkill gammastep; fi"
 riverctl map normal Super E spawn dolphin
+riverctl map normal Super W spawn "footclient nvim todo"
 
 # ====== Window bindings ======
 riverctl map normal Super Q close
@@ -56,17 +58,19 @@ riverctl map float Super J move down 100
 riverctl map float Super K move up 100
 riverctl map float Super L move right 100
 riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer float Super BTN_LEFT move-view
 # Resize floating windows
-riverctl map float Super+Shift H resize horizontal -100
-riverctl map float Super+Shift J resize vertical -100
-riverctl map float Super+Shift K resize vertical 100
-riverctl map float Super+Shift L resize horizontal 100
+riverctl map float None H resize horizontal -100
+riverctl map float None J resize vertical 100
+riverctl map float None K resize vertical -100
+riverctl map float None L resize horizontal 100
 riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer float Super BTN_RIGHT resize-view
 # Snap floating windows to edges
-riverctl map float Super+Control H snap left
-riverctl map float Super+Control J snap down
-riverctl map float Super+Control K snap up
-riverctl map float Super+Control L snap right
+riverctl map float Super+Shift H snap left
+riverctl map float Super+Shift J snap down
+riverctl map float Super+Shift K snap up
+riverctl map float Super+Shift L snap right
 
 
 # ====== Tags =======
@@ -100,23 +104,22 @@ riverctl map normal Super+Alt L send-layout-cmd rivertile "main-location right"
 riverctl map normal Super+Alt J send-layout-cmd rivertile "main-location bottom"
 riverctl map normal Super+Alt H send-layout-cmd rivertile "main-location left"
 
-# Declare a passthrough mode. This mode has only a single mapping to return to
-# normal mode. This makes it useful for testing a nested wayland compositor
-# riverctl declare-mode passthrough
+# Declare a passthrough mode. This is useful for using virtual machines
+riverctl declare-mode passthrough
 
 # Super+F11 to enter passthrough mode
-# riverctl map normal Super F11 enter-mode passthrough
+riverctl map normal Super F11 enter-mode passthrough
 
 # Super+F11 to return to normal mode
-# riverctl map passthrough Super F11 enter-mode normal
+riverctl map passthrough Super F11 enter-mode normal
 
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
 for mode in normal locked
 do
     # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-    riverctl map $mode None XF86AudioRaiseVolume  spawn '~/.local/bin/volume up'
-    riverctl map $mode None XF86AudioLowerVolume  spawn '~/.local/bin/volume down'
+    riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn '~/.local/bin/volume up'
+    riverctl map -repeat $mode None XF86AudioLowerVolume  spawn '~/.local/bin/volume down'
     riverctl map $mode None XF86AudioMute         spawn '~/.local/bin/volume muted'
 
     # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
@@ -126,8 +129,8 @@ do
     riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
 
     # Control screen backlight brightness with brightnessctl (https://github.com/Hummer12007/brightnessctl)
-    riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl set +10%'
-    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 10%-'
+    riverctl map -repeat $mode None XF86MonBrightnessUp   spawn 'brightnessctl set +10%'
+    riverctl map -repeat $mode None XF86MonBrightnessDown spawn 'brightnessctl set 10%-'
 done
 
 # ====== Inputs ======
@@ -161,4 +164,4 @@ riverctl border-width 2
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 8 -outer-padding 8 &
+rivertile -view-padding 8 -outer-padding 8 -main-ratio 0.55 &
