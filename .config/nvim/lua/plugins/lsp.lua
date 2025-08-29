@@ -5,7 +5,7 @@ return {
 	dependencies = {
 		'williamboman/mason.nvim',
 		'williamboman/mason-lspconfig.nvim',
-		'barreiroleo/ltex_extra.nvim',
+		-- 'barreiroleo/ltex_extra.nvim',
 		{
 			"folke/lazydev.nvim",
 			ft = "lua", -- only load on lua files
@@ -59,17 +59,23 @@ return {
 				},
 			},
 
-			omnisharp = {},
-
-			ltex = {
+			hls = {
 				settings = {
-					ltex = {
-						language = 'en-GB',
-					},
-				},
-				-- Don't spellcheck markdown files
-				filetypes = { "bib", "gitcommit", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd", "context", "html", "xhtml", "mail", "text" }
-			}
+					haskell = {
+						formattingProvider = "fourmolu"
+					}
+				}
+			},
+
+			-- ltex = {
+			-- 	settings = {
+			-- 		ltex = {
+			-- 			language = 'en-GB',
+			-- 		},
+			-- 	},
+			-- 	-- Don't spellcheck markdown files
+			-- 	filetypes = { "bib", "gitcommit", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd", "context", "html", "xhtml", "mail", "text" }
+			-- }
 		}
 
 		require('mason').setup()
@@ -88,22 +94,21 @@ return {
 		for server, config in pairs(servers) do
 			vim.lsp.config(server, config)
 		end
-		vim.lsp.enable("ccls")
 
-		vim.lsp.config("ltex", {
-			on_attach = function(client, bufnr)
-				require("ltex_extra").setup({
-					load_langs = { "en-GB" }, -- en-US as default
-
-					init_check = true,
-
-					path = vim.fn.expand("~") .. "/.local/share/ltex", -- Default is "" which means project root or current working directory
-					-- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
-					log_level = "none",
-				})
-			end,
-			filetypes = (servers.ltex or {}).filetypes,
-		})
+		-- vim.lsp.config("ltex", {
+		-- 	on_attach = function(client, bufnr)
+		-- 		require("ltex_extra").setup({
+		-- 			load_langs = { "en-GB" }, -- en-US is default
+		--
+		-- 			init_check = true,
+		--
+		-- 			path = vim.fn.expand("~") .. "/.local/share/ltex", -- Default is "" which means project root or current working directory
+		-- 			-- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
+		-- 			log_level = "none",
+		-- 		})
+		-- 	end,
+		-- 	filetypes = (servers.ltex or {}).filetypes,
+		-- })
 
 		-- Ensure the servers above are installed
 		local mason_lspconfig = require('mason-lspconfig')

@@ -118,4 +118,30 @@ local tokyonight = function()
 	}
 end
 
+local nordic = function()
+	return {
+		'AlexvZyl/nordic.nvim',
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require('nordic').setup({
+				-- transparent = {
+					-- bg = true
+				-- }
+			})
+			require('nordic').load()
+		end
+	}
+end
+
+local gruvboxbaby = function()
+	return {
+		'luisiacc/gruvbox-baby',
+		config = function()
+			vim.g.gruvbox_baby_transparent_mode = 1
+			vim.cmd.colorscheme("gruvbox-baby")
+		end
+	}
+end
+
 return rosepine()

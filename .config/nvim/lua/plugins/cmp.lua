@@ -46,7 +46,7 @@ return {
 		cmp.setup({
 			snippet = {
 				expand = function(args)
-					require'luasnip'.lsp_expand(args.body)
+					require('luasnip').lsp_expand(args.body)
 				end
 			},
 
@@ -59,21 +59,25 @@ return {
 
 			cmp.setup {
 				sources = cmp.config.sources({
+					{ name = 'luasnip' },
 					{ name = 'lazydev' },
 					{ name = 'nvim_lsp' },
-					{ name = 'vimtex' },
 					{ name = 'buffer' },
-					{ name = 'luasnip' },
 				})
 			}
 		})
 
+		-- Replace nvim_lsp handler with vimtex in tex files
+		-- (Otherwise nvim_lsp seems to hide other completions)
 		cmp.setup.filetype("tex", {
 			sources = {
+				{ name = 'luasnip' },
+				{ name = 'lazydev' },
 				{ name = 'vimtex' },
 				{ name = 'buffer' },
 			},
 		})
+
 
 		-- Set configuration for specific filetype.
 		cmp.setup.filetype('gitcommit', {
@@ -91,7 +95,7 @@ return {
 		cmp.setup.cmdline({ '/', '?' }, {
 			mapping = custom_mappings(cmp.mapping.preset.cmdline),
 			sources = {
-				{ name = 'buffer' }
+				{ name = 'buffer' },
 			}
 		})
 

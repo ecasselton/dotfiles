@@ -15,7 +15,7 @@ return {
 			enable_autosnippets = true
 		})
 
-		vim.keymap.set({"i"}, "<C-j>", function()
+		vim.keymap.set({"i", "s"}, "<C-l>", function()
 			if ls.expand_or_jumpable() then
 				ls.expand_or_jump()
 			end
