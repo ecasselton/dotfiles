@@ -6,8 +6,8 @@
 )
 
 (defsrc
-  esc  q w e r t y u i o p bspc
-  caps a s d f g h j k l ; ret
+  esc  q w e r t y u i o p
+  caps a s d f g h j k l ; '
   lsft 102d z x c v b n m , . /
        alt space ralt
 )
@@ -55,22 +55,22 @@
 )
 
 (deflayer base
-	caps _ _ _ _ _ _ _ _ _ _ rsft
-    @caps_remap @base_lalt @base_lctl @base_lsft @base_lmet _ _ @base_rmet @base_rsft @base_rctl @base_ralt rsft
+	caps _ _ _ _ _ _ _ _ _ _
+    @caps_remap @base_lalt @base_lctl @base_lsft @base_lmet _ _ @base_rmet @base_rsft @base_rctl @base_ralt `
 	z z x b c v 102d _ _ _ _ _
 	ret @base_sym bspc
 )
 
 (deflayer symbols
-		   caps @xor @pipe @and  @not _ _  ] } {  [ rsft
-	@caps_remap @sym_lalt @sym_lctl @sym_lsft @sym_lmet _ _ @sym_rmet @sym_rsft @sym_rctl @sym_ralt rsft
+		   caps @xor @pipe @and  @not _ _  ] } {  [
+	@caps_remap @sym_lalt @sym_lctl @sym_lsft @sym_lmet _ _ @sym_rmet @sym_rsft @sym_rctl @sym_ralt _
 			@excl @excl @plus @mult @eqls _ _ _  $ \ % "
 			ret _ bspc
 )
 
 (deflayer func
-	caps _ _ _ _ _ _ _ _ _ _ rsft
-	_ _ _ _ _ _ left down up right _ rsft
+	caps _ _ _ _ _ _ _ _ _ _
+	_ _ _ _ _ _ left down up right _ _
 	_ _ _ _ _ _ _ _ _ _ _ _
 	ret _ bspc
 )
