@@ -6,3 +6,5 @@ export PYTHONPATH="/home/elliot/dev/cipherchallenge"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export MANPAGER="nvim +Man!"
 export DIFFPROG="nvim -d"
+export MOZ_ENABLE_WAYLAND=1
+export GHCUP_USE_XDG_DIRS=1
