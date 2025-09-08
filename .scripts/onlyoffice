@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+
+case "$1" in
+	/*) path="$1";;
+	*) path="$PWD/$1";;
+esac
+
+DesktopEditors-x86_64.AppImage "$path"

@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+
+max=100
+
+if [[ $1 == up ]]; then
+	pactl set-sink-volume @DEFAULT_SINK@ +5%
+elif [[ $1 == down ]]; then
+	pactl set-sink-volume @DEFAULT_SINK@ -5%
+elif [[ $1 == muted ]]; then
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+fi
+
+icons=(low medium high)
+percentage=$(( $(pamixer --get-volume) * 100 / $max))
+
+if [[ percentage -gt 100 ]]; then
+	pactl set-sink-volume @DEFAULT_SINK@ $max%
+	percentage=100
+fi
+
+percentagehuman=$(pamixer --get-volume-human)
+
+if [[ $percentagehuman == muted ]]; then
+	icon="/home/elliot/.local/share/icons/dunst/volume-muted.svg"
+else
+	icon="/home/elliot/.local/share/icons/dunst/volume-up.svg"
+fi
+
+notify-send -a "volume.sh" -u low -i $icon -t 2000 -r 1 -h int:value:$percentage Volume $percentagehuman
+
+pw-play /home/elliot/.local/share/sounds/audio-volume-change.ogx

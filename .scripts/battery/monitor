@@ -1,0 +1,19 @@
+#!/bin/sh
+
+export XAUTHORITY=/home/elliot/.Xauthority
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+CRITICAL_LEVEL=10
+BATTERY_DISCHARGING=$(acpi -b | grep -c "Discharging")
+BATTERY_LEVEL=$(acpi -b | grep -o '[0-9]*%' | cut -d '%' -f1)
+
+EMPTY_FILE=/tmp/batteryempty
+FULL_FILE=/tmp/batteryfull
+
+if [ $BATTERY_DISCHARGING -eq 1 ] && [ $BATTERY_LEVEL -le $CRITICAL_LEVEL ] && [ ! -f $EMPTY_FILE ]; then
+	dunstify "BATTERY LOW" -u critical -i battery-low
+elif [ $BATTERY_DISCHARGING -eq 0 ] && [ $BATTERY_LEVEL -eq 100 ] && [ ! -f $FULL_FILE ]; then
+	dunstify "Battery Full" -u low -i battery-full
+	touch /tmp/batteryfull
+fi
