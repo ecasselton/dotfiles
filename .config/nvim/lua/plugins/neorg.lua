@@ -1,9 +1,7 @@
 return {
 	"nvim-neorg/neorg",
 
-	lazy = true,
 	ft = "norg",
-	event = "VeryLazy",
 	config = function()
 		require("neorg").setup({
 			load = {
@@ -39,5 +37,8 @@ return {
 		-- More ergonomic keymaps for my symbol layer
 		vim.keymap.set("n", "<-", "<Plug>(neorg.promo.demote)")
 		vim.keymap.set("n", ">-", "<Plug>(neorg.promo.promote)")
+
+		vim.o.spell = true
+		vim.o.spelllang = "en_gb"
 	end
 }

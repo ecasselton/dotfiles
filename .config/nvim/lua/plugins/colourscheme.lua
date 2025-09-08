@@ -89,12 +89,14 @@ local gruvbox = function()
 			require("gruvbox").setup({
 				invert_selection = false,
 				transparent_mode = true,
+				bold = false,
 				overrides = {
 					TreesitterContext = { bg = "#202020" }
 				}
 			})
 
 			vim.cmd.colorscheme("gruvbox")
+			vim.cmd("hi clear Statusline")
 		end,
 	}
 end
@@ -126,7 +128,7 @@ local nordic = function()
 		config = function()
 			require('nordic').setup({
 				-- transparent = {
-					-- bg = true
+				-- bg = true
 				-- }
 			})
 			require('nordic').load()
@@ -144,4 +146,4 @@ local gruvboxbaby = function()
 	}
 end
 
-return rosepine()
+return gruvbox()

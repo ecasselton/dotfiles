@@ -86,6 +86,7 @@ return {
 			},
 			defaults = {
 				border = true,
+				borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
 				layout_strategy = "flex",
 				layout_config = {
 					horizontal = {

@@ -119,25 +119,25 @@ function prompt_git_branch() {
     branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
     commit=$(git rev-parse HEAD 2> /dev/null | cut -c1-7)
     if [[ $branch != "" ]]; then
-		echo ' : %B%F{yellow}'$branch' %f%b'
+		echo ' %F{red}'$branch' %f'
     elif [[ $commit != "" ]]; then
-		echo ' : %B%F{yellow}'$commit' %f%b'
+		echo ' %F{red}'$commit' %f'
     fi
 }
 
 function prompt_path() {
-	echo '%B%F{green}'$(path_to_git_root)'%f%b'
+	echo '%F{green}'$(path_to_git_root)'%f'
 }
 
 function pyvenv_name() {
-	echo '%B%F{yellow}'$(path_to_git_root)'%f%b'
+	echo '%F{yellow}'$(path_to_git_root)'%f'
 }
 
 setopt prompt_subst
 
 # Add newline before all prompts except the first one
 # precmd() { precmd() { print "" } }
-PROMPT='$(prompt_path)$(prompt_git_branch) %F{green}󰣇%f '
+PROMPT='$(prompt_path)$(prompt_git_branch) %F{blue}󰣇%f '
 RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
 # Moar colours!
@@ -187,4 +187,12 @@ alias history="history 0"
 
 calc() {
     python3 -c "from math import *; print($1)"
+}
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
 }

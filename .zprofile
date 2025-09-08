@@ -1,7 +1,11 @@
 # Source /etc/profile
 . /etc/profile
-/usr/bin/proptest -M i915 -D /dev/dri/card0 280 connector 266 1
-# /usr/bin/proptest -M i915 -D /dev/dri/card0 259 connector 245 1
+
+connector=$(/usr/bin/proptest | grep DP-5 | cut -d' ' -f 2)
+if [ "$(echo connector | wc -w)" -gt 0 ]; then
+	connector=$(/usr/bin/proptest | grep DP-6 | cut -d' ' -f 2)
+fi
+/usr/bin/proptest -M i915 -D /dev/dri/card0 $connector connector 266 1
 
 # include .zshrc if it exists
 if [ -n "$ZSH_VERSION" ]; then

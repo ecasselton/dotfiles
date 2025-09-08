@@ -12,15 +12,18 @@ if !(pidof -q kanshi); then
 	riverctl spawn kanshi
 fi
 
-riverctl spawn LibreWolf
+riverctl spawn /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+riverctl spawn /usr/lib/xdg-desktop-portal-hyprland
+riverctl spawn /usr/lib/xdg-desktop-portal-termfilechooser
+riverctl spawn dunst
 
 # ====== Application bindings =======
 riverctl map normal Super Escape spawn "footclient tmux"
 riverctl map normal Super+Shift Escape spawn foot
 riverctl map normal Super Return spawn fuzzel
 riverctl map normal Super B spawn librewolf
-riverctl map normal Super N spawn "if !(pidof -q gammastep); then gammastep -O 4500; else pkill gammastep; fi"
-riverctl map normal Super E spawn dolphin
+riverctl map normal Super N spawn "if !(pidof -q gammastep); then gammastep -O 3000; else pkill gammastep; fi"
+riverctl map normal Super E spawn "footclient yazi"
 riverctl map normal Super W spawn "footclient nvim todo"
 
 # ====== Window bindings ======
@@ -39,8 +42,8 @@ riverctl map normal Super Z zoom
 
 riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
 riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
-riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count -1"
-riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count +1"
+riverctl map normal Super Minus send-layout-cmd rivertile "main-count -1"
+riverctl map normal Super Plus send-layout-cmd rivertile "main-count +1"
 
 # ====== Floating mode =======
 riverctl declare-mode float
@@ -98,20 +101,14 @@ riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
 
-# Super+{Up,Right,Down,Left} to change layout orientation
-riverctl map normal Super+Alt K send-layout-cmd rivertile "main-location top"
-riverctl map normal Super+Alt L send-layout-cmd rivertile "main-location right"
-riverctl map normal Super+Alt J send-layout-cmd rivertile "main-location bottom"
-riverctl map normal Super+Alt H send-layout-cmd rivertile "main-location left"
-
 # Declare a passthrough mode. This is useful for using virtual machines
 riverctl declare-mode passthrough
 
-# Super+F11 to enter passthrough mode
-riverctl map normal Super F11 enter-mode passthrough
+# Super+F9 to enter passthrough mode
+riverctl map normal Super F9 enter-mode passthrough
 
-# Super+F11 to return to normal mode
-riverctl map passthrough Super F11 enter-mode normal
+# Super+F9 to return to normal mode
+riverctl map passthrough Super F9 enter-mode normal
 
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
@@ -136,9 +133,11 @@ done
 # ====== Inputs ======
 riverctl focus-follows-cursor normal
 riverctl set-cursor-warp on-focus-change
+riverctl hide-cursor when-typing enabled
 riverctl input pointer-1739-52876-VEN_06CB:00_06CB:CE8C_Touchpad natural-scroll enabled
 riverctl input pointer-1739-52876-VEN_06CB:00_06CB:CE8C_Touchpad tap enabled
 riverctl input pointer-1739-52876-VEN_06CB:00_06CB:CE8C_Touchpad pointer-accel 0.7
+riverctl input pointer-1739-52876-VEN_06CB:00_06CB:CE8C_Touchpad accel-profile adaptive
 
 riverctl keyboard-layout gb
 
@@ -149,9 +148,9 @@ riverctl set-repeat 50 300 # Set keyboard repeat rate
 swaybg -i ~/pictures/wallpapers/carnotaurus.jpg &
 
 # Configure borders
-riverctl border-color-focused 0x983e55
+riverctl border-color-focused 0x98971A
 riverctl border-color-unfocused 0x666666
-riverctl border-width 2
+riverctl border-width 1
 
 # ======== Rules =========
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
@@ -160,8 +159,11 @@ riverctl border-width 2
 # Make all views with app-id "bar" and any title use client-side decorations
 # riverctl rule-add -app-id "bar" csd
 
+# Make all windows use server-side decorations
+riverctl rule-add -title "*" ssd
+
 # ======== Layout =========
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 8 -outer-padding 8 -main-ratio 0.55 &
+rivertile -view-padding 0 -outer-padding 0 -main-ratio 0.55 &

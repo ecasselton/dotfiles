@@ -19,7 +19,7 @@ vim.o.shiftwidth = 4
 vim.o.scrolloff = 6
 vim.o.wrap = false
 vim.o.linebreak = true
-vim.o.winborder = 'rounded'
+vim.o.winborder = 'single'
 -- vim.o.colorcolumn = '80'
 
 -- Turn off search highlight with esc
@@ -30,9 +30,12 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', function () vim.diagnostic.jump({count=1, float=true}) end, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', function () vim.diagnostic.jump({count=-1, float=true}) end, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>q', function () vim.diagnostic.open_float({ border = 'rounded' }) end, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end,
+	{ desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end,
+	{ desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>q', function() vim.diagnostic.open_float() end,
+	{ desc = 'Open floating diagnostic message' })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Don't get dizzy when jumping
@@ -48,10 +51,10 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<leader>kms", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 -- Interacting with system clipboard
-vim.keymap.set({"n", "v"}, "<leader>p", '"+p')
-vim.keymap.set({"n", "v"}, "<leader>P", '"+P')
-vim.keymap.set({"n", "v"}, "<leader>y", '"+y')
-vim.keymap.set({"n", "v"}, "<leader>Y", '"+y$')
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
+vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
+vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$')
 -- vim.loader.enable()
 
 -- Use extended regex for substitute commands
@@ -71,7 +74,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
+			{ out,                            "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -84,7 +87,6 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure plugins ]]
 require('lazy').setup(
 	{
-		"tpope/vim-sleuth",
 		{ import = 'plugins' }
 	},
 	{
@@ -98,22 +100,9 @@ require('lazy').setup(
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_set_hl(0, "Yank", { link = "Cursor" })
 vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank( { higroup="Yank" } )
-    end,
-    group = highlight_group,
-    pattern = '*',
-})
-
--- [[ Force write if inside OneDrive ]]
--- This forces neovim to ignore the modified time, caused by onedrive-abraunegg
-vim.api.nvim_create_autocmd('BufWriteCmd', {
 	callback = function()
-		local isOneDriveFile = string.find(vim.api.nvim_buf_get_name(0), "OneDrive")
-		if isOneDriveFile then
-			vim.cmd("write!")
-		else
-			vim.cmd("write")
-		end
-	end
+		vim.highlight.on_yank({ higroup = "Yank" })
+	end,
+	group = highlight_group,
+	pattern = '*',
 })

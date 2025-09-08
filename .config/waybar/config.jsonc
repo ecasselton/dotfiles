@@ -1,46 +1,47 @@
 // -*- mode: jsonc -*-
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "left", // Waybar position (top|bottom|left|right)
-    "height": 32, // Waybar width (to be removed for auto width)
-	"margin": "8px 16px -8px 16px",
-    // "spacing": 0, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": [
+	// "layer": "top", // Waybar at top layer
+	// "position": "left", // Waybar position (top|bottom|left|right)
+	"height": 36, // Waybar width (to be removed for auto width)
+	// "margin": "8px 16px -8px 16px",
+	// "spacing": 0, // Gaps between modules (4px)
+	// Choose the order of the modules
+	"modules-left": [
 		"river/tags",
-		"custom/separator",
-		"group/time",
-    ],
-    "modules-right": [
+	],
+	"modules-center": [
+		"group/time"
+	],
+	"modules-right": [
 		"group/pulseaudiogroup",
-        "custom/separator",
+		"custom/separator",
 		"group/backlightgroup",
-        "custom/separator",
+		"custom/separator",
 		"group/connections",
-        "battery",
-        "custom/separator",
+		"battery",
+		"custom/separator",
 		"group/power",
-    ],
+	],
 
-    // Modules configuration
-    "custom/separator": {
-        "format": " ",
-        "tooltip": false,
-    },
-    "custom/clockface": {
-        "format": "{}",
-        "interval": 60,
-        "exec": "/home/elliot/.config/waybar/clock",
-        "tooltip": false,
-    },
-    "river/tags": {
+	// Modules configuration
+	"custom/separator": {
+		"format": " ",
+		"tooltip": false,
+	},
+	"custom/clockface": {
+		"format": "{}",
+		"interval": 60,
+		"exec": "/home/elliot/.config/waybar/clock",
+		"tooltip": false,
+	},
+	"river/tags": {
 		"num-tags": 9,
-    },
+	},
 
-    "tray": {
-        "icon-size": 20,
-        "spacing": 10
-    },
+	"tray": {
+		"icon-size": 20,
+		"spacing": 10
+	},
 	"group/time": {
 		"orientation": "inherit",
 		"modules": [
@@ -49,15 +50,15 @@
 			"clock#time"
 		],
 	},
-    "clock#date": {
-        "format": "{:%a %d %b}",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-    },
-    "clock#time": {
-        "interval": 60,
-        "format": "{:%H:%M}",
-        "tooltip": false,
-    },
+	"clock#date": {
+		"format": "{:%a %d %b}",
+		"tooltip-format": "<tt><small>{calendar}</small></tt>",
+	},
+	"clock#time": {
+		"interval": 60,
+		"format": "{:%H:%M}",
+		"tooltip": false,
+	},
 	"group/pulseaudiogroup": {
 		"orientation": "inherit",
 		// "drawer": {
@@ -68,26 +69,26 @@
 			"pulseaudio/slider"
 		]
 	},
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{icon}",
-        // "format-bluetooth": "{icon}",
-        // "format-bluetooth-muted": "{icon}",
-        // "format-source": "",
-        // "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "󱡏",
-            "headset-muted": "󱡐",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["󰸈", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾"],
-            "default-muted": "󰸈",
-        },
-        "on-click": "qpwgraph"
-    },
+	"pulseaudio": {
+		// "scroll-step": 1, // %, can be a float
+		"format": "{icon}",
+		// "format-bluetooth": "{icon}",
+		// "format-bluetooth-muted": "{icon}",
+		// "format-source": "",
+		// "format-source-muted": "",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "󱡏",
+			"headset-muted": "󱡐",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["󰸈", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾", "󰕾"],
+			"default-muted": "󰸈",
+		},
+		"on-click": "qpwgraph"
+	},
 	"group/backlightgroup": {
 		"orientation": "inherit",
 		// "drawer": {
@@ -109,19 +110,19 @@
 		"states": {
 			// "good": 95,
 			"warning": 30,
-            "critical": 10
-        },
-        "format": "{icon}",
-        "format-full": "{icon}",
-        "format-charging": "󰂄",
-        //"format-plugged": "",
-        // "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "tooltip-format": "Capacity: {capacity}%\n{timeTo}",
-        "format-icons": ["󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"],
+			"critical": 10
+		},
+		"format": "{icon}",
+		"format-full": "{icon}",
+		"format-charging": "󰂄",
+		//"format-plugged": "",
+		// "format-alt": "{time} {icon}",
+		// "format-good": "", // An empty format will hide the module
+		// "format-full": "",
+		"tooltip-format": "Capacity: {capacity}%\n{timeTo}",
+		"format-icons": ["󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"],
 		"interval": 5,
-    },
+	},
 	"group/connections": {
 		"orientation": "inherit",
 		"modules": [
@@ -129,15 +130,15 @@
 			"bluetooth",
 		]
 	},
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{icon}",
-        // "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} ({ipaddr}/{cidr}) ",
-        // "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "󰤭",
-        "format-icons" : [ "󰤯", "󰤟", "󰤢", "󰤥", "󰤨" ]
-    },
+	"network": {
+		// "interface": "wlp2*", // (Optional) To force the use of this interface
+		"format-wifi": "{icon}",
+		// "format-ethernet": "{ipaddr}/{cidr} ",
+		"tooltip-format": "{ifname} ({ipaddr}/{cidr}) ",
+		// "format-linked": "{ifname} (No IP) ",
+		"format-disconnected": "󰤭",
+		"format-icons" : [ "󰤯", "󰤟", "󰤢", "󰤥", "󰤨" ]
+	},
 	"bluetooth": {
 		"format": "󰂯",
 		"format-on": "󰂯",
@@ -161,25 +162,25 @@
 			"custom/shutdown",
 		]
 	},
-    "custom/arch": {
-        "format": "󰣇",
-        "tooltip": false
-    },
-    "custom/shutdown": {
-        "format": "",
-        "on-click": "systemctl poweroff",
-        "tooltip": false
-    },
-    "custom/reboot": {
-        "format": "",
-        "on-click": "systemctl reboot",
-        "tooltip": false
-    },
-    "custom/sleep": {
-        "format": "󰤄",
-        "on-click": "systemctl suspend",
-        "tooltip": false
-    },
+	"custom/arch": {
+		"format": "󰣇",
+		"tooltip": false
+	},
+	"custom/shutdown": {
+		"format": "",
+		"on-click": "systemctl poweroff",
+		"tooltip": false
+	},
+	"custom/reboot": {
+		"format": "",
+		"on-click": "systemctl reboot",
+		"tooltip": false
+	},
+	"custom/sleep": {
+		"format": "󰤄",
+		"on-click": "systemctl suspend",
+		"tooltip": false
+	},
 	"custom/lock": {
 		"format": "",
 		"on-click": "hyprlock",
