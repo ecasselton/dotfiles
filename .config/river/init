@@ -115,9 +115,9 @@ riverctl map passthrough Super F9 enter-mode normal
 for mode in normal locked
 do
     # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-    riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn '~/.local/bin/volume up'
-    riverctl map -repeat $mode None XF86AudioLowerVolume  spawn '~/.local/bin/volume down'
-    riverctl map $mode None XF86AudioMute         spawn '~/.local/bin/volume muted'
+    riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn '~/.scripts/volume up'
+    riverctl map -repeat $mode None XF86AudioLowerVolume  spawn '~/.scripts/volume down'
+    riverctl map $mode None XF86AudioMute         spawn '~/.scripts/volume muted'
 
     # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
     riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
@@ -145,7 +145,7 @@ riverctl set-repeat 50 300 # Set keyboard repeat rate
 
 # ======= Outputs =======
 # Set background image
-swaybg -i ~/pictures/wallpapers/carnotaurus.jpg &
+swaybg -i ~/pictures/carnotaurus.jpg &
 
 # Configure borders
 riverctl border-color-focused 0x98971A

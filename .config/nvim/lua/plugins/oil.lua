@@ -4,12 +4,18 @@ return {
 	---@type oil.SetupOpts
 	opts = {},
 	-- Optional dependencies
-	-- dependencies = { { "echasnovski/mini.icons", opts = {} } },
-	dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+		"refractalize/oil-git-status.nvim"
+	},
+	lazy = false,
 
 	config = function()
 		oil = require("oil")
 		oil.setup({
+			win_options = {
+				signcolumn = "yes:2",
+			},
 			-- Configuration for the floating window in oil.open_float
 			float = {
 				-- Padding around the floating window
@@ -32,7 +38,30 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>o", function() oil.open_float(); oil.open_preview() end, { desc = "Open parent directory" })
+		symbols = {
+			["!"] = "!",
+			["?"] = "?",
+			["A"] = "+",
+			["C"] = "C",
+			["D"] = "-",
+			["M"] = "~",
+			["R"] = "→",
+			["T"] = "T",
+			["U"] = "U",
+			[" "] = " ",
+		}
+
+		require('oil-git-status').setup({
+			show_ignored = true, -- show files that match gitignore with !!
+			symbols = { -- customize the symbols that appear in the git status columns
+				index = symbols,
+				working_tree = symbols,
+			},
+		})
+
+		vim.keymap.set("n", "<leader>o", function()
+			oil.open_float(); oil.open_preview()
+		end, { desc = "Open parent directory" })
 		vim.keymap.set("n", "<leader>e", oil.open, { desc = "Open parent directory" })
 	end
 }
