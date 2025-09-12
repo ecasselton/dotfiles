@@ -31,7 +31,7 @@
 	"custom/clockface": {
 		"format": "{}",
 		"interval": 60,
-		"exec": "/home/elliot/.config/waybar/clock",
+		"exec": "~/.config/waybar/clock",
 		"tooltip": false,
 	},
 	"river/tags": {
