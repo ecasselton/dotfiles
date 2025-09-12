@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-rclone --vfs-cache-mode full mount onedrive: ~/onedrive --vfs-read-chunk-streams 4 &
-rclone --vfs-cache-mode full mount onedrive-ys: ~/onedrive-ys --vfs-read-chunk-streams 4
+rclone --vfs-cache-mode full mount onedrive: /home/ejc/onedrive --vfs-read-chunk-streams 4
+# rclone --vfs-cache-mode full mount onedrive-ys: ~/onedrive-ys --vfs-read-chunk-streams 4

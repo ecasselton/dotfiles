@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 fusermount -u onedrive
-fusermount -u onedrive-ys
+# fusermount -u onedrive-ys
