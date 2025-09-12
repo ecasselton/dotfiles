@@ -145,7 +145,7 @@ riverctl set-repeat 50 300 # Set keyboard repeat rate
 
 # ======= Outputs =======
 # Set background image
-swaybg -i ~/pictures/carnotaurus.jpg &
+swaybg -m fill -i ~/pictures/carnotaurus.jpg &
 
 # Configure borders
 riverctl border-color-focused 0x98971A
