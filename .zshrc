@@ -181,6 +181,8 @@ mkcd() {
 alias please=sudo
 alias img=qimgv
 alias history="history 0"
+alias lslvm="lsblk -o NAME,FSTYPE,FSVER,FSUSED,FSSIZE,FSUSE%,MOUNTPOINTS /dev/nvme0n1p7"
+alias lslv=lslvm
 
 # Tetris lol
 # autoload -Uz tetriscurses
