@@ -1,0 +1,34 @@
+#!/usr/bin/sh
+
+choice=$(echo "Power-off
+Reboot
+Suspend
+Hibernate
+Logout
+Lock
+UEFI
+" | fuzzel --dmenu)
+
+case "$choice" in
+	'Power-off')
+		systemctl poweroff
+		;;
+	'Reboot')
+		systemctl reboot
+		;;
+	'UEFI')
+		systemctl reboot --firmware-setup
+		;;
+	'Hibernate')
+		systemctl hibernate
+		;;
+	'Suspend')
+		systemctl hibernate
+		;;
+	'Logout')
+		loginctl terminate-session ''
+		;;
+	'Lock')
+		loginctl lock-session
+		;;
+esac

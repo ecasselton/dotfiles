@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+if [ $(echo "$2" | grep -vE "^[0-9a-z\-]+$") ]; then
+	echo "Invalid repo name: $2" 1>&2
+	exit 1
+fi
+
+if [ "$1" = "find" ]; then
+	curl -s "https://aur.archlinux.org/rpc/v5/search/$2?by=name-desc" | jq -r ".results[].Name"
+	exit 0
+fi
+
+numresults=$(curl -s "https://aur.archlinux.org/rpc/v5/info?arg%5B%5D=$1" | jq ".resultcount")
+if [ $numresults = 1 ]; then
+	git clone "https://aur.archlinux.org/$1.git"
+else
+	echo "Package does not exist" 1>&2
+fi
