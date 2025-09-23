@@ -1,0 +1,47 @@
+#!/usr/bin/sh
+
+eval "$(dircolors -b)"
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip --color=auto'
+
+# better cd
+export FZF_DEFAULT_COMMAND="find"
+export FZF_DEFAULT_OPTS="--layout=reverse --height=40% --inline-info --border"
+alias cdi='cd "./$(fd -Ht d 2>/dev/null | fzf)"'
+
+# ls/eza aliases
+alias ls='eza --group-directories-first --ignore-glob=lost+found'
+alias li='eza --group-directories-first -l --group --git --ignore-glob=lost+found'
+alias la='eza --group-directories-first -la --group --git'
+alias lt='eza --tree --ignore-glob=lost+found'
+
+# other aliases
+alias vim=nvim
+alias dotfiles='/usr/bin/git --git-dir ~/.dotfiles/ --work-tree ~'
+alias dots='dotfiles'
+alias matrix='unimatrix --speed=95 --character-list=k --color=green'
+alias mkdir='mkdir -p'
+mkcd() {
+	mkdir -p $1
+	cd $1
+}
+alias img=qimgv
+alias history="history 0"
+alias lslvm="lsblk -o NAME,FSTYPE,FSVER,FSUSED,FSSIZE,FSUSE%,MOUNTPOINTS /dev/nvme0n1p7"
+alias lslv=lslvm
+
+calc() {
+    python3 -c "from math import *; print($1)"
+}
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
