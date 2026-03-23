@@ -1,30 +1,33 @@
 #!/usr/bin/env sh
 
 # ====== Autostart =======
-if !(pidof -q waybar); then
-	riverctl spawn waybar
-fi
+pidof -q waybar || riverctl spawn waybar
+pidof -q kanshi || riverctl spawn kanshi # Manage outputs dynamically
+pidof -q kdeconnectd || riverctl spawn kdeconnectd
 
 riverctl spawn "foot --server"
-
-# Manage outputs dynamically
-if !(pidof -q kanshi); then
-	riverctl spawn kanshi
-fi
-
 riverctl spawn /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-riverctl spawn /usr/lib/xdg-desktop-portal-hyprland
-riverctl spawn /usr/lib/xdg-desktop-portal-termfilechooser
-riverctl spawn dunst
+# riverctl spawn /usr/lib/xdg-desktop-portal-hyprland
+# riverctl spawn "/usr/lib/xdg-desktop-portal-termfilechooser -r"
+riverctl spawn mako
 
-# ====== Application bindings =======
+# ====== Command/Application bindings =======
 riverctl map normal Super Escape spawn "footclient tmux"
-riverctl map normal Super+Shift Escape spawn foot
-riverctl map normal Super Return spawn fuzzel
-riverctl map normal Super B spawn librewolf
-riverctl map normal Super N spawn "if !(pidof -q gammastep); then gammastep -O 3000; else pkill gammastep; fi"
+riverctl map normal Super+Shift Escape spawn "foot"
+riverctl map normal Super Return spawn "fuzzel --no-icons"
+riverctl map normal Super+Shift Q spawn "power-options"
+riverctl map normal Super B spawn "librewolf -P default"
+riverctl map normal Super+Shift B spawn "librewolf -P alt"
+riverctl map normal Super G spawn "pidof -q gammastep && pkill gammastep || gammastep -O 3000"
 riverctl map normal Super E spawn "footclient yazi"
 riverctl map normal Super W spawn "footclient nvim todo"
+riverctl map normal Super S spawn "~/.config/river/init"
+riverctl map normal Super N spawn "makoctl restore"
+riverctl map normal Super+Shift N spawn "makoctl dismiss"
+riverctl map normal Super M spawn "footclient tmux attach-session -t alot"
+
+riverctl map normal Super P	spawn "screenshot"			# screenshot selection
+riverctl map normal Super+Shift P spawn "screenshot -f" # screenshot whole screen
 
 # ====== Window bindings ======
 riverctl map normal Super Q close
@@ -45,36 +48,23 @@ riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
 riverctl map normal Super Minus send-layout-cmd rivertile "main-count -1"
 riverctl map normal Super Plus send-layout-cmd rivertile "main-count +1"
 
-# ====== Floating mode =======
-riverctl declare-mode float
-riverctl map normal Super R enter-mode float
-riverctl map float Super R enter-mode normal
-riverctl map float None Escape enter-mode normal
-
+# ====== Floating bindings =======
 riverctl map-pointer float Super BTN_MIDDLE toggle-float
 riverctl map float Super T toggle-float
 riverctl map normal Super T toggle-float
 
 # Move floating windows
-riverctl map float Super H move left 100
-riverctl map float Super J move down 100
-riverctl map float Super K move up 100
-riverctl map float Super L move right 100
+riverctl map normal Super Y move left 100
+riverctl map normal Super U move down 100
+riverctl map normal Super I move up 100
+riverctl map normal Super O move right 100
 riverctl map-pointer normal Super BTN_LEFT move-view
-riverctl map-pointer float Super BTN_LEFT move-view
 # Resize floating windows
-riverctl map float None H resize horizontal -100
-riverctl map float None J resize vertical 100
-riverctl map float None K resize vertical -100
-riverctl map float None L resize horizontal 100
-riverctl map-pointer normal Super BTN_RIGHT resize-view
-riverctl map-pointer float Super BTN_RIGHT resize-view
-# Snap floating windows to edges
-riverctl map float Super+Shift H snap left
-riverctl map float Super+Shift J snap down
-riverctl map float Super+Shift K snap up
-riverctl map float Super+Shift L snap right
-
+riverctl map normal Super+Shift Y resize horizontal -100
+riverctl map normal Super+Shift U resize vertical -100
+riverctl map normal Super+Shift I resize vertical 100
+riverctl map normal Super+Shift O resize horizontal 100
+riverctl map-normal normal Super+Shift BTN_RIGHT resize-view
 
 # ====== Tags =======
 for i in $(seq 1 9)
@@ -104,10 +94,8 @@ riverctl map normal Super+Shift 0 set-view-tags $all_tags
 # Declare a passthrough mode. This is useful for using virtual machines
 riverctl declare-mode passthrough
 
-# Super+F9 to enter passthrough mode
+# Super+F9 to toggle passthrough mode
 riverctl map normal Super F9 enter-mode passthrough
-
-# Super+F9 to return to normal mode
 riverctl map passthrough Super F9 enter-mode normal
 
 # Various media key mapping examples for both normal and locked mode which do
@@ -115,9 +103,9 @@ riverctl map passthrough Super F9 enter-mode normal
 for mode in normal locked
 do
     # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-    riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn '~/.scripts/volume up'
-    riverctl map -repeat $mode None XF86AudioLowerVolume  spawn '~/.scripts/volume down'
-    riverctl map $mode None XF86AudioMute         spawn '~/.scripts/volume muted'
+    riverctl map -repeat $mode None XF86AudioRaiseVolume  spawn 'volume up'
+    riverctl map -repeat $mode None XF86AudioLowerVolume  spawn 'volume down'
+    riverctl map $mode None XF86AudioMute spawn 'volume muted'
 
     # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
     riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
@@ -145,7 +133,7 @@ riverctl set-repeat 50 300 # Set keyboard repeat rate
 
 # ======= Outputs =======
 # Set background image
-swaybg -m fill -i ~/pictures/carnotaurus.jpg &
+swaybg -m fill -i ~/onedrive/pictures/carnotaurus.jpg &
 
 # Configure borders
 riverctl border-color-focused 0x98971A
@@ -162,8 +150,16 @@ riverctl border-width 1
 # Make all windows use server-side decorations
 riverctl rule-add -title "*" ssd
 
+# Rules for popup filepicker (from xdg-desktop-portal-termfilechooser)
+riverctl rule-add -title "filepicker" float
+riverctl rule-add -title "filepicker" dimensions 1250 750
+
 # ======== Layout =========
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
 rivertile -view-padding 0 -outer-padding 0 -main-ratio 0.55 &
+
+systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+systemctl --user restart xdg-desktop-portal

@@ -2,7 +2,7 @@
 {
 	// "layer": "top", // Waybar at top layer
 	// "position": "left", // Waybar position (top|bottom|left|right)
-	"height": 36, // Waybar width (to be removed for auto width)
+	"height": 38, // Waybar width (to be removed for auto width)
 	// "margin": "8px 16px -8px 16px",
 	// "spacing": 0, // Gaps between modules (4px)
 	// Choose the order of the modules
@@ -20,7 +20,7 @@
 		"group/connections",
 		"battery",
 		"custom/separator",
-		"group/power",
+		"custom/arch",
 	],
 
 	// Modules configuration
@@ -126,18 +126,10 @@
 	"group/connections": {
 		"orientation": "inherit",
 		"modules": [
-			"network",
+			"network#main",
+			"network#vpn",
 			"bluetooth",
 		]
-	},
-	"network": {
-		// "interface": "wlp2*", // (Optional) To force the use of this interface
-		"format-wifi": "{icon}",
-		// "format-ethernet": "{ipaddr}/{cidr} ",
-		"tooltip-format": "{ifname} ({ipaddr}/{cidr}) ",
-		// "format-linked": "{ifname} (No IP) ",
-		"format-disconnected": "󰤭",
-		"format-icons" : [ "󰤯", "󰤟", "󰤢", "󰤥", "󰤨" ]
 	},
 	"bluetooth": {
 		"format": "󰂯",
@@ -147,48 +139,63 @@
 		"format-connected": "󰂱",
 		"on-click": "rfkill toggle bluetooth"
 	},
-	"group/power": {
-		"orientation": "inherit",
-		"drawer": {
-			"transition-duration": 500,
-			"transition-left-to-right": false,
-		},
-		"modules": [
-			"custom/arch",
-			"custom/logout",
-			"custom/lock",
-			"custom/sleep",
-			"custom/reboot",
-			"custom/shutdown",
-		]
+	"network#main": {
+		// "interface": "wlan0", // (Optional) To force the use of this interface
+		"format-wifi": "{icon}",
+		"format-ethernet": "󱎔",
+		"tooltip-format": "{ifname} ({ipaddr}/{cidr}) ",
+		"format-disconnected": "󰤭",
+		"format-icons" : [ "󰤯", "󰤟", "󰤢", "󰤥", "󰤨" ]
 	},
+	"network#vpn": {
+		"interface": "wg0", // (Optional) To force the use of this interface
+		"format-disconnected": "󰒎",
+		"format": "󰒍",
+		"tooltip-format": "{ifname} ({ipaddr}/{cidr}) ",
+		"on-click": "~/.config/waybar/wg"
+	},
+	// "group/power": {
+	// 	"orientation": "inherit",
+	// 	"drawer": {
+	// 		"transition-duration": 500,
+	// 		"transition-left-to-right": false,
+	// 	},
+	// 	"modules": [
+	// 		"custom/arch",
+	// 		"custom/logout",
+	// 		"custom/lock",
+	// 		"custom/sleep",
+	// 		"custom/reboot",
+	// 		"custom/shutdown",
+	// 	]
+	// },
 	"custom/arch": {
 		"format": "󰣇",
 		"tooltip": false
 	},
-	"custom/shutdown": {
-		"format": "",
-		"on-click": "systemctl poweroff",
-		"tooltip": false
-	},
-	"custom/reboot": {
-		"format": "",
-		"on-click": "systemctl reboot",
-		"tooltip": false
-	},
-	"custom/sleep": {
-		"format": "󰤄",
-		"on-click": "systemctl suspend",
-		"tooltip": false
-	},
-	"custom/lock": {
-		"format": "",
-		"on-click": "hyprlock",
-		"tooltip": false
-	},
-	"custom/logout": {
-		"format": "󰈆",
-		"on-click": "loginctl terminate-user elliot",
-		"tooltip": false
-	}
+	// "custom/shutdown": {
+	// 	"format": "",
+	// 	"on-click": "systemctl poweroff",
+	// 	"tooltip": false
+	// },
+	// "custom/reboot": {
+	// 	"format": "",
+	// 	"on-click": "systemctl reboot",
+	// 	"tooltip": false
+	// },
+	// "custom/sleep": {
+	// 	"format": "󰤄",
+	// 	"on-click": "systemctl suspend",
+	// 	"tooltip": false
+	// },
+	// "custom/lock": {
+	// 	"format": "",
+	// 	"on-click": "hyprlock",
+	// 	"tooltip": false
+	// },
+	// "custom/logout": {
+	// 	"format": "󰈆",
+	// 	"on-click": "loginctl terminate-user elliot",
+	// 	"tooltip": false
+	// }
 }

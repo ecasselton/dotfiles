@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+day=31
+monthname=oct
+year=2025
+
+month=$(echo "jan feb mar apr may jun jul aug sep oct nov dec" | xargs -n1 echo | awk "/$monthname/ { print NR }")
+
+focusConsole() {
+	ydotool key 29:1 42:1 37:1 37:0 42:0 29:0
+}
+#
+execute() {
+	focusConsole
+    ydotool type "$1"
+	ydotool key 28:1 28:0 # Press enter then release enter
+	sleep 2 # Wait for action to be completed
+}
+
+focusConsole
+sleep 2
+
+execute "EventBookings.EventsList.Load(284)"
+sleep 3
+
+execute "EventBookings.EventDates.ChooseDates()"
+
+execute "EventBookings.EventDates.Datepicker.selectDate(new Date($year, $(($month-1)), $day))"
+
+execute "Modal.Close(EventBookings.EventDates.OnDatesSelected)"
+
+guest="EventBookings.Session.Current.Guests[0]"
+menu="EventBookings.Session.Current.EventMenu"
+dateCategories="$menu.CategoriesByDate[0]"
+categories="$dateCategories.OptionsByCategory[0]"
+execute "EventBookings.EventMenu.OnMenuOptionChecked($guest.Id, '$dateCategories.Date', $categories.Category.Id, );"
+
+execute "EventBookings.EventHub.Continue()"
+
+execute "EventBookings.Review.Continue()"
+
+execute "clickProtect(this, PaymentsWF.PaymentOptions.SubmitCashless)"

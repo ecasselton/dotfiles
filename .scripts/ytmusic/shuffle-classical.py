@@ -4,19 +4,19 @@ from ytmusicapi import YTMusic, OAuthCredentials
 import random
 import time
 
-with open("/home/elliot/.scripts/ytmusic/secret") as secrets:
+with open("/home/ejc/scripts/ytmusic/secret") as secrets:
     id = secrets.readline()[:-1]
     secret = secrets.readline()[:-1]
     print(id)
     print(secret)
-    ytmusic = YTMusic('/home/elliot/.scripts/ytmusic/oauth.json', oauth_credentials=OAuthCredentials(client_id=id, client_secret=secret))
+    ytmusic = YTMusic('/home/ejc/scripts/ytmusic/oauth.json', oauth_credentials=OAuthCredentials(client_id=id, client_secret=secret))
 
-lengths = [4, 1, 3, 4, 1, 1, 3, 4, 3, 4, 3, 3, 4, 3, 4, 5, 3, 3, 4, 4, 4, 3]
+lengths = [4, 1, 3, 4, 1, 1, 3, 4, 3, 4, 3, 3, 4, 3, 4, 5, 3, 3, 4, 4, 4, 3, 5]
 
 print("Accessing playlist...")
-with open("/home/elliot/.scripts/ytmusic/playlistIDs") as id_file:
+with open("/home/ejc/scripts/ytmusic/playlistIDs") as id_file:
     piecesID = id_file.readline()[:-1]
-    # print(piecesID)
+    print(piecesID)
     pieces = ytmusic.get_playlist(piecesID)
     album_length = len(pieces["tracks"])
 

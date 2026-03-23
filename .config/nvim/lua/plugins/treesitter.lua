@@ -1,6 +1,6 @@
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
--- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
+-- You should Treesitter setup after first render to improve startup time of 'nvim {filename}'
 return {
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -18,7 +18,6 @@ return {
             -- Add languages to be ignored here (when ensure_installed = all)
             ignore_install = { "latex" },
 
-            -- Past Elliot says: idk what this is meant can be used for, but there was a warning saying it was required
             modules = { },
 
             -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

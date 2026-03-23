@@ -6,15 +6,17 @@
 )
 
 (defsrc
-  esc  q w e r t y u i o p
+  esc  q w e r t y u i o p [
   caps a s d f g h j k l ; '
   102d z x c v b n m , . /
-  alt space ralt
+  lctl alt space ralt
 )
 
 (defalias
-	#| caps lock to escape |#
-	caps_remap (tap-hold 200 esc (layer-toggle func))
+	remap_102 (tap-hold 200 102d (layer-toggle nav))
+	remap_caps (tap-hold 200 esc (layer-toggle nav))
+	remap_ret (tap-hold 200 ret (layer-toggle numrow))
+	remap_ctrl (tap-macro lalt lctl lsft lmet rmet rsft rctl alt lctl)
 
 	pipe S-102d
 
@@ -28,13 +30,15 @@
 	excl S-1
 	plus S-=
 	mult S-8
+
+	nop sft
 	
 	#| Define that equals starts by releasing the key.
 		This ensures that rolling += works, because they are both on the same 'key'. |#
 	eqls (tap-macro (release-only =) =)
 
 	#| homerow mods |#
-    base_lalt (tap-hold-next-release 200 a alt)
+    base_lalt (tap-hold-next-release 200 a lalt)
     base_lctl (tap-hold-next-release 200 s lctl)
     base_lsft (tap-hold-next-release 200 d lsft)
     base_lmet (tap-hold-next-release 200 f lmet)
@@ -44,7 +48,7 @@
     base_ralt (tap-hold-next-release 200 ; alt)
 	base_sym (tap-hold-next-release 200 space (layer-toggle symbols))
 
-    sym_lalt (tap-hold-next-release 200 @less alt)
+    sym_lalt (tap-hold-next-release 200 @less lalt)
     sym_lctl (tap-hold-next-release 200 - lctl)
     sym_lsft (tap-hold-next-release 200 @more lsft)
     sym_lmet (tap-hold-next-release 200 @undr lmet)
@@ -52,25 +56,48 @@
     sym_rsft (tap-hold-next-release 200 @ rsft)
     sym_rctl (tap-hold-next-release 200 ' rctl)
     sym_ralt (tap-hold-next-release 200 \( alt)
+
+    alt1 (tap-hold-next-release 200 1 lalt)
+    ctl2 (tap-hold-next-release 200 2 lctl)
+    sft3 (tap-hold-next-release 200 3 lsft)
+    met4 (tap-hold-next-release 200 4 lmet)
+    met7 (tap-hold-next-release 200 7 rmet)
+    sft8 (tap-hold-next-release 200 8 rsft)
+    ctl9 (tap-hold-next-release 200 9 rctl)
+    alt0 (tap-hold-next-release 200 0 alt)
 )
 
 (deflayer base
-	caps _ _ _ _ _ _ _ _ _ _
-    @caps_remap   @base_lalt @base_lctl @base_lsft @base_lmet _ _ @base_rmet @base_rsft @base_rctl @base_ralt 102d
-	z x b c v ` _ _ _ _ _
-	ret @base_sym bspc
+	(layer-switch gaming) _ _ _ _ _ _ _ _ _ _ \
+    @remap_caps   @base_lalt @base_lctl @base_lsft @base_lmet _ _ @base_rmet @base_rsft @base_rctl @base_ralt @remap_102
+	z x b c v @nop _ _ _ _ _
+	@remap_ctrl @remap_ret @base_sym bspc
 )
 
 (deflayer symbols
-		   caps @xor @pipe @and  @not _ _  ] } {  [
-	@caps_remap @sym_lalt @sym_lctl @sym_lsft @sym_lmet _ _ @sym_rmet @sym_rsft @sym_rctl @sym_ralt _
-	        @excl @mult @plus @eqls _ _ # $ \ %  "
-			ret _ bspc
+		   _ @xor @pipe @and  @not _ _  ] } {  [ _
+	_ @sym_lalt @sym_lctl @sym_lsft @sym_lmet _ _ @sym_rmet @sym_rsft @sym_rctl @sym_ralt _
+	        @excl @mult @plus @eqls _ _ # $ % `  "
+			_ _ _ _
 )
 
-(deflayer func
-	caps _ _ _ _ _ _ _ _ _ _
-	_ _ _ _ _ _ left down up right _ _
+(deflayer nav
+	_ _ _ _ _ _ _ _ _ _ _ _
+	_ alt ctl sft met _ left down up right _ _
 	_ _ _ _ _ _ _ _ _ _ _
-	ret _ bspc
+	_ _ _ _
+)
+
+(deflayer numrow
+	_ _ _ _ _ _ _ _ _ _ _ _
+	_ @alt1 @ctl2 @sft3 @met4 5 6 @met7 @sft8 @ctl9 @alt0 _
+	_ _ _ _ _ _ _ _ _ _ _
+	_ _ _ _
+)
+
+(deflayer gaming
+  (layer-switch base)  q w e r t y u i o p [
+  lctl a s d f g h j k l ; '
+  z x c v v b n m , . /
+  esc alt space ralt
 )

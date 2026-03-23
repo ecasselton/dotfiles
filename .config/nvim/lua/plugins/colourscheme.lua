@@ -95,6 +95,7 @@ local gruvbox = function()
 				}
 			})
 
+			vim.o.background = "dark"
 			vim.cmd.colorscheme("gruvbox")
 			vim.cmd("hi clear Statusline")
 		end,
@@ -136,12 +137,12 @@ local nordic = function()
 	}
 end
 
-local gruvboxbaby = function()
+local vscode = function()
 	return {
-		'luisiacc/gruvbox-baby',
+		'Mofiqul/vscode.nvim',
 		config = function()
-			vim.g.gruvbox_baby_transparent_mode = 1
-			vim.cmd.colorscheme("gruvbox-baby")
+			vim.o.background = "light"
+			vim.cmd.colorscheme "vscode"
 		end
 	}
 end

@@ -55,7 +55,7 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 
-			mapping = custom_mappings(cmp.mapping.preset.insert),
+			mapping = custom_mappings(function (i) return i end),
 
 			cmp.setup {
 				sources = cmp.config.sources({

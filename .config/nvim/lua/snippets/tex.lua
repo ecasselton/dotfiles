@@ -10,15 +10,15 @@ local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
-local template = [[\input{preamble}
-\title{<>}
+local template = [[\documentclass[12pt]{article}
+\input{../preamble}
+\title{<> -- <>}
+\setcounter{section}{<>}
 
 \begin{document}
 \maketitle
 
 <>
-
-\printendnotes
 
 \end{document}]]
 
@@ -34,9 +34,10 @@ local matNodes = function(rows, cols)
 			table.insert(nodes, t(" & "))
 			table.insert(nodes, i(j * cols + k))
 		end
-		table.insert(nodes, t({ " \\\\ ", "" }))
+		table.insert(nodes, t({ " \\\\ "}))
+		table.insert(nodes, t({ "", "" }))
 	end
-	-- Remove final '\\' node
+	-- Remove final newline node
 	table.remove(nodes, #nodes)
 	return sn(nil, nodes)
 end
@@ -48,11 +49,30 @@ return {
 		{ trig = "template" },
 		fmta(
 			template,
-			{ i(1), i(2) }
+			{ i(1), i(2), i(3), i(4) }
 		)
 	),
 
-
+	s(
+		{ trig = "prob", trigEngine = "pattern", wordTrig = false },
+		fmta("\\BB{P}(<>)", { i(1) }),
+		{ condition = math }
+	),
+	s(
+		{ trig = "ev", trigEngine = "pattern", wordTrig = false },
+		fmta("\\BB{E}[<>]", { i(1) }),
+		{ condition = math }
+	),
+	s(
+		{ trig = "tr", trigEngine = "pattern", wordTrig = false },
+		fmta("\\transform{<>}{<>}{<>}", { i(1), i(2), i(3) }),
+		{ condition = math }
+	),
+	s(
+		{ trig = "(;%a)", trigEngine = "pattern", snippetType="autosnippet", wordTrig = false },
+		fmta("<> ", { f(function(_, snip) return snip.captures[1] end) }),
+		{ condition = math }
+	),
 	s(
 		{ trig = "fn", trigEngine = "pattern", snippetType="autosnippet", wordTrig = false },
 		fmta("(<>)", { i(1) }),
@@ -69,7 +89,7 @@ return {
 	),
 	s(
 		{ trig = "(%a)bar", trigEngine = "pattern" },
-		{ f(function(_, snip) return "\\overline{" .. snip.captures[1] .. "}" end) }
+		{ f(function(_, snip) return "\\bar{" .. snip.captures[1] .. "}" end) }
 	),
 	s(
 		{ trig = "(%a)vec", trigEngine = "pattern" },
@@ -80,15 +100,30 @@ return {
 		{ f(function(_, snip) return "\\dot{" .. snip.captures[1] .. "}" end) }
 	),
 	s(
-		{ trig = "(%a)(%d)", trigEngine = "pattern", snippetType = "autosnippet" },
-		{ f(function(_, snip) return snip.captures[1] .. "_" .. snip.captures[2] end) }
+		{ trig = "(%a)(%d)", trigEngine = "pattern", snippetType = "autosnippet"},
+		{ f(function(_, snip) return snip.captures[1] .. "_" .. snip.captures[2] end) },
+		{ condition = math }
 	),
-	-- Really clever subscript snippet which lets me type more numbers after
-	-- the above snippet expands which will then be added inside the braces
+	-- Snippet which lets me type more numbers after the above snippet expands
+	-- which will then be added inside the braces
 	s(
-		{ trig = "(%a)_?{?(%d+)}?(%d)", trigEngine = "pattern", snippetType = "autosnippet" },
-		{ f(function(_, snip) return snip.captures[1] .. "_{" .. snip.captures[2] .. snip.captures[3] .. "}" end) }
+		{ trig = "_{?(%d+)}?(%d)", trigEngine = "pattern", snippetType = "autosnippet", wordTrig = false },
+		{ f(function(_, snip) return "_{" .. snip.captures[1] .. snip.captures[2] .. "}" end) },
+		{ condition = math }
+
 	),
+	-- If the index includes some letters, I can type the index normally
+	-- following a letter and then manually expand
+	s(
+		{ trig = "(%a)_?{?(%d*)}?([ijkmnr%d}]+)", trigEngine = "pattern", priority = 500 },
+		{ f(function(_, snip) return snip.captures[1] .. "_{" .. snip.captures[2] .. snip.captures[3] .. "}" end) },
+		{ condition = math }
+	),
+	-- s(
+	-- 	{ trig = "$", snippetType = "autosnippet", wordTrig = false },
+	-- 	fmta("$<>$", { i(1) }),
+	-- 	{ condition = math }
+	-- ),
 	s(
 		{ trig = "sr", snippetType = "autosnippet", wordTrig = false },
 		{ t("^2") },
@@ -97,6 +132,11 @@ return {
 	s(
 		{ trig = "cb", snippetType = "autosnippet", wordTrig = false },
 		{ t("^3") },
+		{ condition = math }
+	),
+	s(
+		{ trig = "inv", snippetType = "autosnippet", wordTrig = false },
+		{ t("^{-1}") },
 		{ condition = math }
 	),
 	s(
@@ -120,17 +160,17 @@ return {
 		{ condition = math }
 	),
 	s(
-		{ trig = "~~", snippetType = "autosnippet", wordTrig = false },
+		{ trig = "~", snippetType = "autosnippet", wordTrig = false },
 		{ t("\\sim ") },
 		{ condition = math }
 	),
 	s(
-		{ trig = "\\sim ~", snippetType = "autosnippet", wordTrig = false },
+		{ trig = "\\sim ~", snippetType = "autosnippet", wordTrig = false, priority = 2000 },
 		{ t("\\approx ") },
 		{ condition = math }
 	),
 	s(
-		{ trig = "~=", snippetType = "autosnippet", wordTrig = false },
+		{ trig = "\\sim =", snippetType = "autosnippet", wordTrig = false },
 		{ t("\\simeq ") },
 		{ condition = math }
 	),
@@ -145,7 +185,7 @@ return {
 		{ condition = math }
 	),
 	s(
-		{ trig = "|>", snippetType = "autosnippet", wordTrig = false },
+		{ trig = "-|>", snippetType = "autosnippet", wordTrig = false },
 		{ t("\\mapsto ") },
 		{ condition = math }
 	),
@@ -155,7 +195,7 @@ return {
 		{ condition = math }
 	),
 	s(
-		{ trig = "!£", snippetType = "autosnippet", wordTrig = false, priority = 1001 },
+		{ trig = "!£", snippetType = "autosnippet", wordTrig = false, priority = 2000 },
 		{ t("\\notin ") },
 		{ condition = math }
 	),
@@ -175,7 +215,7 @@ return {
 		{ condition = math }
 	),
 	s(
-		{ trig = "!=", snippetType = "autosnippet", wordTrig = false },
+		{ trig = "=!=", snippetType = "autosnippet", wordTrig = false },
 		{ t("\\neq ") },
 		{ condition = math }
 	),
@@ -225,7 +265,7 @@ return {
 		{ condition = math }
 	),
 	s(
-		{ trig = "!EE", snippetType = "autosnippet", wordTrig = false, priority = 1001 },
+		{ trig = "!EE", snippetType = "autosnippet", wordTrig = false, priority = 2000 },
 		{ t("\\nexists ") },
 		{ condition = math }
 	),
@@ -235,18 +275,8 @@ return {
 		{ condition = math }
 	),
 	s(
-		{ trig = "UU", snippetType = "autosnippet", wordTrig = false },
-		{ t("\\bigcup ") },
-		{ condition = math }
-	),
-	s(
 		{ trig = "uu", snippetType = "autosnippet", wordTrig = false },
 		{ t("\\cup ") },
-		{ condition = math }
-	),
-	s(
-		{ trig = "NN", snippetType = "autosnippet", wordTrig = false },
-		{ t("\\bigcap ") },
 		{ condition = math }
 	),
 	s(
@@ -255,43 +285,67 @@ return {
 		{ condition = math }
 	),
 	s(
-		{ trig = "'(", snippetType = "autosnippet", wordTrig = false },
+		{ trig = '"(', snippetType = "autosnippet", wordTrig = false },
+		{ t("\\subseteq ") },
+		{ condition = math }
+	),
+	s(
+		{ trig = "\\subseteq =", snippetType = "autosnippet", wordTrig = false },
 		{ t("\\subset ") },
 		{ condition = math }
 	),
 	s(
 		{ trig = '")', snippetType = "autosnippet", wordTrig = false },
+		{ t("\\supseteq ") },
+		{ condition = math }
+	),
+	s(
+		{ trig = "\\supseteq =", snippetType = "autosnippet", wordTrig = false },
 		{ t("\\supset ") },
 		{ condition = math }
 	),
 	s(
 		{ trig = 'qq', snippetType = "autosnippet", wordTrig = false },
-		{ t("\\quad ") },
-		{ condition = math }
+		{ t("\\quad ") }
 	),
 
 	s(
-		{ trig = "sum" },
-		fmta("\\sum_{n=<>}^{<>}", { i(1, "1"), i(2, "\\infty") }),
+		{ trig = "sum", wordTrig = false },
+		fmta("\\sum_{<>}^{<>}", { i(1, "n=1"), i(2, "\\infty") }),
 		{ condition = math }
 	),
 	s(
-		{ trig = "lim" },
-		fmta("\\lim_{<> \\to <>}", { i(1, "n"), i(2, "\\infty") }),
+		{ trig = "prod", wordTrig = false },
+		fmta("\\prod_{<>}^{<>}", { i(1, "n=1"), i(2, "\\infty") }),
 		{ condition = math }
 	),
 	s(
-		{ trig = "int" },
+		{ trig = "UU", snippetType = "autosnippet", wordTrig = false },
+		fmta("\\bigcup_{<>}^{<>}", { i(1, "n=1"), i(2, "\\infty") }),
+		{ condition = math }
+	),
+	s(
+		{ trig = "NN", snippetType = "autosnippet", wordTrig = false },
+		fmta("\\bigcap_{<>}^{<>}", { i(1, "n=1"), i(2, "\\infty") }),
+		{ condition = math }
+	),
+	s(
+		{ trig = "lim", wordTrig = false },
+		fmta("\\lim_{<>}", { i(1, "n\\to \\infty")}),
+		{ condition = math }
+	),
+	s(
+		{ trig = "int", wordTrig = false },
 		fmta("\\int_{<>}^{<>}", { i(1, "0"), i(2, "\\infty") }),
 		{ condition = math }
 	),
 	s(
-		{ trig = "d/d" },
+		{ trig = "d/d", wordTrig = false },
 		fmta("\\frac{\\dd <>}{\\dd <>}", { i(1), i(2) }),
 		{ condition = math }
 	),
 	s(
-		{ trig = "p/p" },
+		{ trig = "p/p", wordTrig = false },
 		fmta("\\frac{\\partial <>}{\\partial <>}", { i(1), i(2) }),
 		{ condition = math }
 	),
@@ -302,18 +356,21 @@ return {
 		{ condition = notmath }
 	),
 	s(
-		{ trig = "text" },
-		fmta("\\text{<>}", { i(1) }),
+		{ trig = "inter" },
+		fmta(
+			"\\intertext{<>}\n",
+			{ i(1) }
+		),
 		{ condition = math }
 	),
-
-	-- Expands xnn -> x_{n} for example
 	s(
-		{ trig = "([wxyz])([ijkmnr])%2", trigEngine = "pattern", snippetType = "autosnippet" },
-		{ f(function(_, snip) return snip.captures[1] .. "_{" .. snip.captures[2] .. "}" end) },
+		{ trig = "txt", snippetType = "autosnippet" },
+		fmta(
+			"\\text{ <> }\n",
+			{ i(1) }
+		),
 		{ condition = math }
 	),
-
 	s(
 		{ trig = "env" },
 		fmta(
@@ -321,11 +378,24 @@ return {
 			{ i(1), i(2), rep(1) }
 		)
 	),
+	s(
+		{ trig = "([s]*)sec(%*?)", trigEngine = "pattern", wordTrig = false },
+		fmta("<><><>", {
+			f(
+				function(_, snip)
+					return "\\" .. string.rep("sub", string.len(snip.captures[1])) .. "section" .. snip.captures[2] .. "{"
+				end
+			),
+			i(1),
+			"}\n"
+			}),
+		{ condition = notmath }
+	),
 
 	s(
-		{ trig = "math" },
+		{ trig = "dm" },
 		fmta(
-			"\\[\n\t<>\n.\\]\n",
+			"\\[\n\t<>\n\\]\n",
 			{ i(1) }
 		),
 		{ condition = notmath }
@@ -333,15 +403,15 @@ return {
 	s(
 		{ trig = "ali" },
 		fmta(
-			"\\begin{align*}\n\t<>\n.\\end{align*}\n",
+			"\\begin{align*}\n\t<>\n\\end{align*}\n",
 			{ i(1) }
 		),
 		{ condition = notmath }
 	),
 	s(
-		{ trig = "inter" },
+		{ trig = "cases" },
 		fmta(
-			"\\intertext{<>}\n",
+			"\\begin{cases}\n\t<>\n\\end{cases}\n",
 			{ i(1) }
 		),
 		{ condition = math }
@@ -372,6 +442,14 @@ return {
 		)
 	),
 
+	s(
+		{ trig = "{{", snippetType = "autosnippet", wordTrig = false },
+		fmta(
+			"\\{<>\\}",
+			{ i(1) }
+		)
+	),
+
 	-- Autoclose left/right brackets
 	s(
 		{ trig = "lr([.|%(%[])([.|%)%]])", trigEngine = "pattern", snippetType = "autosnippet", wordTrig = false },
@@ -383,12 +461,23 @@ return {
 		{ condition = math }
 	),
 	s(
-		{ trig = "lr([.<])([>.])", trigEngine = "pattern", snippetType = "autosnippet", wordTrig = false, priority = 1001 },
+		{ trig = "lr([.<])([>.])", trigEngine = "pattern", snippetType = "autosnippet", wordTrig = false, priority = 2000 },
 		fmta("<> <> <>",
 			{
 				f(function(_, snip) if snip.captures[1] == "<" then return "\\langle" else return "\\left." end end),
 				i(1),
 				f(function(_, snip) if snip.captures[2] == ">" then return "\\rangle" else return "\\right." end end),
+			}
+		),
+		{ condition = math }
+	),
+	s(
+		{ trig = "lr([.{])([}.])", trigEngine = "pattern", snippetType = "autosnippet", wordTrig = false, priority = 2000 },
+		fmta("<> <> <>",
+			{
+				f(function(_, snip) if snip.captures[1] == "{" then return "\\left\\{" else return "\\left." end end),
+				i(1),
+				f(function(_, snip) if snip.captures[2] == "}" then return "\\right\\}" else return "\\right." end end),
 			}
 		),
 		{ condition = math }
@@ -403,11 +492,18 @@ return {
 		{ trigEngine = "pattern", trig = "([%d%a]+)/", wordTrig = false },
 		{ f(function(_, snip) return "\\frac{" .. snip.captures[1] .. "}{" end, {}), i(1), t("}") }
 	),
-	-- Expands {<whatever>}/ to \frac{<whatever>}{<>}
+	s(
+		{ trigEngine = "pattern", trig = "([%d%a]+)/([%d%a]+)", wordTrig = false },
+		{ f(function(_, snip) return "\\frac{" .. snip.captures[1] .. "}{" .. snip.captures[2] .. "}" end, {}) }
+	),
+	-- Expands {numer}/ to \frac{numer}{<>}
 	s(
 		{ trigEngine = "pattern", trig = "(%b{})/", wordTrig = false },
-		{ f(function(_, snip) return "\\frac{" .. string.sub(snip.captures[1], 2, #snip.captures[1] - 1) .. "}{" end, {}),
-			i(1), t("}") }
+		{ f(function(_, snip) return "\\frac{" .. string.sub(snip.captures[1], 2, #snip.captures[1] - 1) .. "}{" end, {}), i(1), t("}") }
+	),
+	s(
+		{ trigEngine = "pattern", trig = "(%b{})/(%b{})", wordTrig = false },
+		{ f(function(_, snip) return "\\frac" .. snip.captures[1] .. snip.captures[2] end)}
 	),
 
 	-- Dynamic matrix snippet
@@ -416,7 +512,7 @@ return {
 	--			| <> & <> |
 	--			| <> & <> |
 	s(
-		{ trig = "([pbBv])mat(%d+),(%d+)", trigEngine = "pattern", hidden = true },
+		{ trig = "([pbBv]?)mat(%d+),(%d+)", trigEngine = "pattern", snippetType = "autosnippet", hidden = true, wordTrig = false },
 		fmta("\\begin{<>}\n<>\n\\end{<>}",
 			{
 				f(function(_, snip) return snip.captures[1] .. "matrix" end, {}),
@@ -434,8 +530,8 @@ return {
 
 	-- The same but for column vectors
 	s(
-		{ trig = "([pbBv])vec(%d+)", trigEngine = "pattern", hidden = true },
-		fmta("\\begin{<>}\n<>\n\\end{<>}",
+		{ trig = "([pbBv])vec(%d+)", trigEngine = "pattern", snippetType = "autosnippet", hidden = true },
+		fmta("\\begin{<>}<>\\end{<>}",
 			{
 				f(function(_, snip) return snip.captures[1] .. "matrix" end, {}),
 				d(

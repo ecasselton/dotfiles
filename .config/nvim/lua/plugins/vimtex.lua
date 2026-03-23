@@ -9,24 +9,27 @@ return {
 		vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
 		vim.g.vimtex_view_method = 'zathura_simple'
 		vim.g.vimtex_compiler_latexmk = {
-			aux_dir = "aux", -- create a directory called aux that will contain all the auxiliary files
+			aux_dir = ".aux", -- create a directory called aux that will contain all the auxiliary files
+		}
+		vim.g.vimtex_compiler_latexmk_engines = {
+			_ = "-pdflua"
 		}
 
 		vim.g.Tex_DefaultTargetFormat = 'pdf'
 		vim.g.Tex_MultipleCompileFormats = 'pdf,bibtex,pdf'
 
 		vim.g.vimtex_syntax_conceal = {
-			accents = true,
-			ligatures = true,
-			cites = true,
+			accents = false,
+			ligatures = false,
+			cites = false,
 			fancy = false,
-			spacing = true,
-			greek = true,
+			spacing = false,
+			greek = false,
 			math_bounds = false,
 			math_delimiters = false,
-			math_fracs = true,
-			math_super_sub = true,
-			math_symbols = true,
+			math_fracs = false,
+			math_super_sub = false,
+			math_symbols = false,
 			sections = false,
 			styles = false,
 		}
@@ -40,13 +43,20 @@ return {
 
 		vim.o.conceallevel = 2
 		vim.o.wrap = true
-		vim.o.showbreak = "    󱞪 "
+		vim.o.showbreak = " 󱞪 "
+
+		-- Remaps for dealing with word wrap
+		vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+		vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+		vim.keymap.set('n', '0', 'g0', { silent = true })
+		vim.keymap.set('n', '$', 'g$', { silent = true })
 
 		-- Spell check
 		vim.o.spell = true
 		vim.o.spelllang = "en_gb"
 		vim.keymap.set("i", "<c-x>", "<c-g>u<esc>[s1z=`]a<c-g>u")
-		
+
 
 		vim.keymap.set("s", "<bs>", "<bs>i")
 
@@ -54,15 +64,19 @@ return {
 
 		end)
 
-
-		-- Insert "\item " at the start of a line when
-		-- enter is pressed in itemize or enumerate environments
-		vim.fn["vimtex#imaps#add_map"]({
-			lhs = '<CR>',
-			rhs = '\r\\item ',
-			leader = '',
-			wrapper = 'vimtex#imaps#wrap_environment',
-			context = {'itemize', 'enumerate'}
-		})
+		-- vim.fn["vimtex#imaps#add_map"]({
+		-- 	lhs = 'b',
+		-- 	rhs = 'vimtex#imaps#style_math("BB")',
+		-- 	expr = 1,
+		-- 	leader = '#',
+		-- 	wrapper = 'vimtex#imaps#wrap_math'
+		-- })
+		-- vim.fn["vimtex#imaps#add_map"]({
+		-- 	lhs = 'B',
+		-- 	rhs = 'vimtex#imaps#style_math("mathbf")',
+		-- 	expr = 1,
+		-- 	leader = '#',
+		-- 	wrapper = 'vimtex#imaps#wrap_math'
+		-- })
 	end
 }

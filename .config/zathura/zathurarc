@@ -1,9 +1,4 @@
-# set recolor true
-# set recolor-lightcolor "#fc8"
-# set recolor-darkcolor "#222"
-
 # Disable horizontal scroll
-set scroll-hstep 0
+# set scroll-hstep 0
 
-map j feedkeys "<C-Down>"
-map k feedkeys "<C-Up>"
+set selection-clipboard clipboard

@@ -1,0 +1,28 @@
+#!/bin/sh
+
+export GRIM_DEFAULT_DIR="/home/ejc/pictures/screenshots"
+
+region=""
+if [ ! "$1" = "-f" ]; then
+	region=$(slurp -b "#000000AA" -c "#98A71A" -w 1) 
+	if [ -z "$region" ]; then
+		exit 1
+	fi
+	region=$(printf -- "-g\n$region")
+fi
+
+filename=$(fuzzel --dmenu --prompt-only "Filename: ")
+if [ "$filename" ]; then
+	filename="$GRIM_DEFAULT_DIR/$filename.png"
+fi
+
+
+
+
+if [ "$region" ]; then
+	printf -- "$region\n$filename" | xargs --delimiter="\n" grim
+elif [ "$filename" ]; then
+	grim "$filename"
+else
+	grim
+fi

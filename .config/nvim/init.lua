@@ -22,21 +22,15 @@ vim.o.linebreak = true
 vim.o.winborder = 'single'
 -- vim.o.colorcolumn = '80'
 
--- Turn off search highlight with esc
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set('n', 'q:', '<nop>')                  -- Disable command palette
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Turn off search highlight with esc
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end,
-	{ desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end,
-	{ desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>q', function() vim.diagnostic.open_float() end,
-	{ desc = 'Open floating diagnostic message' })
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+vim.keymap.set('n', '<leader>q', function() vim.diagnostic.open_float() end)
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- Don't get dizzy when jumping
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -48,23 +42,13 @@ vim.keymap.set("n", "<C-b>", "<C-b>zz")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "<leader>kms", "<cmd>CellularAutomaton make_it_rain<CR>")
-
 -- Interacting with system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
 vim.keymap.set({ "n", "v" }, "<leader>P", '"+P')
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
 vim.keymap.set({ "n", "v" }, "<leader>Y", '"+y$')
--- vim.loader.enable()
-
--- Use extended regex for substitute commands
--- vim.cmd("cabbrev s s/\\v")
--- vim.cmd("cabbrev %s %s/\\v<BS>")
-
--- Keybinds for marks
--- for v = 65, 65+25  do
--- 	vim.keymap.set("n", "<M-"..string.char(v+32)..">", '`'..string.char(v))
--- end
+vim.keymap.set({ "n", "v" }, "<leader>d", '"+d')
+vim.keymap.set({ "n", "v" }, "<leader>D", '"+D')
 
 -- [[ Bootstrap lazy.nvim ]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -88,12 +72,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup(
 	{
 		{ import = 'plugins' }
-	},
-	{
+	}, {
 		ui = { border = "rounded" }
 	}
 )
-
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`

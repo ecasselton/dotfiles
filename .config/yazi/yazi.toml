@@ -1,6 +1,32 @@
 [mgr]
 ratio = [1,2,3]
+sort_by = "natural"
 
 [preview]
 max_width = 900
 max_height = 1080
+
+# [opener]
+# play = [
+# 	{ run = "mpv %s", orphan = true },
+# ]
+# edit = [
+# 	{ run = "nvim %s", block = true },
+# ]
+# open = [
+# 	{ run = "xdg-open %s", orphan = true, desc = "Open" },
+# ]
+
+# [open]
+# append_rules = [
+	# { mime = "text/*", use = "edit" },
+	# { mime = "inode/empty", use = "edit" },
+
+	# { mime = "video/*", use = "play" },
+
+	# { mime = "application/json", use = "edit" },
+	# { name = "*.json", use = "edit" },
+
+	# Multiple openers for a single rule
+	# { name = "*.html", use = [ "open", "edit" ] },
+# ]

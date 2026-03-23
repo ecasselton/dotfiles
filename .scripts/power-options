@@ -6,7 +6,7 @@ Suspend
 Hibernate
 Logout
 Lock
-UEFI
+UEFI Firmware
 " | fuzzel --dmenu)
 
 case "$choice" in
@@ -16,19 +16,19 @@ case "$choice" in
 	'Reboot')
 		systemctl reboot
 		;;
-	'UEFI')
-		systemctl reboot --firmware-setup
-		;;
 	'Hibernate')
 		systemctl hibernate
 		;;
 	'Suspend')
-		systemctl hibernate
+		systemctl suspend
 		;;
 	'Logout')
 		loginctl terminate-session ''
 		;;
 	'Lock')
-		loginctl lock-session
+		hyprlock
+		;;
+	'UEFI Firmware')
+		systemctl reboot --firmware-setup
 		;;
 esac

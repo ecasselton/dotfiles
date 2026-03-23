@@ -1,7 +1,7 @@
 [ -f "$XDG_CONFIG_HOME/zsh/.alias" ] && source "$XDG_CONFIG_HOME/zsh/.alias"
 
 autoload -U compinit && compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
-# autoload -U tetris
+autoload -Uz tetriscurses
 
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 

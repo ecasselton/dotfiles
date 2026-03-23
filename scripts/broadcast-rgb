@@ -1,6 +1,0 @@
-#!/bin/sh
-
-connector=$(/usr/bin/proptest | grep DP-5 | cut -d' ' -f 2)
-/usr/bin/proptest -M i915 -D /dev/dri/card0 "$connector" connector 266 1
-connector=$(/usr/bin/proptest | grep DP-6 | cut -d' ' -f 2)
-/usr/bin/proptest -M i915 -D /dev/dri/card0 "$connector" connector 266 1
