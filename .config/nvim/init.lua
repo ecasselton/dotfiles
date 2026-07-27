@@ -32,10 +32,6 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-f>', '<C-f>zz')
 vim.keymap.set('n', '<C-b>', '<C-b>zz')
 
--- Move text in visual mode with J and K
-vim.keymap.set('v', 'J', ':m ">+1<CR>gv=gv')
-vim.keymap.set('v', 'K', ':m "<-2<CR>gv=gv')
-
 -- Interacting with system clipboard
 vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P')
@@ -53,20 +49,17 @@ vim.keymap.set({ 't' }, '<esc>', '<C-\\><C-n>')
 
 -- [[ PLUGINS ]]
 vim.pack.add({
-	-- { src = 'https://github.com/RRethy/base16-nvim' },
 	{ src = 'https://github.com/stevearc/oil.nvim' },
 	{ src = 'https://github.com/mbbill/undotree' },
 	{ src = 'https://github.com/tpope/vim-fugitive' },
 	{ src = 'https://github.com/lewis6991/gitsigns.nvim' },
 	{ src = 'https://github.com/L3MON4D3/LuaSnip' },
-	-- { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
 	{ src = 'https://github.com/nvim-telescope/telescope.nvim' },
 	{ src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim' },
 	{ src = 'https://github.com/nvim-lua/plenary.nvim' },
 	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter',         branch = 'main' },
-	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
 	{ src = 'https://github.com/lervag/vimtex', ft = 'tex' },
+	-- { src = 'https://github.com/RRethy/base16-nvim' },
 	-- { src = 'https://github.com/mason-org/mason.nvim' },
 })
 
@@ -86,6 +79,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 		vim.highlight.on_yank({ higroup = 'Yank' })
 	end,
 })
-
-local ns = vim.api.nvim_create_namespace("my-plugin")
-pcall(function() vim.api.nvim_buf_set_extmark(0, ns, 9, 1, { sign_text = "a", sign_hl_group = "DiagnosticSignHint", }) end)
