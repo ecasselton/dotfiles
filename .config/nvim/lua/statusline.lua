@@ -1,8 +1,3 @@
-vim.api.nvim_set_hl(0, "StatusLine", { reverse = false, ctermbg = 0, ctermfg = 8 })
-vim.api.nvim_set_hl(0, "StatusLineNC", { reverse = false, ctermbg = 0, ctermfg = 8 })
-vim.api.nvim_set_hl(0, "StatusGit", { ctermfg = 3, bold = true })
-vim.api.nvim_set_hl(0, "StatusLSP", { ctermfg = 5, bold = true })
-
 local function lsp()
 	local count = {}
 	local levels = {

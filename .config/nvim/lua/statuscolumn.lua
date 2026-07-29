@@ -1,4 +1,4 @@
-vim.api.nvim_set_hl(0, "MarksColumn", { ctermfg = 2 })
+vim.api.nvim_set_hl(0, "MarksColumn", { fg = "#b8bb26" })
 Marks = {}
 
 vim.api.nvim_create_autocmd({"MarkSet", "TextChanged", "BufReadPost"}, {

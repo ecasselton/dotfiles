@@ -1,0 +1,13 @@
+local fzflua = require("fzf-lua")
+fzflua.setup({'telescope'})
+
+vim.keymap.set('n', '<leader><cr>', fzflua.oldfiles)
+vim.keymap.set('n', '<leader><space>', fzflua.buffers)
+vim.keymap.set('n', '<leader>ff', fzflua.files)
+vim.keymap.set('n', '<leader>fb', fzflua.blines)
+vim.keymap.set('n', '<leader>fw', fzflua.grep)
+vim.keymap.set('n', '<leader>fG', fzflua.live_grep)
+vim.keymap.set('n', '<leader>fg', fzflua.git_files)
+vim.keymap.set('n', '<leader>fd', fzflua.diagnostics_workspace)
+vim.keymap.set('n', '<leader>fr', fzflua.resume)
+vim.keymap.set('n', '<leader>fh', fzflua.helptags)

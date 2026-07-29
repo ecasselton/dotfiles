@@ -1,9 +1,5 @@
 local oil = require('oil')
 
-oil.setup({
-	win_options = {
-		signcolumn = "yes:2",
-	},
-})
+oil.setup()
 
 vim.keymap.set("n", "<leader>e", oil.open)

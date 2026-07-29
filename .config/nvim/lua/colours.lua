@@ -1,38 +1,35 @@
--- [[ UI ]]
-vim.api.nvim_set_hl(0, 'Normal', { bg = "NONE"})
-vim.api.nvim_set_hl(0, 'NormalFloat', { ctermfg = 8, ctermbg = 0 })
-vim.api.nvim_set_hl(0, 'Pmenu', { ctermfg = 8, ctermbg = 0 })
-vim.api.nvim_set_hl(0, 'PmenuSel', { ctermfg = 16, ctermbg = 8, underline = false })
-vim.api.nvim_set_hl(0, 'PmenuThumb', { ctermbg = 8 })
-vim.api.nvim_set_hl(0, 'LineNrAbove', { ctermfg = 8 })
-vim.api.nvim_set_hl(0, 'LineNr', { ctermfg = 8, bold = true })
-vim.api.nvim_set_hl(0, 'LineNrBelow', { ctermfg = 8 })
-vim.api.nvim_set_hl(0, 'EndOfBuffer', { ctermfg = 8 })
+vim.cmd.colorscheme("retrobox")
+
+vim.api.nvim_set_hl(0, "Normal", { bg = nil })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = nil })
+vim.api.nvim_set_hl(0, "VertSplit", { bg = nil, fg = "#303030" })
+
+-- vim.api.nvim_set_hl(0, 'NormalFloat', { ctermfg = 8, ctermbg = 0 })
+-- vim.api.nvim_set_hl(0, 'Pmenu', { ctermfg = 8, ctermbg = 0 })
+-- vim.api.nvim_set_hl(0, 'PmenuSel', { ctermfg = 16, ctermbg = 8, underline = false })
+-- vim.api.nvim_set_hl(0, 'PmenuThumb', { ctermbg = 8 })
+-- vim.api.nvim_set_hl(0, 'LineNrAbove', { ctermfg = 8 })
+-- vim.api.nvim_set_hl(0, 'LineNr', { ctermfg = 8, bold = true })
+-- vim.api.nvim_set_hl(0, 'LineNrBelow', { ctermfg = 8 })
 
 -- [[ Signs ]]
-vim.api.nvim_set_hl(0, "DiagnosticHint", { ctermfg = 6 })
-vim.api.nvim_set_hl(0, "DiagnosticInfo", { ctermfg = 4 })
-vim.api.nvim_set_hl(0, "DiagnosticWarn", { ctermfg = 3 })
-vim.api.nvim_set_hl(0, "DiagnosticError", { ctermfg = 1 })
-vim.api.nvim_set_hl(0, "GitSignsStagedAdd", { link = "GitSignsAdd" })
-vim.api.nvim_set_hl(0, "GitSignsStagedChange", { link = "GitSignsChange" })
-vim.api.nvim_set_hl(0, "GitSignsStagedDelete", { link = "GitSignsDelete" })
+vim.api.nvim_set_hl(0, "Added", { fg = "#b8bb26" })
+vim.api.nvim_set_hl(0, "Changed", { fg = "#8ec07c" })
+vim.api.nvim_set_hl(0, "Deleted", { fg = "#fb5944" })
 
--- [[ Highlighting ]]
-vim.api.nvim_set_hl(0, '@type.builtin', { ctermfg = 3 })
-vim.api.nvim_set_hl(0, '@comment', { link = "Comment" })
-vim.api.nvim_set_hl(0, '@variable', { ctermfg = 12 })
-vim.api.nvim_set_hl(0, '@keyword', { ctermfg = 9 })
-vim.api.nvim_set_hl(0, '@boolean', { ctermfg = 13 })
-vim.api.nvim_set_hl(0, '@number', { ctermfg = 13 })
-vim.api.nvim_set_hl(0, '@string', { ctermfg = 10 })
-vim.api.nvim_set_hl(0, '@punctuation', { ctermfg = 11 })
-vim.api.nvim_set_hl(0, '@constructor', { ctermfg = 11 })
-vim.api.nvim_set_hl(0, '@function', { ctermfg = 10 })
-vim.api.nvim_set_hl(0, '@function.call', { ctermfg = 10 })
-vim.api.nvim_set_hl(0, '@operator', { ctermfg = 11 })
-vim.api.nvim_set_hl(0, 'Comment', { ctermfg = 8, italic = true })
-vim.api.nvim_set_hl(0, 'Type', { ctermfg = 3 })
-vim.api.nvim_set_hl(0, 'Statement', { ctermfg = 9 })
-vim.api.nvim_set_hl(0, "Conceal", { link = "Special" })
-vim.api.nvim_set_hl(0, "PreProc", { ctermfg = 14 })
+vim.api.nvim_set_hl(0, "StatusLine", { reverse = false, bg = "#1c1c1c", fg = "#928374"  })
+vim.api.nvim_set_hl(0, "StatusLineNC", { reverse = false, bg = "#1c1c1c", fg = "#928374" })
+vim.api.nvim_set_hl(0, "StatusGit", { fg = "#fabd2f", bold = true })
+vim.api.nvim_set_hl(0, "StatusLSP", { fg = "#b16286", bold = true })
+
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_set_hl(0, 'Yank', { link = 'Cursor' })
+vim.api.nvim_create_autocmd('TextYankPost', {
+	group = highlight_group,
+	pattern = '*',
+	callback = function()
+		vim.highlight.on_yank({ higroup = 'Yank' })
+	end,
+})

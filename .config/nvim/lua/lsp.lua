@@ -1,14 +1,4 @@
-vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename)
-vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action)
-vim.keymap.set('n', '<leader>ld', require('telescope.builtin').lsp_definitions)
-vim.keymap.set('n', '<leader>ls', require('telescope.builtin').lsp_document_symbols)
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
-vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
-vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions)
-vim.keymap.set('n', '<leader>lR', require('telescope.builtin').lsp_references)
-vim.keymap.set('n', '<leader>li', require('telescope.builtin').lsp_implementations)
-vim.keymap.set('n', 'K', vim.lsp.buf.hover)
-vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help)
+local fzflua = require("fzf-lua")
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('my.lsp', {}),
@@ -22,6 +12,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			vim.lsp.completion.enable(true, client.id, event.buf, {autotrigger = true})
 		end
 		client.server_capabilities.semanticTokensProvider = nil
+
+		vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename)
+		vim.keymap.set('n', '<leader>la', fzflua.lsp_code_actions)
+		vim.keymap.set('n', '<leader>ld', fzflua.lsp_definitions)
+		vim.keymap.set('n', '<leader>ls', fzflua.lsp_document_symbols)
+		vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+		vim.keymap.set('n', 'gD', fzflua.lsp_declarations)
+		vim.keymap.set('n', 'gd', fzflua.lsp_definitions)
+		vim.keymap.set('n', '<leader>lR', fzflua.lsp_references)
+		vim.keymap.set('n', '<leader>li', fzflua.lsp_implementations)
+		vim.keymap.set('n', 'K', vim.lsp.buf.hover)
+		vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help)
+
 	end,
 })
 

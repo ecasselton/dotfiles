@@ -2,7 +2,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.o.termguicolors = false
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.breakindent = true
@@ -47,6 +46,10 @@ vim.keymap.set({ 'n', 'v' }, '<leader>n', ':norm ')
 
 vim.keymap.set({ 't' }, '<esc>', '<C-\\><C-n>')
 
+vim.opt.guicursor:remove({
+  "t:block-blinkon500-blinkoff500-TermCursor",
+})
+
 -- [[ PLUGINS ]]
 vim.pack.add({
 	{ src = 'https://github.com/stevearc/oil.nvim' },
@@ -54,18 +57,16 @@ vim.pack.add({
 	{ src = 'https://github.com/tpope/vim-fugitive' },
 	{ src = 'https://github.com/lewis6991/gitsigns.nvim' },
 	{ src = 'https://github.com/L3MON4D3/LuaSnip' },
-	{ src = 'https://github.com/nvim-telescope/telescope.nvim' },
-	{ src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim' },
-	{ src = 'https://github.com/nvim-lua/plenary.nvim' },
-	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter',         branch = 'main' },
+	{ src = 'https://github.com/ibhagwan/fzf-lua' },
+	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', branch = 'main' },
 	{ src = 'https://github.com/lervag/vimtex', ft = 'tex' },
-	-- { src = 'https://github.com/RRethy/base16-nvim' },
 	-- { src = 'https://github.com/mason-org/mason.nvim' },
 })
 
-require("lsp")
-require("statusline")
 require("colours")
+require("lsp")
+require("treesitter")
+require("statusline")
 require("statuscolumn")
 
 -- [[ Highlight on yank ]]
