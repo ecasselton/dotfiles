@@ -2,7 +2,6 @@
 . /etc/profile
 
 export QT_QPA_PLATFORMTHEME="qt6ct"
-export ZDOTDIR="$HOME/.config/zsh"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -17,7 +16,7 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/scripts:$HOME/.local/bin:$PATH"
+    PATH="$HOME/scripts/dwl:$HOME/scripts:$HOME/.local/bin:$PATH"
 fi
 
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then

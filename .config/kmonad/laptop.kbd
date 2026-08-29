@@ -64,14 +64,14 @@
     met7 (tap-hold-next-release 200 7 rmet)
     sft8 (tap-hold-next-release 200 8 rsft)
     ctl9 (tap-hold-next-release 200 9 rctl)
-    alt0 (tap-hold-next-release 200 0 alt)
+	alt0 (tap-hold-next-release 200 0 alt)
 )
 
 (deflayer base
 	(layer-switch gaming) _ _ _ _ _ _ _ _ _ _ \
     @remap_caps   @base_lalt @base_lctl @base_lsft @base_lmet _ _ @base_rmet @base_rsft @base_rctl @base_ralt @remap_102
 	z x b c v @nop _ _ _ _ _
-	@remap_ctrl @remap_ret @base_sym bspc
+	@remap_ctrl ret @base_sym bspc
 )
 
 (deflayer symbols

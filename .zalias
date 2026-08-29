@@ -10,8 +10,9 @@ alias ip='ip --color=auto'
 
 # better cd
 export FZF_DEFAULT_COMMAND="find"
-export FZF_DEFAULT_OPTS="--layout=reverse --height=40% --inline-info --border"
+# export FZF_DEFAULT_OPTS="--layout=reverse --height=40% --inline-info --border"
 alias cdi='cd "./$(fd -Ht d 2>/dev/null | fzf)"'
+alias cdq='cd ~/qmk/keyboards/mechboards/crkbd/pro/keymaps/colemak'
 
 # ls/eza aliases
 alias ls='eza --group-directories-first --ignore-glob="lost+found|*.synctex.gz"'
@@ -23,21 +24,11 @@ alias lt='eza --tree'
 alias vim=nvim
 alias dotfiles='/usr/bin/git --git-dir ~/.dotfiles/ --work-tree ~'
 alias dots='dotfiles'
-alias matrix='unimatrix --speed=95 --character-list=k --color=green'
 alias mkdir='mkdir -p'
-mkcd() {
-	mkdir -p $1
-	cd $1
-}
-alias img=qimgv
 alias history="history 0"
 alias lslvm="lsblk -o NAME,FSTYPE,FSVER,FSUSED,FSSIZE,FSUSE%,MOUNTPOINTS /dev/nvme0n1p7"
 alias lslv=lslvm
 alias mutt=neomutt
-
-calc() {
-    python3 -c "from math import *; print($1)"
-}
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd

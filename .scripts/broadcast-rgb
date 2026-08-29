@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/proptest -M i915 -D /dev/dri/card0 545 connector 506 1

@@ -2,3 +2,4 @@
 # set scroll-hstep 0
 
 set selection-clipboard clipboard
+map G scroll bottom

@@ -21,8 +21,7 @@ vim.o.wrap = false
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Turn off search highlight with esc
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', function() vim.diagnostic.open_float() end)
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>q', function () vim.diagnostic.setqflist() end)
 
 
 -- Don't get dizzy when jumping
@@ -59,6 +58,7 @@ vim.pack.add({
 	{ src = 'https://github.com/L3MON4D3/LuaSnip' },
 	{ src = 'https://github.com/ibhagwan/fzf-lua' },
 	{ src = 'https://github.com/nvim-treesitter/nvim-treesitter', branch = 'main' },
+	{ src = 'https://github.com/norcalli/nvim-colorizer.lua' },
 	{ src = 'https://github.com/lervag/vimtex', ft = 'tex' },
 	-- { src = 'https://github.com/mason-org/mason.nvim' },
 })
