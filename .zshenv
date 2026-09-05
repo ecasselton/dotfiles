@@ -1,6 +1,5 @@
 export EDITOR=nvim
 export SAL_USE_VCLPLUGIN="qt6"
-export KEYTIMEOUT=1
 export PYTHONPATH="$HOME/dev/cipherchallenge"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export MANPAGER="nvim +Man!"
