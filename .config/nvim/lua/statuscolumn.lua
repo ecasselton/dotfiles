@@ -24,7 +24,10 @@ vim.api.nvim_create_autocmd({"MarkSet", "TextChanged", "BufReadPost"}, {
 })
 
 function Statuscolumn()
-	return (Marks[vim.fn.bufnr("%")] or {})[vim.v.lnum] or " "
+	if vim.bo.filetype ~= "man" then
+		return (Marks[vim.fn.bufnr("%")] or {})[vim.v.lnum] or " "
+	end
+	return ""
 end
 
 vim.opt.statuscolumn = "%C%s%#MarksColumn#%{v:lua.Statuscolumn()} %#Normal#%=%l "
